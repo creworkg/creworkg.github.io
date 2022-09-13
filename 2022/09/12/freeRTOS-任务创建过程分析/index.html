@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"creworkg.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="xTaskCreate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="freeRTOS-任务创建过程分析">
+<meta property="og:url" content="https://creworkg.github.io/2022/09/12/freeRTOS-%E4%BB%BB%E5%8A%A1%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="ZEN">
+<meta property="og:description" content="xTaskCreate">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-09-12T13:51:16.000Z">
+<meta property="article:modified_time" content="2022-09-13T07:20:15.570Z">
+<meta property="article:author" content="Seeker">
+<meta property="article:tag" content="rtos">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://creworkg.github.io/2022/09/12/freeRTOS-%E4%BB%BB%E5%8A%A1%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>freeRTOS-任务创建过程分析 | ZEN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="ZEN" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">ZEN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://creworkg.github.io/2022/09/12/freeRTOS-%E4%BB%BB%E5%8A%A1%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Seeker">
+      <meta itemprop="description" content="Software Engineer">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZEN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          freeRTOS-任务创建过程分析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-09-12 21:51:16" itemprop="dateCreated datePublished" datetime="2022-09-12T21:51:16+08:00">2022-09-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-09-13 15:20:15" itemprop="dateModified" datetime="2022-09-13T15:20:15+08:00">2022-09-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/rtos/" itemprop="url" rel="index"><span itemprop="name">rtos</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/rtos/task-create/" itemprop="url" rel="index"><span itemprop="name">task create</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="xTaskCreate"><a href="#xTaskCreate" class="headerlink" title="xTaskCreate"></a>xTaskCreate</h1><span id="more"></span>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">BaseType_t <span class="title function_">xTaskCreate</span><span class="params">(	TaskFunction_t pxTaskCode,</span></span><br><span class="line"><span class="params">                        <span class="type">const</span> <span class="type">char</span> * <span class="type">const</span> pcName,</span></span><br><span class="line"><span class="params">                        <span class="type">const</span> <span class="type">uint16_t</span> usStackDepth,</span></span><br><span class="line"><span class="params">                        <span class="type">void</span> * <span class="type">const</span> pvParameters,</span></span><br><span class="line"><span class="params">                        UBaseType_t uxPriority,</span></span><br><span class="line"><span class="params">                        TaskHandle_t * <span class="type">const</span> pxCreatedTask )</span> <span class="comment">/*lint !e971 Unqualified char types are allowed for strings and single characters only. */</span></span><br><span class="line">&#123;</span><br><span class="line">TCB_t *pxNewTCB;</span><br><span class="line">BaseType_t xReturn;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* If the stack grows down then allocate the stack then the TCB so the stack</span></span><br><span class="line"><span class="comment">    does not grow into the TCB.  Likewise if the stack grows up then allocate</span></span><br><span class="line"><span class="comment">    the TCB then the stack. */</span></span><br><span class="line">    <span class="meta">#<span class="keyword">if</span>( portSTACK_GROWTH &gt; 0 )</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Allocate space for the TCB.  Where the memory comes from depends on</span></span><br><span class="line"><span class="comment">        the implementation of the port malloc function and whether or not static</span></span><br><span class="line"><span class="comment">        allocation is being used. */</span></span><br><span class="line">        pxNewTCB = ( TCB_t * ) pvPortMalloc( <span class="keyword">sizeof</span>( TCB_t ) );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>( pxNewTCB != <span class="literal">NULL</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">/* Allocate space for the stack used by the task being created.</span></span><br><span class="line"><span class="comment">            The base of the stack memory stored in the TCB so the task can</span></span><br><span class="line"><span class="comment">            be deleted later if required. */</span></span><br><span class="line">            pxNewTCB-&gt;pxStack = ( StackType_t * ) pvPortMalloc( ( ( ( <span class="type">size_t</span> ) usStackDepth ) * <span class="keyword">sizeof</span>( StackType_t ) ) ); <span class="comment">/*lint !e961 MISRA exception as the casts are only redundant for some ports. */</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>( pxNewTCB-&gt;pxStack == <span class="literal">NULL</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">/* Could not allocate the stack.  Delete the allocated TCB. */</span></span><br><span class="line">                vPortFree( pxNewTCB );</span><br><span class="line">                pxNewTCB = <span class="literal">NULL</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#<span class="keyword">else</span> <span class="comment">/* portSTACK_GROWTH */</span></span></span><br><span class="line">    &#123;</span><br><span class="line">    StackType_t *pxStack;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Allocate space for the stack used by the task being created. */</span></span><br><span class="line">        pxStack = ( StackType_t * ) pvPortMalloc( ( ( ( <span class="type">size_t</span> ) usStackDepth ) * <span class="keyword">sizeof</span>( StackType_t ) ) ); <span class="comment">/*lint !e961 MISRA exception as the casts are only redundant for some ports. */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>( pxStack != <span class="literal">NULL</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">/* Allocate space for the TCB. */</span></span><br><span class="line">            pxNewTCB = ( TCB_t * ) pvPortMalloc( <span class="keyword">sizeof</span>( TCB_t ) ); <span class="comment">/*lint !e961 MISRA exception as the casts are only redundant for some paths. */</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>( pxNewTCB != <span class="literal">NULL</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">/* Store the stack location in the TCB. */</span></span><br><span class="line">                pxNewTCB-&gt;pxStack = pxStack;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">/* The stack cannot be used as the TCB was not created.  Free</span></span><br><span class="line"><span class="comment">                it again. */</span></span><br><span class="line">                vPortFree( pxStack );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            pxNewTCB = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#<span class="keyword">endif</span> <span class="comment">/* portSTACK_GROWTH */</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( pxNewTCB != <span class="literal">NULL</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="meta">#<span class="keyword">if</span>( tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE != 0 )</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">/* Tasks can be created statically or dynamically, so note this</span></span><br><span class="line"><span class="comment">            task was created dynamically in case it is later deleted. */</span></span><br><span class="line">            pxNewTCB-&gt;ucStaticallyAllocated = tskDYNAMICALLY_ALLOCATED_STACK_AND_TCB;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">#<span class="keyword">endif</span> <span class="comment">/* configSUPPORT_STATIC_ALLOCATION */</span></span></span><br><span class="line"></span><br><span class="line">        prvInitialiseNewTask( pxTaskCode, pcName, ( <span class="type">uint32_t</span> ) usStackDepth, pvParameters, uxPriority, pxCreatedTask, pxNewTCB, <span class="literal">NULL</span> );</span><br><span class="line">        prvAddNewTaskToReadyList( pxNewTCB );</span><br><span class="line">        xReturn = pdPASS;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        xReturn = errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> xReturn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这个函数主要做了以下事情：</p>
+<ol>
+<li>根据栈的生长方向，来确定TCB和stack的申请先后顺序，这样做的目的是什么呢？</li>
+<li>调用 <code>prvInitialiseNewTask</code>函数初始化TCB和stack</li>
+<li>调用 <code>prvAddNewTaskToReadyList</code>函数，将任务挂载到就緒列表上</li>
+</ol>
+<p>接下来看看函數 <code>prvInitialiseNewTask</code>做了什么。</p>
+<h1 id="prvInitialiseNewTask"><a href="#prvInitialiseNewTask" class="headerlink" title="prvInitialiseNewTask"></a>prvInitialiseNewTask</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">prvInitialiseNewTask</span><span class="params">( 	TaskFunction_t pxTaskCode,</span></span><br><span class="line"><span class="params">									<span class="type">const</span> <span class="type">char</span> * <span class="type">const</span> pcName,</span></span><br><span class="line"><span class="params">									<span class="type">const</span> <span class="type">uint32_t</span> ulStackDepth,</span></span><br><span class="line"><span class="params">									<span class="type">void</span> * <span class="type">const</span> pvParameters,</span></span><br><span class="line"><span class="params">									UBaseType_t uxPriority,</span></span><br><span class="line"><span class="params">									TaskHandle_t * <span class="type">const</span> pxCreatedTask,</span></span><br><span class="line"><span class="params">									TCB_t *pxNewTCB,</span></span><br><span class="line"><span class="params">									<span class="type">const</span> MemoryRegion_t * <span class="type">const</span> xRegions )</span> <span class="comment">/*lint !e971 Unqualified char types are allowed for strings and single characters only. */</span></span><br><span class="line">&#123;</span><br><span class="line">StackType_t *pxTopOfStack;</span><br><span class="line">UBaseType_t x;</span><br><span class="line"></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span>( portUSING_MPU_WRAPPERS == 1 )</span></span><br><span class="line">		<span class="comment">/* Should the task be created in privileged mode? */</span></span><br><span class="line">		BaseType_t xRunPrivileged;</span><br><span class="line">		<span class="keyword">if</span>( ( uxPriority &amp; portPRIVILEGE_BIT ) != <span class="number">0U</span> )</span><br><span class="line">		&#123;</span><br><span class="line">			xRunPrivileged = pdTRUE;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			xRunPrivileged = pdFALSE;</span><br><span class="line">		&#125;</span><br><span class="line">		uxPriority &amp;= ~portPRIVILEGE_BIT;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span> <span class="comment">/* portUSING_MPU_WRAPPERS == 1 */</span></span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Avoid dependency on memset() if it is not required. */</span></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span>( ( configCHECK_FOR_STACK_OVERFLOW &gt; 1 ) || ( configUSE_TRACE_FACILITY == 1 ) || ( INCLUDE_uxTaskGetStackHighWaterMark == 1 ) )</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/* Fill the stack with a known value to assist debugging. */</span></span><br><span class="line">		( <span class="type">void</span> ) <span class="built_in">memset</span>( pxNewTCB-&gt;pxStack, ( <span class="type">int</span> ) tskSTACK_FILL_BYTE, ( <span class="type">size_t</span> ) ulStackDepth * <span class="keyword">sizeof</span>( StackType_t ) );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span> <span class="comment">/* ( ( configCHECK_FOR_STACK_OVERFLOW &gt; 1 ) || ( ( configUSE_TRACE_FACILITY == 1 ) || ( INCLUDE_uxTaskGetStackHighWaterMark == 1 ) ) ) */</span></span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Calculate the top of stack address.  This depends on whether the stack</span></span><br><span class="line"><span class="comment">	grows from high memory to low (as per the 80x86) or vice versa.</span></span><br><span class="line"><span class="comment">	portSTACK_GROWTH is used to make the result positive or negative as required</span></span><br><span class="line"><span class="comment">	by the port. */</span></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span>( portSTACK_GROWTH &lt; 0 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		pxTopOfStack = pxNewTCB-&gt;pxStack + ( ulStackDepth - ( <span class="type">uint32_t</span> ) <span class="number">1</span> );</span><br><span class="line">		pxTopOfStack = ( StackType_t * ) ( ( ( portPOINTER_SIZE_TYPE ) pxTopOfStack ) &amp; ( ~( ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) ) ); <span class="comment">/*lint !e923 MISRA exception.  Avoiding casts between pointers and integers is not practical.  Size differences accounted for using portPOINTER_SIZE_TYPE type. */</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Check the alignment of the calculated top of stack is correct. */</span></span><br><span class="line">		configASSERT( ( ( ( portPOINTER_SIZE_TYPE ) pxTopOfStack &amp; ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) == <span class="number">0UL</span> ) );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">else</span> <span class="comment">/* portSTACK_GROWTH */</span></span></span><br><span class="line">	&#123;</span><br><span class="line">		pxTopOfStack = pxNewTCB-&gt;pxStack;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Check the alignment of the stack buffer is correct. */</span></span><br><span class="line">		configASSERT( ( ( ( portPOINTER_SIZE_TYPE ) pxNewTCB-&gt;pxStack &amp; ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) == <span class="number">0UL</span> ) );</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* The other extreme of the stack space is required if stack checking is</span></span><br><span class="line"><span class="comment">		performed. */</span></span><br><span class="line">		pxNewTCB-&gt;pxEndOfStack = pxNewTCB-&gt;pxStack + ( ulStackDepth - ( <span class="type">uint32_t</span> ) <span class="number">1</span> );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span> <span class="comment">/* portSTACK_GROWTH */</span></span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Store the task name in the TCB. */</span></span><br><span class="line">	<span class="keyword">for</span>( x = ( UBaseType_t ) <span class="number">0</span>; x &lt; ( UBaseType_t ) configMAX_TASK_NAME_LEN; x++ )</span><br><span class="line">	&#123;</span><br><span class="line">		pxNewTCB-&gt;pcTaskName[ x ] = pcName[ x ];</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Don&#x27;t copy all configMAX_TASK_NAME_LEN if the string is shorter than</span></span><br><span class="line"><span class="comment">		configMAX_TASK_NAME_LEN characters just in case the memory after the</span></span><br><span class="line"><span class="comment">		string is not accessible (extremely unlikely). */</span></span><br><span class="line">		<span class="keyword">if</span>( pcName[ x ] == <span class="number">0x00</span> )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			mtCOVERAGE_TEST_MARKER();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Ensure the name string is terminated in the case that the string length</span></span><br><span class="line"><span class="comment">	was greater or equal to configMAX_TASK_NAME_LEN. */</span></span><br><span class="line">	pxNewTCB-&gt;pcTaskName[ configMAX_TASK_NAME_LEN - <span class="number">1</span> ] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* This is used as an array index so must ensure it&#x27;s not too large.  First</span></span><br><span class="line"><span class="comment">	remove the privilege bit if one is present. */</span></span><br><span class="line">	<span class="keyword">if</span>( uxPriority &gt;= ( UBaseType_t ) configMAX_PRIORITIES )</span><br><span class="line">	&#123;</span><br><span class="line">		uxPriority = ( UBaseType_t ) configMAX_PRIORITIES - ( UBaseType_t ) <span class="number">1U</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		mtCOVERAGE_TEST_MARKER();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pxNewTCB-&gt;uxPriority = uxPriority;</span><br><span class="line">	<span class="meta">#<span class="keyword">if</span> ( configUSE_MUTEXES == 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		pxNewTCB-&gt;uxBasePriority = uxPriority;</span><br><span class="line">		pxNewTCB-&gt;uxMutexesHeld = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span> <span class="comment">/* configUSE_MUTEXES */</span></span></span><br><span class="line"></span><br><span class="line">	vListInitialiseItem( &amp;( pxNewTCB-&gt;xStateListItem ) );</span><br><span class="line">	vListInitialiseItem( &amp;( pxNewTCB-&gt;xEventListItem ) );</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Set the pxNewTCB as a link back from the ListItem_t.  This is so we can get</span></span><br><span class="line"><span class="comment">	back to	the containing TCB from a generic item in a list. */</span></span><br><span class="line">	listSET_LIST_ITEM_OWNER( &amp;( pxNewTCB-&gt;xStateListItem ), pxNewTCB );</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Event lists are always in priority order. */</span></span><br><span class="line">	listSET_LIST_ITEM_VALUE( &amp;( pxNewTCB-&gt;xEventListItem ), ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) uxPriority ); <span class="comment">/*lint !e961 MISRA exception as the casts are only redundant for some ports. */</span></span><br><span class="line">	listSET_LIST_ITEM_OWNER( &amp;( pxNewTCB-&gt;xEventListItem ), pxNewTCB );</span><br><span class="line"></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span> ( portCRITICAL_NESTING_IN_TCB == 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		pxNewTCB-&gt;uxCriticalNesting = ( UBaseType_t ) <span class="number">0U</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span> <span class="comment">/* portCRITICAL_NESTING_IN_TCB */</span></span></span><br><span class="line"></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span> ( configUSE_APPLICATION_TASK_TAG == 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		pxNewTCB-&gt;pxTaskTag = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span> <span class="comment">/* configUSE_APPLICATION_TASK_TAG */</span></span></span><br><span class="line"></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span> ( configGENERATE_RUN_TIME_STATS == 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		pxNewTCB-&gt;ulRunTimeCounter = <span class="number">0UL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span> <span class="comment">/* configGENERATE_RUN_TIME_STATS */</span></span></span><br><span class="line"></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span> ( portUSING_MPU_WRAPPERS == 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		vPortStoreTaskMPUSettings( &amp;( pxNewTCB-&gt;xMPUSettings ), xRegions, pxNewTCB-&gt;pxStack, ulStackDepth );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/* Avoid compiler warning about unreferenced parameter. */</span></span><br><span class="line">		( <span class="type">void</span> ) xRegions;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span>( configNUM_THREAD_LOCAL_STORAGE_POINTERS != 0 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>( x = <span class="number">0</span>; x &lt; ( UBaseType_t ) configNUM_THREAD_LOCAL_STORAGE_POINTERS; x++ )</span><br><span class="line">		&#123;</span><br><span class="line">			pxNewTCB-&gt;pvThreadLocalStoragePointers[ x ] = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span> ( configUSE_TASK_NOTIFICATIONS == 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		pxNewTCB-&gt;ulNotifiedValue = <span class="number">0</span>;</span><br><span class="line">		pxNewTCB-&gt;ucNotifyState = taskNOT_WAITING_NOTIFICATION;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span> ( configUSE_NEWLIB_REENTRANT == 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/* Initialise this task&#x27;s Newlib reent structure. */</span></span><br><span class="line">		_REENT_INIT_PTR( ( &amp;( pxNewTCB-&gt;xNewLib_reent ) ) );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span>( INCLUDE_xTaskAbortDelay == 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		pxNewTCB-&gt;ucDelayAborted = pdFALSE;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Initialize the TCB stack to look as if the task was already running,</span></span><br><span class="line"><span class="comment">	but had been interrupted by the scheduler.  The return address is set</span></span><br><span class="line"><span class="comment">	to the start of the task function. Once the stack has been initialised</span></span><br><span class="line"><span class="comment">	the	top of stack variable is updated. */</span></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span>( portUSING_MPU_WRAPPERS == 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		pxNewTCB-&gt;pxTopOfStack = pxPortInitialiseStack( pxTopOfStack, pxTaskCode, pvParameters, xRunPrivileged );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">else</span> <span class="comment">/* portUSING_MPU_WRAPPERS */</span></span></span><br><span class="line">	&#123;</span><br><span class="line">		pxNewTCB-&gt;pxTopOfStack = pxPortInitialiseStack( pxTopOfStack, pxTaskCode, pvParameters );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span> <span class="comment">/* portUSING_MPU_WRAPPERS */</span></span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>( ( <span class="type">void</span> * ) pxCreatedTask != <span class="literal">NULL</span> )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/* Pass the handle out in an anonymous way.  The handle can be used to</span></span><br><span class="line"><span class="comment">		change the created task&#x27;s priority, delete the created task, etc.*/</span></span><br><span class="line">		*pxCreatedTask = ( TaskHandle_t ) pxNewTCB;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		mtCOVERAGE_TEST_MARKER();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>根据栈的生长方向来初始化栈顶指针 <code>pxTopOfStack</code></li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">if</span>( portSTACK_GROWTH &lt; 0 )</span></span><br><span class="line">&#123;</span><br><span class="line">    pxTopOfStack = pxNewTCB-&gt;pxStack + ( ulStackDepth - ( <span class="type">uint32_t</span> ) <span class="number">1</span> );</span><br><span class="line">    pxTopOfStack = ( StackType_t * ) ( ( ( portPOINTER_SIZE_TYPE ) pxTopOfStack ) &amp; ( ~( ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) ) ); <span class="comment">/*lint !e923 MISRA exception.  Avoiding casts between pointers and integers is not practical.  Size differences accounted for using portPOINTER_SIZE_TYPE type. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Check the alignment of the calculated top of stack is correct. */</span></span><br><span class="line">    configASSERT( ( ( ( portPOINTER_SIZE_TYPE ) pxTopOfStack &amp; ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) == <span class="number">0UL</span> ) );</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">else</span> <span class="comment">/* portSTACK_GROWTH */</span></span></span><br><span class="line">&#123;</span><br><span class="line">    pxTopOfStack = pxNewTCB-&gt;pxStack;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Check the alignment of the stack buffer is correct. */</span></span><br><span class="line">    configASSERT( ( ( ( portPOINTER_SIZE_TYPE ) pxNewTCB-&gt;pxStack &amp; ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) == <span class="number">0UL</span> ) );</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* The other extreme of the stack space is required if stack checking is</span></span><br><span class="line"><span class="comment">    performed. */</span></span><br><span class="line">    pxNewTCB-&gt;pxEndOfStack = pxNewTCB-&gt;pxStack + ( ulStackDepth - ( <span class="type">uint32_t</span> ) <span class="number">1</span> );</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/* portSTACK_GROWTH */</span></span></span><br></pre></td></tr></table></figure>
+
+<p>向下生长时，将 <code>pxTopOfStack</code>指向最高地址，并且要字节对齐，目的是提高数据访问效率；向上生长时，将 <code>pxTopOfStack</code>指向最低地址，同样要字节对齐<br>2. 将任务名存入TCB，如果过长的话，做截断处理<br>3. 处理优先级，便于插入链表时，做排序，以及优先级反转的时候保存原来的优先级<br>4. 初始化状态链表项 <code>xStateListItem</code>和事件链表项 <code>xStateListItem</code><br>5. 初始化链表的所有者，将 <code>xStateListItem</code>和 <code>xEventListItem</code>指向TCB首地址<br>6. 将优先级写入 <code>xEventListItem</code>中<br>7. 调用 <code>pxPortInitialiseStack</code>初始化stack</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> portINITIAL_XPSR			( 0x01000000 )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> portSTART_ADDRESS_MASK				( ( StackType_t ) 0xfffffffeUL )</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">prvTaskExitError</span><span class="params">( <span class="type">void</span> )</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* A function that implements a task must not exit or attempt to return to</span></span><br><span class="line"><span class="comment">	its caller as there is nothing to return to.  If a task wants to exit it</span></span><br><span class="line"><span class="comment">	should instead call vTaskDelete( NULL ).</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	Artificially force an assert() to be triggered if configASSERT() is</span></span><br><span class="line"><span class="comment">	defined, then stop here so application writers can catch the error. */</span></span><br><span class="line">	configASSERT( uxCriticalNesting == ~<span class="number">0UL</span> );</span><br><span class="line">	portDISABLE_INTERRUPTS();</span><br><span class="line">	<span class="keyword">for</span>( ;; );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*CM3版本*/</span></span><br><span class="line">StackType_t *<span class="title function_">pxPortInitialiseStack</span><span class="params">( StackType_t *pxTopOfStack, TaskFunction_t pxCode, <span class="type">void</span> *pvParameters )</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* Simulate the stack frame as it would be created by a context switch</span></span><br><span class="line"><span class="comment">	interrupt. */</span></span><br><span class="line">	pxTopOfStack--; <span class="comment">/* Offset added to account for the way the MCU uses the stack on entry/exit of interrupts. */</span></span><br><span class="line">	*pxTopOfStack = portINITIAL_XPSR;	<span class="comment">/* xPSR */</span></span><br><span class="line">	pxTopOfStack--;</span><br><span class="line">	*pxTopOfStack = ( ( StackType_t ) pxCode ) &amp; portSTART_ADDRESS_MASK;	<span class="comment">/* PC */</span></span><br><span class="line">	pxTopOfStack--;</span><br><span class="line">	*pxTopOfStack = ( StackType_t ) prvTaskExitError;	<span class="comment">/* LR */</span></span><br><span class="line"></span><br><span class="line">	pxTopOfStack -= <span class="number">5</span>;	<span class="comment">/* R12, R3, R2 and R1. */</span></span><br><span class="line">	*pxTopOfStack = ( StackType_t ) pvParameters;	<span class="comment">/* R0 */</span></span><br><span class="line">	pxTopOfStack -= <span class="number">8</span>;	<span class="comment">/* R11, R10, R9, R8, R7, R6, R5 and R4. */</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pxTopOfStack;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*CM4版本*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> portINITIAL_EXEC_RETURN		( 0xfffffffd )</span></span><br><span class="line"></span><br><span class="line">StackType_t *<span class="title function_">pxPortInitialiseStack</span><span class="params">( StackType_t *pxTopOfStack, TaskFunction_t pxCode, <span class="type">void</span> *pvParameters )</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* Simulate the stack frame as it would be created by a context switch</span></span><br><span class="line"><span class="comment">	interrupt. */</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Offset added to account for the way the MCU uses the stack on entry/exit</span></span><br><span class="line"><span class="comment">	of interrupts, and to ensure alignment. */</span></span><br><span class="line">	pxTopOfStack--;</span><br><span class="line"></span><br><span class="line">	*pxTopOfStack = portINITIAL_XPSR;	<span class="comment">/* xPSR */</span></span><br><span class="line">	pxTopOfStack--;</span><br><span class="line">	*pxTopOfStack = ( ( StackType_t ) pxCode ) &amp; portSTART_ADDRESS_MASK;	<span class="comment">/* PC */</span></span><br><span class="line">	pxTopOfStack--;</span><br><span class="line">	*pxTopOfStack = ( StackType_t ) prvTaskExitError;	<span class="comment">/* LR */</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Save code space by skipping register initialisation. */</span></span><br><span class="line">	pxTopOfStack -= <span class="number">5</span>;	<span class="comment">/* R12, R3, R2 and R1. */</span></span><br><span class="line">	*pxTopOfStack = ( StackType_t ) pvParameters;	<span class="comment">/* R0 */</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* A save method is being used that requires each task to maintain its</span></span><br><span class="line"><span class="comment">	own exec return value. */</span></span><br><span class="line">	pxTopOfStack--;</span><br><span class="line">	*pxTopOfStack = portINITIAL_EXEC_RETURN;</span><br><span class="line"></span><br><span class="line">	pxTopOfStack -= <span class="number">8</span>;	<span class="comment">/* R11, R10, R9, R8, R7, R6, R5 and R4. */</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pxTopOfStack;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>为什么 <code>portINITIAL_XPSR</code>的值为 <code>0x01000000</code>呢？<br>将xPSR寄存器的第24位置一，使cpu执行用户任务时，使用 <code>Thumb</code>指令，而非 <code>ARM</code>指令，执行 <code>ARM</code>就会出错，因为CM3&#x2F;4不支持 <code>ARM指令</code></li>
+<li>将 <code>pxCode</code>(用户代码首地址)和 <code>0xfffffffeUL</code>进行按位与，也就是将LSB置为0，因为PC指针的指令地址必须对齐到半字或字地址，这个操作会不会产生问题？GOD! 把代码地址都改变了？实际上不会，想想为什么吧。</li>
+<li><code>prvTaskExitError</code>函数先关闭中断，然后进入无限循环</li>
+<li>将 <code>R0</code>指向 <code>pvParameters</code><br>为什么要以这样的方式初始化栈，因为做线程切换的时候，寄存器的保持顺序是：<code>xPSR</code>, <code>PC</code>, <code>LR</code>, <code>R12</code>, <code>R3-R0</code>(<code>caller-saved register</code>), 然后是 <code>R11, R10, R9, R8, R7, R6, R5 and R4</code>,这几个寄存器是 <code>callee-saved register</code>。所以当该任务获取到cpu使用权时，以上参数将被填入cpu内部寄存器中。<br>所以一些 <code>caller-saved register</code>保持空缺的原因是，还没运行过，根本就没有参数可以保存嘛，当然，不能忽视的是，<code>pvParameters</code>要传入到R0，因为参数的传递过程就是由 <code>R0-R3</code>实现的，当函数A调用函数B时，需要传递参数，则要将参数先复制到这几个寄存器中，然后再跳转到B执行。如果传递的参数大于4个怎么办，就要通过<strong>栈帧</strong>传递了，把前四个参数复制到 <code>R0-R3</code>中，把剩余参数放在stack中，这就是为什么参数的传递尽量使用指针和引用的原因了，当然也不绝对，只要减少复制过程就能提高运行速度，所以，结论是：大数据的传递使用指针，小数据传递，使用值传递。</li>
+<li><code>portINITIAL_EXEC_RETURN</code>用于在退出 <code>SVC</code>和 <code>PendSV</code>时，使用线程栈。发现，在CM3版本中，并没有这一步，具体原因待查。</li>
+</ol>
+<p>再看看 <code>prvAddNewTaskToReadyList</code>函数的执行过程：</p>
+<h1 id="prvAddNewTaskToReadyList"><a href="#prvAddNewTaskToReadyList" class="headerlink" title="prvAddNewTaskToReadyList"></a>prvAddNewTaskToReadyList</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">prvAddNewTaskToReadyList</span><span class="params">( TCB_t *pxNewTCB )</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* Ensure interrupts don&#x27;t access the task lists while the lists are being</span></span><br><span class="line"><span class="comment">	updated. */</span></span><br><span class="line">	taskENTER_CRITICAL();</span><br><span class="line">	&#123;</span><br><span class="line">		uxCurrentNumberOfTasks++;</span><br><span class="line">		<span class="keyword">if</span>( pxCurrentTCB == <span class="literal">NULL</span> )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* There are no other tasks, or all the other tasks are in</span></span><br><span class="line"><span class="comment">			the suspended state - make this the current task. */</span></span><br><span class="line">			pxCurrentTCB = pxNewTCB;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span>( uxCurrentNumberOfTasks == ( UBaseType_t ) <span class="number">1</span> )</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">/* This is the first task to be created so do the preliminary</span></span><br><span class="line"><span class="comment">				initialisation required.  We will not recover if this call</span></span><br><span class="line"><span class="comment">				fails, but we will report the failure. */</span></span><br><span class="line">				prvInitialiseTaskLists();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				mtCOVERAGE_TEST_MARKER();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* If the scheduler is not already running, make this task the</span></span><br><span class="line"><span class="comment">			current task if it is the highest priority task to be created</span></span><br><span class="line"><span class="comment">			so far. */</span></span><br><span class="line">			<span class="keyword">if</span>( xSchedulerRunning == pdFALSE )</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span>( pxCurrentTCB-&gt;uxPriority &lt;= pxNewTCB-&gt;uxPriority )</span><br><span class="line">				&#123;</span><br><span class="line">					pxCurrentTCB = pxNewTCB;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					mtCOVERAGE_TEST_MARKER();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				mtCOVERAGE_TEST_MARKER();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		uxTaskNumber++;</span><br><span class="line"></span><br><span class="line">		<span class="meta">#<span class="keyword">if</span> ( configUSE_TRACE_FACILITY == 1 )</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* Add a counter into the TCB for tracing only. */</span></span><br><span class="line">			pxNewTCB-&gt;uxTCBNumber = uxTaskNumber;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="meta">#<span class="keyword">endif</span> <span class="comment">/* configUSE_TRACE_FACILITY */</span></span></span><br><span class="line">		traceTASK_CREATE( pxNewTCB );</span><br><span class="line"></span><br><span class="line">		prvAddTaskToReadyList( pxNewTCB );</span><br><span class="line"></span><br><span class="line">		portSETUP_TCB( pxNewTCB );</span><br><span class="line">	&#125;</span><br><span class="line">	taskEXIT_CRITICAL();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>( xSchedulerRunning != pdFALSE )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/* If the created task is of a higher priority than the current task</span></span><br><span class="line"><span class="comment">		then it should run now. */</span></span><br><span class="line">		<span class="keyword">if</span>( pxCurrentTCB-&gt;uxPriority &lt; pxNewTCB-&gt;uxPriority )</span><br><span class="line">		&#123;</span><br><span class="line">			taskYIELD_IF_USING_PREEMPTION();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			mtCOVERAGE_TEST_MARKER();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		mtCOVERAGE_TEST_MARKER();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>进来第一件事情就是关掉中断，独享的moment不能让别人打扰，不然就会出错</li>
+<li>将当前存在的任务数加一</li>
+<li>如果 <code>pxCurrentTCB</code>为 <code>NULL</code>，表明这是系统启动后的第一个任务，要先初始化链表，稍后讲。</li>
+<li>如果 <code>pxCurrentTCB</code>不为 <code>NULL</code>，并且調度器未开启，则将当前任务指针指向该任务。</li>
+<li>将任务插入到就绪链表的末端。</li>
+</ol>
+<p>怎么选出优先级最高的任务呢？使用硬件实现，叫做前导零算法，使用 <code>__clz</code>指令。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Place the task represented by pxTCB into the appropriate ready list for</span></span><br><span class="line"><span class="comment"> * the task.  It is inserted at the end of the list.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> prvAddTaskToReadyList( pxTCB )																\</span></span><br><span class="line"><span class="meta">	traceMOVED_TASK_TO_READY_STATE( pxTCB );														\</span></span><br><span class="line"><span class="meta">	taskRECORD_READY_PRIORITY( ( pxTCB )-&gt;uxPriority );												\</span></span><br><span class="line"><span class="meta">	vListInsertEnd( &amp;( pxReadyTasksLists[ ( pxTCB )-&gt;uxPriority ] ), &amp;( ( pxTCB )-&gt;xStateListItem ) ); \</span></span><br><span class="line"><span class="meta">	tracePOST_MOVED_TASK_TO_READY_STATE( pxTCB )</span></span><br></pre></td></tr></table></figure>
+
+<p><code>taskRECORD_READY_PRIORITY</code>将所有的线程中，最高的优先级赋给 <code>uxTopReadyPriority</code>，有两种不同的实现，以下为其中一种：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> taskRECORD_READY_PRIORITY( uxPriority )														\</span></span><br><span class="line"><span class="meta">&#123;																									\</span></span><br><span class="line"><span class="meta">	<span class="keyword">if</span>( ( uxPriority ) &gt; uxTopReadyPriority )														\</span></span><br><span class="line"><span class="meta">	&#123;																								\</span></span><br><span class="line"><span class="meta">		uxTopReadyPriority = ( uxPriority );														\</span></span><br><span class="line"><span class="meta">	&#125;																								\</span></span><br><span class="line"><span class="meta">&#125; <span class="comment">/* taskRECORD_READY_PRIORITY */</span></span></span><br></pre></td></tr></table></figure>
+
+<p>然后将 <code>TCB</code>插入到优先级对应的就绪列表的尾部，就绪列表按照优先级划分为多个，具有相同的优先级任务挂在同一个就绪列表中。</p>
+<ol start="6">
+<li>开启中断</li>
+<li>是否要进行线程切换，切换就使用：<code>taskYIELD_IF_USING_PREEMPTION</code>，该宏最终会调用到 <code>portYIELD</code>，可以看出，更高优先级的任务一创建就会<strong>马上夺取</strong>cpu的使用权</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> portYIELD()																\</span></span><br><span class="line"><span class="meta">&#123;																				\</span></span><br><span class="line"><span class="meta">	<span class="comment">/* Set a PendSV to request a context switch. */</span>								\</span></span><br><span class="line"><span class="meta">	portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT;								\</span></span><br><span class="line"><span class="meta">																				\</span></span><br><span class="line"><span class="meta">	<span class="comment">/* Barriers are normally not required but do ensure the code is completely	\</span></span></span><br><span class="line"><span class="comment"><span class="meta">	within the specified behaviour for the architecture. */</span>						\</span></span><br><span class="line"><span class="meta">	__dsb( portSY_FULL_READ_WRITE );											\</span></span><br><span class="line"><span class="meta">	__isb( portSY_FULL_READ_WRITE );											\</span></span><br><span class="line"><span class="meta">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>请求 <code>PendSV</code>中断，线程就是在这个中断中切换的。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/rtos/" rel="tag"># rtos</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/10/ZEN/" rel="prev" title="zen">
+      <i class="fa fa-chevron-left"></i> zen
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/13/HEXO-Usage/" rel="next" title="HEXO Usage">
+      HEXO Usage <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#xTaskCreate"><span class="nav-number">1.</span> <span class="nav-text">xTaskCreate</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#prvInitialiseNewTask"><span class="nav-number">2.</span> <span class="nav-text">prvInitialiseNewTask</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#prvAddNewTaskToReadyList"><span class="nav-number">3.</span> <span class="nav-text">prvAddNewTaskToReadyList</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Seeker</p>
+  <div class="site-description" itemprop="description">Software Engineer</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/creworkg" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;creworkg" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Seeker</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://creworkg.github.io/2022/09/12/freeRTOS-%E4%BB%BB%E5%8A%A1%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/',]
+      });
+      });
+  </script>
+
+    </div>
+</body>
+</html>
