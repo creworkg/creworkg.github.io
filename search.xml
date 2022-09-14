@@ -24,41 +24,6 @@
       </tags>
   </entry>
   <entry>
-    <title>WISDOM</title>
-    <url>/2022/09/10/wisdom/</url>
-    <content><![CDATA[<ul>
-<li><p>你的时间有限，所以不要为别人而活。不要被教条所限，不要活在别人的观念里。不要让别人的意见左右自己内心的声音，最重要的是，勇敢地去追随自己的心灵和直觉，只有自己的心灵和直觉才知道你自己的真实想法，其它一切都是次要。你的时间有限，所以不要为别人而活。</p>
-</li>
-<li><p>“记住你即将死去”是我一生中遇到的最重要箴言。它帮我指明了生命中重要的选择，因为几乎所有的事情，包括所有的荣誉、所有的骄傲、所有对难堪和失败的恐惧，这些在死亡面前都会消失，我看到的是留下的真止重要的乐西。</p>
-<span id="more"></span>
-</li>
-<li><p>在你生命的最初30年中，你养成习惯；在你生命的最后的30年中，你的习惯决定了你。</p>
-</li>
-<li><p>专注和简单一直是我的秘块之一。简单可能比复杂更难做到：你必须努力理清思路，从而使其变得简单，最终这是值得的，因为一旦你做到了，便可以创造奇迹。</p>
-</li>
-<li><p>拥有初学者的心态是件了不起的事情，所谓初学者的心态是指，不要无端猜测、不要期望、不要武断也不要偏见，初学者的心态正如一个新生儿面对这个世界一样，永远充满好奇、求知欲、赞叹。</p>
-</li>
-<li><p>如果你很忙，除了你真的很重要以外，更可能的原因是：你很弱，你没有什么更好的事情去做，你生活太差不得不努力来弥补，或者你装作你很忙，让自己显得很重要。</p>
-</li>
-<li><p>自由从何而来？从自信来，而自信则是从自律来！先学会克制自己，用严格的日程表控制生活，才能在这种自律中不断磨练出自信：自信是对事情的控制能力，如果你连最基本的时间都做控制不了，还谈什么自信？</p>
-</li>
-</ul>
-<p><em>form Jobs</em></p>
-<hr>
-<p>泡夜店、纹身、买醉，这些事情看起来很酷，其实一点难度都没有，只有你想办到随时都可以。</p>
-<p>真正酷的，应该是那些不容易办到的，比如：读书、赚钱、健身、早睡早起、孝顺父母，用炙热的心爱人爱己，用你毕生的精力去战胜一个个专业领域。</p>
-<p>低级的欲望放纵即可获得，<br>高级的欲望只有克制才能达成。</p>
-<p><em>form 人民日报</em></p>
-<hr>
-]]></content>
-      <categories>
-        <category>zen</category>
-      </categories>
-      <tags>
-        <tag>zen</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>freeRTOS-调度器切换线程过程分析</title>
     <url>/2022/09/13/freeRTOS-%E8%B0%83%E5%BA%A6%E5%99%A8%E5%88%87%E6%8D%A2%E7%BA%BF%E7%A8%8B%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<blockquote>
@@ -91,6 +56,9 @@
 <p>判断延时列表是否已经超时时，要判断tick的溢出情况，溢出了要做进一步除了，以后深入分析该过程。</p>
 <p>除了systick定时器会切换线程外，其他操作比如任务阻塞、延时等也会造成任务切换。</p>
 <p><em>未完待续……</em></p>
+<blockquote>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#114;&#101;&#x61;&#116;&#x69;&#118;&#x65;&#x2e;&#119;&#111;&#114;&#107;&#x2e;&#x67;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#99;&#114;&#101;&#x61;&#116;&#x69;&#118;&#x65;&#x2e;&#119;&#111;&#114;&#107;&#x2e;&#x67;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a><br>欢迎交流学习！</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>rtos</category>
@@ -154,6 +122,9 @@
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> portYIELD()																\</span></span><br><span class="line"><span class="meta">&#123;																				\</span></span><br><span class="line"><span class="meta">	<span class="comment">/* Set a PendSV to request a context switch. */</span>								\</span></span><br><span class="line"><span class="meta">	portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT;								\</span></span><br><span class="line"><span class="meta">																				\</span></span><br><span class="line"><span class="meta">	<span class="comment">/* Barriers are normally not required but do ensure the code is completely	\</span></span></span><br><span class="line"><span class="comment"><span class="meta">	within the specified behaviour for the architecture. */</span>						\</span></span><br><span class="line"><span class="meta">	__dsb( portSY_FULL_READ_WRITE );											\</span></span><br><span class="line"><span class="meta">	__isb( portSY_FULL_READ_WRITE );											\</span></span><br><span class="line"><span class="meta">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>请求 <code>PendSV</code>中断，线程就是在这个中断中切换的。</p>
+<blockquote>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#101;&#97;&#116;&#105;&#x76;&#x65;&#46;&#119;&#x6f;&#x72;&#x6b;&#46;&#103;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#99;&#x72;&#101;&#97;&#116;&#105;&#x76;&#x65;&#46;&#119;&#x6f;&#x72;&#x6b;&#46;&#103;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a><br>欢迎交流学习！</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>rtos</category>
@@ -161,6 +132,41 @@
       </categories>
       <tags>
         <tag>rtos</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WISDOM</title>
+    <url>/2022/09/10/wisdom/</url>
+    <content><![CDATA[<ul>
+<li><p>你的时间有限，所以不要为别人而活。不要被教条所限，不要活在别人的观念里。不要让别人的意见左右自己内心的声音，最重要的是，勇敢地去追随自己的心灵和直觉，只有自己的心灵和直觉才知道你自己的真实想法，其它一切都是次要。你的时间有限，所以不要为别人而活。</p>
+</li>
+<li><p>“记住你即将死去”是我一生中遇到的最重要箴言。它帮我指明了生命中重要的选择，因为几乎所有的事情，包括所有的荣誉、所有的骄傲、所有对难堪和失败的恐惧，这些在死亡面前都会消失，我看到的是留下的真止重要的乐西。</p>
+<span id="more"></span>
+</li>
+<li><p>在你生命的最初30年中，你养成习惯；在你生命的最后的30年中，你的习惯决定了你。</p>
+</li>
+<li><p>专注和简单一直是我的秘块之一。简单可能比复杂更难做到：你必须努力理清思路，从而使其变得简单，最终这是值得的，因为一旦你做到了，便可以创造奇迹。</p>
+</li>
+<li><p>拥有初学者的心态是件了不起的事情，所谓初学者的心态是指，不要无端猜测、不要期望、不要武断也不要偏见，初学者的心态正如一个新生儿面对这个世界一样，永远充满好奇、求知欲、赞叹。</p>
+</li>
+<li><p>如果你很忙，除了你真的很重要以外，更可能的原因是：你很弱，你没有什么更好的事情去做，你生活太差不得不努力来弥补，或者你装作你很忙，让自己显得很重要。</p>
+</li>
+<li><p>自由从何而来？从自信来，而自信则是从自律来！先学会克制自己，用严格的日程表控制生活，才能在这种自律中不断磨练出自信：自信是对事情的控制能力，如果你连最基本的时间都做控制不了，还谈什么自信？</p>
+</li>
+</ul>
+<p><em>form Jobs</em></p>
+<hr>
+<p>泡夜店、纹身、买醉，这些事情看起来很酷，其实一点难度都没有，只有你想办到随时都可以。</p>
+<p>真正酷的，应该是那些不容易办到的，比如：读书、赚钱、健身、早睡早起、孝顺父母，用炙热的心爱人爱己，用你毕生的精力去战胜一个个专业领域。</p>
+<p>低级的欲望放纵即可获得，<br>高级的欲望只有克制才能达成。</p>
+<p><em>form 人民日报</em></p>
+<hr>
+]]></content>
+      <categories>
+        <category>zen</category>
+      </categories>
+      <tags>
+        <tag>zen</tag>
       </tags>
   </entry>
   <entry>
@@ -182,6 +188,9 @@
 <p>看得见的是产品的外观、触感、重量，看不见的是其背后的电路、代码的设计与实现，而这些消费者看不见的东西，才真正地反映了公司的核心竞争力。</p>
 <p>最后引用乔布斯的一句话：</p>
 <p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
+<blockquote>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#x65;&#97;&#116;&#x69;&#118;&#101;&#x2e;&#119;&#x6f;&#114;&#x6b;&#x2e;&#x67;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#x63;&#x72;&#x65;&#97;&#116;&#x69;&#118;&#101;&#x2e;&#119;&#x6f;&#114;&#x6b;&#x2e;&#x67;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a><br>欢迎交流学习！</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>zen</category>

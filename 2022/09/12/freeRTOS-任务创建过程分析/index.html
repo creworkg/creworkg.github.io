@@ -30,7 +30,7 @@
 <meta property="og:description" content="深入分析线程的创建过程……">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-09-12T13:51:16.000Z">
-<meta property="article:modified_time" content="2022-09-14T09:49:06.492Z">
+<meta property="article:modified_time" content="2022-09-14T11:59:53.241Z">
 <meta property="article:author" content="Seeker">
 <meta property="article:tag" content="rtos">
 <meta name="twitter:card" content="summary">
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-09-14 17:49:06" itemprop="dateModified" datetime="2022-09-14T17:49:06+08:00">2022-09-14</time>
+                <time title="Modified: 2022-09-14 19:59:53" itemprop="dateModified" datetime="2022-09-14T19:59:53+08:00">2022-09-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -304,6 +304,9 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> portYIELD()																\</span></span><br><span class="line"><span class="meta">&#123;																				\</span></span><br><span class="line"><span class="meta">	<span class="comment">/* Set a PendSV to request a context switch. */</span>								\</span></span><br><span class="line"><span class="meta">	portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT;								\</span></span><br><span class="line"><span class="meta">																				\</span></span><br><span class="line"><span class="meta">	<span class="comment">/* Barriers are normally not required but do ensure the code is completely	\</span></span></span><br><span class="line"><span class="comment"><span class="meta">	within the specified behaviour for the architecture. */</span>						\</span></span><br><span class="line"><span class="meta">	__dsb( portSY_FULL_READ_WRITE );											\</span></span><br><span class="line"><span class="meta">	__isb( portSY_FULL_READ_WRITE );											\</span></span><br><span class="line"><span class="meta">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>请求 <code>PendSV</code>中断，线程就是在这个中断中切换的。</p>
+<blockquote>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#101;&#97;&#116;&#105;&#x76;&#x65;&#46;&#119;&#x6f;&#x72;&#x6b;&#46;&#103;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#99;&#x72;&#101;&#97;&#116;&#105;&#x76;&#x65;&#46;&#119;&#x6f;&#x72;&#x6b;&#46;&#103;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a><br>欢迎交流学习！</p>
+</blockquote>
 
     </div>
 
