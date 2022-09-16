@@ -92,13 +92,6 @@
 
   
   <url>
-    <loc>https://creworkg.github.io/tags/Hexo/</loc>
-    <lastmod>2022-09-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://creworkg.github.io/tags/rtos/</loc>
     <lastmod>2022-09-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -107,6 +100,13 @@
   
   <url>
     <loc>https://creworkg.github.io/tags/zen/</loc>
+    <lastmod>2022-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://creworkg.github.io/tags/Hexo/</loc>
     <lastmod>2022-09-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -129,6 +129,13 @@
   </url>
   
   <url>
+    <loc>https://creworkg.github.io/categories/zen/thoughts/</loc>
+    <lastmod>2022-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://creworkg.github.io/categories/rtos/task-create/</loc>
     <lastmod>2022-09-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -137,13 +144,6 @@
   
   <url>
     <loc>https://creworkg.github.io/categories/rtos/sheduler-context-switch/</loc>
-    <lastmod>2022-09-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://creworkg.github.io/categories/zen/thoughts/</loc>
     <lastmod>2022-09-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
