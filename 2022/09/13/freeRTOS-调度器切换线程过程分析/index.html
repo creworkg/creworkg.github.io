@@ -30,7 +30,7 @@
 <meta property="og:description" content="深入分析调度器切换线程的过程……">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-09-13T09:34:27.000Z">
-<meta property="article:modified_time" content="2022-09-14T11:59:17.541Z">
+<meta property="article:modified_time" content="2022-09-17T06:28:54.535Z">
 <meta property="article:author" content="Seeker">
 <meta property="article:tag" content="rtos">
 <meta name="twitter:card" content="summary">
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-09-14 19:59:17" itemprop="dateModified" datetime="2022-09-14T19:59:17+08:00">2022-09-14</time>
+                <time title="Modified: 2022-09-17 14:28:54" itemprop="dateModified" datetime="2022-09-17T14:28:54+08:00">2022-09-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -254,7 +254,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>827</span>
+              <span>862</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -278,6 +278,16 @@
 <p>这篇文章分析线程切换的过程<br>为了叙述更清晰，不再贴大段的代码，而是先描述函数主要功能，再撷取重要的代码片段来讲述</p>
 </blockquote>
 <span id="more"></span>
+
+
+<style>
+pre {
+    
+  overflow-y: auto;
+  max-height: 600px;
+}
+</style>
+
 
 <h1 id="vTaskSwitchContext"><a href="#vTaskSwitchContext" class="headerlink" title="vTaskSwitchContext"></a>vTaskSwitchContext</h1><h2 id="taskSELECT-HIGHEST-PRIORITY-TASK"><a href="#taskSELECT-HIGHEST-PRIORITY-TASK" class="headerlink" title="taskSELECT_HIGHEST_PRIORITY_TASK"></a>taskSELECT_HIGHEST_PRIORITY_TASK</h2><p>找到优先级最高的就绪任务，并将该任务的句柄赋值给 <code>pxCurrentTCB</code>。</p>
 <p>有两种方式，实现的效果一样，只是效率有差异，通过遍历每一个优先级列表找到最高优先级任务</p>
@@ -305,7 +315,7 @@
 <p>除了systick定时器会切换线程外，其他操作比如任务阻塞、延时等也会造成任务切换。</p>
 <p><em>未完待续……</em></p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#x65;&#x61;&#116;&#105;&#x76;&#x65;&#x2e;&#119;&#x6f;&#x72;&#x6b;&#x2e;&#103;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x63;&#x72;&#x65;&#x61;&#116;&#105;&#x76;&#x65;&#x2e;&#119;&#x6f;&#x72;&#x6b;&#x2e;&#103;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#101;&#x61;&#116;&#105;&#118;&#101;&#x2e;&#x77;&#x6f;&#114;&#x6b;&#46;&#103;&#x40;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#99;&#x72;&#101;&#x61;&#116;&#105;&#118;&#101;&#x2e;&#x77;&#x6f;&#114;&#x6b;&#46;&#103;&#x40;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a><br>欢迎交流学习！</p>
 </blockquote>
 
     </div>
