@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HEXO Usage</title>
+    <url>/2022/09/13/HEXO-Usage/</url>
+    <content><![CDATA[<p><a href="https://hexo.io/zh-cn/docs/writing">Hexo Usage</a></p>
+<p><a href="https://github.com/cofess/hexo-theme-pure/blob/master/README.cn.md">Hexo-theme-pure config</a></p>
+<p><a href="https://theme-next.js.org/docs/">Theme Next Doc</a></p>
+]]></content>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ZEN</title>
     <url>/2022/09/10/ZEN/</url>
     <content><![CDATA[<p>当你做某件事的时候，一旦想要求快，就表示你在也不关心它，只想去做别的事。<br><em>《禅与摩托车维修艺术》</em></p>
@@ -34,27 +45,9 @@
       </tags>
   </entry>
   <entry>
-    <title>HEXO Usage</title>
-    <url>/2022/09/13/HEXO-Usage/</url>
-    <content><![CDATA[<p><a href="https://hexo.io/zh-cn/docs/writing">Hexo Usage</a></p>
-<p><a href="https://github.com/cofess/hexo-theme-pure/blob/master/README.cn.md">Hexo-theme-pure config</a></p>
-<p><a href="https://theme-next.js.org/docs/">Theme Next Doc</a></p>
-]]></content>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>freeRTOS-任务创建过程分析</title>
     <url>/2022/09/12/freeRTOS-%E4%BB%BB%E5%8A%A1%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<style>
-pre {
-  overflow-y: auto;
-  max-height: 600px;
-}
-</style>
-
-<h1 id="xTaskCreate"><a href="#xTaskCreate" class="headerlink" title="xTaskCreate"></a>xTaskCreate</h1><span id="more"></span>
+    <content><![CDATA[<h1 id="xTaskCreate"><a href="#xTaskCreate" class="headerlink" title="xTaskCreate"></a>xTaskCreate</h1><span id="more"></span>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">BaseType_t <span class="title function_">xTaskCreate</span><span class="params">(	TaskFunction_t pxTaskCode,</span></span><br><span class="line"><span class="params">                        <span class="type">const</span> <span class="type">char</span> * <span class="type">const</span> pcName,</span></span><br><span class="line"><span class="params">                        <span class="type">const</span> <span class="type">uint16_t</span> usStackDepth,</span></span><br><span class="line"><span class="params">                        <span class="type">void</span> * <span class="type">const</span> pvParameters,</span></span><br><span class="line"><span class="params">                        UBaseType_t uxPriority,</span></span><br><span class="line"><span class="params">                        TaskHandle_t * <span class="type">const</span> pxCreatedTask )</span> <span class="comment">/*lint !e971 Unqualified char types are allowed for strings and single characters only. */</span></span><br><span class="line">&#123;</span><br><span class="line">TCB_t *pxNewTCB;</span><br><span class="line">BaseType_t xReturn;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* If the stack grows down then allocate the stack then the TCB so the stack</span></span><br><span class="line"><span class="comment">    does not grow into the TCB.  Likewise if the stack grows up then allocate</span></span><br><span class="line"><span class="comment">    the TCB then the stack. */</span></span><br><span class="line">    <span class="meta">#<span class="keyword">if</span>( portSTACK_GROWTH &gt; 0 )</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Allocate space for the TCB.  Where the memory comes from depends on</span></span><br><span class="line"><span class="comment">        the implementation of the port malloc function and whether or not static</span></span><br><span class="line"><span class="comment">        allocation is being used. */</span></span><br><span class="line">        pxNewTCB = ( TCB_t * ) pvPortMalloc( <span class="keyword">sizeof</span>( TCB_t ) );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>( pxNewTCB != <span class="literal">NULL</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">/* Allocate space for the stack used by the task being created.</span></span><br><span class="line"><span class="comment">            The base of the stack memory stored in the TCB so the task can</span></span><br><span class="line"><span class="comment">            be deleted later if required. */</span></span><br><span class="line">            pxNewTCB-&gt;pxStack = ( StackType_t * ) pvPortMalloc( ( ( ( <span class="type">size_t</span> ) usStackDepth ) * <span class="keyword">sizeof</span>( StackType_t ) ) ); <span class="comment">/*lint !e961 MISRA exception as the casts are only redundant for some ports. */</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>( pxNewTCB-&gt;pxStack == <span class="literal">NULL</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">/* Could not allocate the stack.  Delete the allocated TCB. */</span></span><br><span class="line">                vPortFree( pxNewTCB );</span><br><span class="line">                pxNewTCB = <span class="literal">NULL</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#<span class="keyword">else</span> <span class="comment">/* portSTACK_GROWTH */</span></span></span><br><span class="line">    &#123;</span><br><span class="line">    StackType_t *pxStack;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Allocate space for the stack used by the task being created. */</span></span><br><span class="line">        pxStack = ( StackType_t * ) pvPortMalloc( ( ( ( <span class="type">size_t</span> ) usStackDepth ) * <span class="keyword">sizeof</span>( StackType_t ) ) ); <span class="comment">/*lint !e961 MISRA exception as the casts are only redundant for some ports. */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>( pxStack != <span class="literal">NULL</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">/* Allocate space for the TCB. */</span></span><br><span class="line">            pxNewTCB = ( TCB_t * ) pvPortMalloc( <span class="keyword">sizeof</span>( TCB_t ) ); <span class="comment">/*lint !e961 MISRA exception as the casts are only redundant for some paths. */</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>( pxNewTCB != <span class="literal">NULL</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">/* Store the stack location in the TCB. */</span></span><br><span class="line">                pxNewTCB-&gt;pxStack = pxStack;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">/* The stack cannot be used as the TCB was not created.  Free</span></span><br><span class="line"><span class="comment">                it again. */</span></span><br><span class="line">                vPortFree( pxStack );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            pxNewTCB = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#<span class="keyword">endif</span> <span class="comment">/* portSTACK_GROWTH */</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( pxNewTCB != <span class="literal">NULL</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="meta">#<span class="keyword">if</span>( tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE != 0 )</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">/* Tasks can be created statically or dynamically, so note this</span></span><br><span class="line"><span class="comment">            task was created dynamically in case it is later deleted. */</span></span><br><span class="line">            pxNewTCB-&gt;ucStaticallyAllocated = tskDYNAMICALLY_ALLOCATED_STACK_AND_TCB;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">#<span class="keyword">endif</span> <span class="comment">/* configSUPPORT_STATIC_ALLOCATION */</span></span></span><br><span class="line"></span><br><span class="line">        prvInitialiseNewTask( pxTaskCode, pcName, ( <span class="type">uint32_t</span> ) usStackDepth, pvParameters, uxPriority, pxCreatedTask, pxNewTCB, <span class="literal">NULL</span> );</span><br><span class="line">        prvAddNewTaskToReadyList( pxNewTCB );</span><br><span class="line">        xReturn = pdPASS;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        xReturn = errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> xReturn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这个函数主要做了以下事情：</p>
@@ -106,7 +99,7 @@ pre {
 
 <p>请求 <code>PendSV</code>中断，线程就是在这个中断中切换的。</p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#x65;&#x61;&#116;&#105;&#x76;&#x65;&#46;&#x77;&#x6f;&#114;&#107;&#46;&#103;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x63;&#114;&#x65;&#x61;&#116;&#105;&#x76;&#x65;&#46;&#x77;&#x6f;&#114;&#107;&#46;&#103;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#x65;&#x61;&#116;&#x69;&#x76;&#x65;&#46;&#x77;&#x6f;&#114;&#x6b;&#46;&#103;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x63;&#114;&#x65;&#x61;&#116;&#x69;&#x76;&#x65;&#46;&#x77;&#x6f;&#114;&#x6b;&#46;&#103;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -118,22 +111,31 @@ pre {
       </tags>
   </entry>
   <entry>
+    <title>bazel入门-Sharing Variables</title>
+    <url>/2022/10/31/bazel%E5%85%A5%E9%97%A8-Sharing%20Variables/</url>
+    <content><![CDATA[<p>介绍bazel中共享变量的使用方法，参见bazel官方文档</p>
+<span id="more"></span>
+<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><p><a href="https://bazel.build/build/share-variables">https://bazel.build/build/share-variables</a></p>
+<h1 id="实现变量共享的两种方法"><a href="#实现变量共享的两种方法" class="headerlink" title="实现变量共享的两种方法"></a>实现变量共享的两种方法</h1><ol>
+<li><p>在同一个文件中定义一个变量，并在接下来涉及到的地方引用它</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">COPTS = [<span class="string">&quot;-DVERSION=5&quot;</span>]</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;foo.cc&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;bar&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;bar.cc&quot;</span>],</span><br><span class="line">  deps = [<span class="string">&quot;:foo&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用load引用其他文件的变量</p>
+</li>
+</ol>
+<p>In path&#x2F;to&#x2F;variables.bzl, write:</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">COPTS = [<span class="string">&quot;-DVERSION=5&quot;</span>]</span><br></pre></td></tr></table></figure>
+<p>Then, you can update your BUILD files to access the variable:</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">load(<span class="string">&quot;//path/to:variables.bzl&quot;</span>, <span class="string">&quot;COPTS&quot;</span>)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;foo.cc&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;bar&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;bar.cc&quot;</span>],</span><br><span class="line">  deps = [<span class="string">&quot;:foo&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
     <title>freeRTOS-调度器切换线程过程分析</title>
     <url>/2022/09/13/freeRTOS-%E8%B0%83%E5%BA%A6%E5%99%A8%E5%88%87%E6%8D%A2%E7%BA%BF%E7%A8%8B%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<blockquote>
 <p>这篇文章分析线程切换的过程<br>为了叙述更清晰，不再贴大段的代码，而是先描述函数主要功能，再撷取重要的代码片段来讲述</p>
 </blockquote>
 <span id="more"></span>
-
-
-<style>
-pre {
-    
-  overflow-y: auto;
-  max-height: 600px;
-}
-</style>
-
 
 <h1 id="vTaskSwitchContext"><a href="#vTaskSwitchContext" class="headerlink" title="vTaskSwitchContext"></a>vTaskSwitchContext</h1><h2 id="taskSELECT-HIGHEST-PRIORITY-TASK"><a href="#taskSELECT-HIGHEST-PRIORITY-TASK" class="headerlink" title="taskSELECT_HIGHEST_PRIORITY_TASK"></a>taskSELECT_HIGHEST_PRIORITY_TASK</h2><p>找到优先级最高的就绪任务，并将该任务的句柄赋值给 <code>pxCurrentTCB</code>。</p>
 <p>有两种方式，实现的效果一样，只是效率有差异，通过遍历每一个优先级列表找到最高优先级任务</p>
@@ -161,7 +163,7 @@ pre {
 <p>除了systick定时器会切换线程外，其他操作比如任务阻塞、延时等也会造成任务切换。</p>
 <p><em>未完待续……</em></p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#x65;&#x61;&#x74;&#105;&#x76;&#101;&#x2e;&#119;&#111;&#114;&#x6b;&#x2e;&#103;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x63;&#x72;&#x65;&#x61;&#x74;&#105;&#x76;&#101;&#x2e;&#119;&#111;&#114;&#x6b;&#x2e;&#103;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#101;&#97;&#116;&#x69;&#118;&#x65;&#46;&#119;&#111;&#114;&#107;&#x2e;&#x67;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#99;&#x72;&#101;&#97;&#116;&#x69;&#118;&#x65;&#46;&#119;&#111;&#114;&#107;&#x2e;&#x67;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -170,37 +172,6 @@ pre {
       </categories>
       <tags>
         <tag>rtos</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>什么是企业的核心竞争力</title>
-    <url>/2022/09/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%81%E4%B8%9A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%AB%9E%E4%BA%89%E5%8A%9B/</url>
-    <content><![CDATA[<blockquote>
-<p>你有一只鹅，它每天下一只蛋。你把鹅蛋卖了，每天能赚不少钱。那么，你的鹅每天下的那只蛋，是你的核心竞争力吗？</p>
-<p>当然不是。鹅蛋从来不是核心竞争力，那只鹅才是。</p>
-<p>你的一个个产品，就是一只只鹅蛋。他们只是结果。它们不是核心竞争力，你为什么能做出这些产品，才是你的核心竞争力。</p>
-<p>比如，你有一个打磨了无数次的做产品的独特流程？你创造了一种员工极度负责、眼睛里容不下一个bug的文化？你有一支投入了5年，一直研究底层技术的团队？你的设计师团队，每年去20个国家采风？</p>
-<p>这些才是你的核心竞争力，是这些东西，让你源源不断下蛋，产生新产品。</p>
-<p>找到这些东西，然后把它们提炼出来，当做珍宝一样保护起来，不断的训练它们，直到别人无法超越，然后复制到每件产品上去。</p>
-<p><em>刘润</em></p>
-</blockquote>
-<p>很多科技型公司并不重视技术，他们只重视技术带来的产品，产品带来的利润。</p>
-<p>企业作终是要盈利的，不盈利就存不下去，这个逻辑看似没错，但是存在严重的问题。</p>
-<p>假如你去购买一个彩电，你大概不希望彩电里的电路板上全是灰尘，导线全部搅在一起，乱七八糟，有时候电视剧播放得好好的，屏幕突然不亮了，你不得不用大力金刚掌拍一下电视机，把画面拍出来……</p>
-<p>公司研发一款产品，不能只看产品的样貌，更重要的是产品背后的技术。如果研发产品时走的是“野路子”，后期维护起来可能相当麻烦。产品最多也只能算是”金玉其外，败絮其中“。</p>
-<p>看得见的是产品的外观、触感、重量，看不见的是其背后的电路、代码的设计与实现，而这些消费者看不见的东西，才真正地反映了公司的核心竞争力。</p>
-<p>最后引用乔布斯的一句话：</p>
-<p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
-<blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#x65;&#x61;&#x74;&#x69;&#118;&#101;&#x2e;&#x77;&#x6f;&#x72;&#107;&#46;&#103;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x63;&#x72;&#x65;&#x61;&#x74;&#x69;&#118;&#101;&#x2e;&#x77;&#x6f;&#x72;&#107;&#46;&#103;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a><br>欢迎交流学习！</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>zen</category>
-        <category>thoughts</category>
-      </categories>
-      <tags>
-        <tag>zen</tag>
       </tags>
   </entry>
   <entry>
@@ -242,5 +213,276 @@ pre {
       <tags>
         <tag>zen</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>什么是企业的核心竞争力</title>
+    <url>/2022/09/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%81%E4%B8%9A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%AB%9E%E4%BA%89%E5%8A%9B/</url>
+    <content><![CDATA[<blockquote>
+<p>你有一只鹅，它每天下一只蛋。你把鹅蛋卖了，每天能赚不少钱。那么，你的鹅每天下的那只蛋，是你的核心竞争力吗？</p>
+<p>当然不是。鹅蛋从来不是核心竞争力，那只鹅才是。</p>
+<p>你的一个个产品，就是一只只鹅蛋。他们只是结果。它们不是核心竞争力，你为什么能做出这些产品，才是你的核心竞争力。</p>
+<p>比如，你有一个打磨了无数次的做产品的独特流程？你创造了一种员工极度负责、眼睛里容不下一个bug的文化？你有一支投入了5年，一直研究底层技术的团队？你的设计师团队，每年去20个国家采风？</p>
+<p>这些才是你的核心竞争力，是这些东西，让你源源不断下蛋，产生新产品。</p>
+<p>找到这些东西，然后把它们提炼出来，当做珍宝一样保护起来，不断的训练它们，直到别人无法超越，然后复制到每件产品上去。</p>
+<p><em>刘润</em></p>
+</blockquote>
+<p>很多科技型公司并不重视技术，他们只重视技术带来的产品，产品带来的利润。</p>
+<p>企业作终是要盈利的，不盈利就存不下去，这个逻辑看似没错，但是存在严重的问题。</p>
+<p>假如你去购买一个彩电，你大概不希望彩电里的电路板上全是灰尘，导线全部搅在一起，乱七八糟，有时候电视剧播放得好好的，屏幕突然不亮了，你不得不用大力金刚掌拍一下电视机，把画面拍出来……</p>
+<p>公司研发一款产品，不能只看产品的样貌，更重要的是产品背后的技术。如果研发产品时走的是“野路子”，后期维护起来可能相当麻烦。产品最多也只能算是”金玉其外，败絮其中“。</p>
+<p>看得见的是产品的外观、触感、重量，看不见的是其背后的电路、代码的设计与实现，而这些消费者看不见的东西，才真正地反映了公司的核心竞争力。</p>
+<p>最后引用乔布斯的一句话：</p>
+<p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
+<blockquote>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#101;&#x61;&#116;&#105;&#118;&#101;&#46;&#x77;&#x6f;&#114;&#x6b;&#46;&#x67;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#99;&#x72;&#101;&#x61;&#116;&#105;&#118;&#101;&#46;&#x77;&#x6f;&#114;&#x6b;&#46;&#x67;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a><br>欢迎交流学习！</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>zen</category>
+        <category>thoughts</category>
+      </categories>
+      <tags>
+        <tag>zen</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机中数的表示</title>
+    <url>/2022/09/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA/</url>
+    <content><![CDATA[<p>介绍计算机中，数的基本表示方法</p>
+<span id="more"></span>
+<h1 id="无符号数"><a href="#无符号数" class="headerlink" title="无符号数"></a>无符号数</h1><table>
+<thead>
+<tr>
+<th>binary</th>
+<th>decimal</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0001</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0010</td>
+<td>2</td>
+</tr>
+<tr>
+<td>0011</td>
+<td>3</td>
+</tr>
+<tr>
+<td>0100</td>
+<td>4</td>
+</tr>
+<tr>
+<td>0101</td>
+<td>5</td>
+</tr>
+<tr>
+<td>0110</td>
+<td>6</td>
+</tr>
+<tr>
+<td>0111</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>8</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>9</td>
+</tr>
+<tr>
+<td>1010</td>
+<td>10</td>
+</tr>
+<tr>
+<td>1011</td>
+<td>11</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>12</td>
+</tr>
+<tr>
+<td>1101</td>
+<td>13</td>
+</tr>
+<tr>
+<td>1110</td>
+<td>14</td>
+</tr>
+<tr>
+<td>1111</td>
+<td>15</td>
+</tr>
+</tbody></table>
+<h1 id="负数"><a href="#负数" class="headerlink" title="负数"></a>负数</h1><h2 id="把right-most-bit作为符号位"><a href="#把right-most-bit作为符号位" class="headerlink" title="把right-most bit作为符号位"></a>把right-most bit作为符号位</h2><table>
+<thead>
+<tr>
+<th>binary</th>
+<th>decimal</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0001</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0010</td>
+<td>2</td>
+</tr>
+<tr>
+<td>0011</td>
+<td>3</td>
+</tr>
+<tr>
+<td>0100</td>
+<td>4</td>
+</tr>
+<tr>
+<td>0101</td>
+<td>5</td>
+</tr>
+<tr>
+<td>0110</td>
+<td>6</td>
+</tr>
+<tr>
+<td>0111</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>-0</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>1010</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>1011</td>
+<td>-3</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>-4</td>
+</tr>
+<tr>
+<td>1101</td>
+<td>-5</td>
+</tr>
+<tr>
+<td>1110</td>
+<td>-6</td>
+</tr>
+<tr>
+<td>1111</td>
+<td>-7</td>
+</tr>
+</tbody></table>
+<h3 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h3><ol>
+<li>有两0：0 和 -0</li>
+<li>运算<br>$$-1 + 1:$$<br>$$1001 + 0001 &#x3D; 1010$$<br>结果是：-2，wrong</li>
+</ol>
+<h2 id="有没有更好的方法？"><a href="#有没有更好的方法？" class="headerlink" title="有没有更好的方法？"></a>有没有更好的方法？</h2><p>用 <code>2^n - x</code>来表示 <code>x</code>的负数</p>
+<table>
+<thead>
+<tr>
+<th>binary</th>
+<th>decimal</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0001</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0010</td>
+<td>2</td>
+</tr>
+<tr>
+<td>0011</td>
+<td>3</td>
+</tr>
+<tr>
+<td>0100</td>
+<td>4</td>
+</tr>
+<tr>
+<td>0101</td>
+<td>5</td>
+</tr>
+<tr>
+<td>0110</td>
+<td>6</td>
+</tr>
+<tr>
+<td>0111</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>-8</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>-7</td>
+</tr>
+<tr>
+<td>1010</td>
+<td>-6</td>
+</tr>
+<tr>
+<td>1011</td>
+<td>-5</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>-4</td>
+</tr>
+<tr>
+<td>1101</td>
+<td>-3</td>
+</tr>
+<tr>
+<td>1110</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>1111</td>
+<td>-1</td>
+</tr>
+</tbody></table>
+<p>再计算<br>$$1 + -1: $$<br>$$ 0001 + 1111 &#x3D; 10000 $$<br>其中，最高位溢出舍弃，所以结果为：0000，符合预期，再看看负数相加：<br>$$ -8 + 3:$$<br>$$1000 + 0011 &#x3D; 1011$$<br>等于-5，</p>
+<p>$$ -4 + -3:$$<br>$$1100 + 1101 &#x3D; 11001$$<br>等于-7，</p>
+<p>若是：<br>$$ -8 + -5:$$<br>$$1000 + 0011 &#x3D; 10011$$<br>等于3吗？显然不对，想想是为什么？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> a = <span class="number">-100</span>;</span><br><span class="line">    <span class="type">char</span> b = <span class="number">-100</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a: %d, b: %d\n&quot;</span>, a, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;a + b = %d\n&quot;</span>, (a + b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a + b = %d\n&quot;</span>, (<span class="type">char</span>)(a + b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>outputs:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a: -100, b: -100</span><br><span class="line">a + b = -200</span><br><span class="line">a + b = 56</span><br></pre></td></tr></table></figure>
+
+
+<p>至此就很容易看出原因了。</p>
+<h1 id="反码"><a href="#反码" class="headerlink" title="反码"></a>反码</h1><p>一个数的反码是按位取反，用公式表示：<br>$$(2^n - 1) - x$$</p>
+<h1 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h1><p>最终，我们看到，计算出一个数的相反数，使用的是：<br>$$(2^n - 1)  - x +1$$<br>所以便有了人们常说的：一个数的相反数（负数&#x2F;负数的负数……）是这个数<strong>取反加一</strong></p>
+<h1 id="为什么要用所谓的补码计算？"><a href="#为什么要用所谓的补码计算？" class="headerlink" title="为什么要用所谓的补码计算？"></a>为什么要用所谓的补码计算？</h1><p>方便，可以用加法做减法运算，省去了再做减法电路的麻烦</p>
+]]></content>
   </entry>
 </search>
