@@ -1,3 +1,4 @@
+https://creworkg.github.io/2023/02/19/Singleton/
 https://creworkg.github.io/about/index.html
 https://creworkg.github.io/2023/02/19/a++%E5%92%8C++a%E7%9A%84%E5%8C%BA%E5%88%AB/
 https://creworkg.github.io/2022/10/31/linux-proxy/
@@ -23,3 +24,5 @@ https://creworkg.github.io/categories/zen/thoughts/
 https://creworkg.github.io/categories/rtos/task-create/
 https://creworkg.github.io/categories/rtos/sheduler-context-switch/
 https://creworkg.github.io/categories/c/
+https://creworkg.github.io/categories/design-pattern/
+https://creworkg.github.io/categories/design-pattern/Singleton/

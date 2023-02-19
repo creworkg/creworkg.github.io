@@ -6,7 +6,7 @@
   <link href="https://creworkg.github.io/atom.xml" rel="self"/>
   
   <link href="https://creworkg.github.io/"/>
-  <updated>2023-02-19T10:47:52.654Z</updated>
+  <updated>2023-02-19T13:16:52.237Z</updated>
   <id>https://creworkg.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Singleton</title>
+    <link href="https://creworkg.github.io/2023/02/19/Singleton/"/>
+    <id>https://creworkg.github.io/2023/02/19/Singleton/</id>
+    <published>2023-02-19T13:12:00.000Z</published>
+    <updated>2023-02-19T13:16:52.237Z</updated>
+    
+    <content type="html"><![CDATA[<p>单例模式在生产中的使用频率非常的高，也很简单，要满足两个要点：</p><ol><li>必须自己创建自己</li><li>必须向整个系统提供自己</li></ol><p>实现单例模式的方法有很多，本文实现一个最简洁的版本。</p><span id="more"></span><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>();</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~<span class="built_in">Singleton</span>();</span><br><span class="line">    <span class="function"><span class="type">static</span> shared_ptr&lt;Singleton&gt;&amp; <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> <span class="type">static</span> instance = <span class="built_in">shared_ptr</span>&lt;Singleton&gt;(<span class="keyword">new</span> <span class="built_in">Singleton</span>());</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton::<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton::~<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton destructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> singlton = Singleton::<span class="built_in">getInstance</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;单例模式在生产中的使用频率非常的高，也很简单，要满足两个要点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;必须自己创建自己&lt;/li&gt;
+&lt;li&gt;必须向整个系统提供自己&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;实现单例模式的方法有很多，本文实现一个最简洁的版本。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="design pattern" scheme="https://creworkg.github.io/categories/design-pattern/"/>
+    
+    <category term="Singleton" scheme="https://creworkg.github.io/categories/design-pattern/Singleton/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>a++和++a的区别</title>

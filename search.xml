@@ -523,4 +523,21 @@
         <tag>c</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Singleton</title>
+    <url>/2023/02/19/Singleton/</url>
+    <content><![CDATA[<p>单例模式在生产中的使用频率非常的高，也很简单，要满足两个要点：</p>
+<ol>
+<li>必须自己创建自己</li>
+<li>必须向整个系统提供自己</li>
+</ol>
+<p>实现单例模式的方法有很多，本文实现一个最简洁的版本。</p>
+<span id="more"></span>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>();</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~<span class="built_in">Singleton</span>();</span><br><span class="line">    <span class="function"><span class="type">static</span> shared_ptr&lt;Singleton&gt;&amp; <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> <span class="type">static</span> instance = <span class="built_in">shared_ptr</span>&lt;Singleton&gt;(<span class="keyword">new</span> <span class="built_in">Singleton</span>());</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton::<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton::~<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton destructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> singlton = Singleton::<span class="built_in">getInstance</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>design pattern</category>
+        <category>Singleton</category>
+      </categories>
+  </entry>
 </search>
