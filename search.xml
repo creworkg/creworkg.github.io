@@ -12,6 +12,27 @@
       </tags>
   </entry>
   <entry>
+    <title>a++和++a的区别</title>
+    <url>/2023/02/19/a++%E5%92%8C++a%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>对以下代码进行汇编，然后查看汇编：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    a++;</span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">    ++a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h1 id="x86-64汇编"><a href="#x86-64汇编" class="headerlink" title="x86-64汇编"></a>x86-64汇编</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main:</span><br><span class="line">        push    rbp</span><br><span class="line">        mov     rbp, rsp</span><br><span class="line">        mov     DWORD PTR [rbp-4], 1</span><br><span class="line">        add     DWORD PTR [rbp-4], 1</span><br><span class="line">        mov     DWORD PTR [rbp-4], 2</span><br><span class="line">        add     DWORD PTR [rbp-4], 1</span><br><span class="line">        mov     eax, 0</span><br><span class="line">        pop     rbp</span><br><span class="line">        ret</span><br></pre></td></tr></table></figure>
+<h1 id="arm汇编"><a href="#arm汇编" class="headerlink" title="arm汇编"></a>arm汇编</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main:</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        movs    r3, #1</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        adds    r3, r3, #1</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        movs    r3, #2</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        adds    r3, r3, #1</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        movs    r3, #0</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br></pre></td></tr></table></figure>
+<h1 id="用来赋值"><a href="#用来赋值" class="headerlink" title="用来赋值"></a>用来赋值</h1><p>发现并没有区别，用它来赋值：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line">    b = a++;</span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">    b = ++a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main:</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        movs    r3, #1</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        movs    r3, #3</span><br><span class="line">        str     r3, [r7]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        adds    r2, r3, #1</span><br><span class="line">        str     r2, [r7, #4]</span><br><span class="line">        str     r3, [r7]</span><br><span class="line">        movs    r3, #2</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        adds    r3, r3, #1</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        str     r3, [r7]</span><br><span class="line">        movs    r3, #0</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br></pre></td></tr></table></figure>
+<p>会发现其实在arm cpu中，++a反而要多操作一次内存。而在x86-64的机器上++a会少一条指令。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main:</span><br><span class="line">        push    rbp</span><br><span class="line">        mov     rbp, rsp</span><br><span class="line">        mov     DWORD PTR [rbp-4], 1</span><br><span class="line">        mov     DWORD PTR [rbp-8], 3</span><br><span class="line">        mov     eax, DWORD PTR [rbp-4]</span><br><span class="line">        lea     edx, [rax+1]</span><br><span class="line">        mov     DWORD PTR [rbp-4], edx</span><br><span class="line">        mov     DWORD PTR [rbp-8], eax</span><br><span class="line">        mov     DWORD PTR [rbp-4], 2</span><br><span class="line">        add     DWORD PTR [rbp-4], 1</span><br><span class="line">        mov     eax, DWORD PTR [rbp-4]</span><br><span class="line">        mov     DWORD PTR [rbp-8], eax</span><br><span class="line">        mov     eax, 0</span><br><span class="line">        pop     rbp</span><br><span class="line">        ret</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>c</category>
+      </categories>
+      <tags>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ZEN</title>
     <url>/2022/09/10/ZEN/</url>
     <content><![CDATA[<p>当你做某件事的时候，一旦想要求快，就表示你在也不关心它，只想去做别的事。<br><em>《禅与摩托车维修艺术》</em></p>
@@ -43,6 +64,49 @@
       <tags>
         <tag>zen</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Singleton</title>
+    <url>/2023/02/19/Singleton/</url>
+    <content><![CDATA[<p>单例模式在生产中的使用频率非常的高，也很简单，要满足两个要点：</p>
+<ol>
+<li>必须自己创建自己</li>
+<li>必须向整个系统提供自己</li>
+</ol>
+<p>实现单例模式的方法有很多，本文实现一个最简洁的版本。</p>
+<span id="more"></span>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>();</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~<span class="built_in">Singleton</span>();</span><br><span class="line">    <span class="function"><span class="type">static</span> shared_ptr&lt;Singleton&gt;&amp; <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> <span class="type">static</span> instance = <span class="built_in">shared_ptr</span>&lt;Singleton&gt;(<span class="keyword">new</span> <span class="built_in">Singleton</span>());</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton::<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton::~<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton destructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> singlton = Singleton::<span class="built_in">getInstance</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>design pattern</category>
+        <category>Singleton</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>bazel入门-External Dependencies</title>
+    <url>/2022/10/31/bazel%E5%85%A5%E9%97%A8-External-Dependencies/</url>
+    <content><![CDATA[<p>介绍bazel中共享变量的使用方法，参见bazel官方文档：<br><a href="https://bazel.build/build/external">https://bazel.build/build/external</a></p>
+<span id="more"></span>
+<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1>]]></content>
+  </entry>
+  <entry>
+    <title>bazel入门-Sharing Variables</title>
+    <url>/2022/10/31/bazel%E5%85%A5%E9%97%A8-Sharing%20Variables/</url>
+    <content><![CDATA[<p>介绍bazel中共享变量的使用方法，参见bazel官方文档：<br><a href="https://bazel.build/build/share-variables">https://bazel.build/build/share-variables</a></p>
+<span id="more"></span>
+
+<h1 id="实现变量共享的两种方法"><a href="#实现变量共享的两种方法" class="headerlink" title="实现变量共享的两种方法"></a>实现变量共享的两种方法</h1><ol>
+<li><p>在同一个文件中定义一个变量，并在接下来涉及到的地方引用它</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">COPTS = [<span class="string">&quot;-DVERSION=5&quot;</span>]</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;foo.cc&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;bar&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;bar.cc&quot;</span>],</span><br><span class="line">  deps = [<span class="string">&quot;:foo&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用load引用其他文件的变量</p>
+</li>
+</ol>
+<p>In path&#x2F;to&#x2F;variables.bzl, write:</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">COPTS = [<span class="string">&quot;-DVERSION=5&quot;</span>]</span><br></pre></td></tr></table></figure>
+<p>Then, you can update your BUILD files to access the variable:</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">load(<span class="string">&quot;//path/to:variables.bzl&quot;</span>, <span class="string">&quot;COPTS&quot;</span>)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;foo.cc&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;bar&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;bar.cc&quot;</span>],</span><br><span class="line">  deps = [<span class="string">&quot;:foo&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+]]></content>
   </entry>
   <entry>
     <title>freeRTOS-任务创建过程分析</title>
@@ -99,7 +163,7 @@
 
 <p>请求 <code>PendSV</code>中断，线程就是在这个中断中切换的。</p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#x65;&#x61;&#116;&#x69;&#x76;&#x65;&#46;&#x77;&#x6f;&#114;&#x6b;&#46;&#103;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x63;&#114;&#x65;&#x61;&#116;&#x69;&#x76;&#x65;&#46;&#x77;&#x6f;&#114;&#x6b;&#46;&#103;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#101;&#x61;&#x74;&#105;&#118;&#101;&#46;&#x77;&#111;&#x72;&#107;&#x2e;&#103;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#x63;&#114;&#101;&#x61;&#x74;&#105;&#118;&#101;&#46;&#x77;&#111;&#x72;&#107;&#x2e;&#103;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -109,25 +173,6 @@
       <tags>
         <tag>rtos</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>bazel入门-Sharing Variables</title>
-    <url>/2022/10/31/bazel%E5%85%A5%E9%97%A8-Sharing%20Variables/</url>
-    <content><![CDATA[<p>介绍bazel中共享变量的使用方法，参见bazel官方文档：<br><a href="https://bazel.build/build/share-variables">https://bazel.build/build/share-variables</a></p>
-<span id="more"></span>
-
-<h1 id="实现变量共享的两种方法"><a href="#实现变量共享的两种方法" class="headerlink" title="实现变量共享的两种方法"></a>实现变量共享的两种方法</h1><ol>
-<li><p>在同一个文件中定义一个变量，并在接下来涉及到的地方引用它</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">COPTS = [<span class="string">&quot;-DVERSION=5&quot;</span>]</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;foo.cc&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;bar&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;bar.cc&quot;</span>],</span><br><span class="line">  deps = [<span class="string">&quot;:foo&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用load引用其他文件的变量</p>
-</li>
-</ol>
-<p>In path&#x2F;to&#x2F;variables.bzl, write:</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">COPTS = [<span class="string">&quot;-DVERSION=5&quot;</span>]</span><br></pre></td></tr></table></figure>
-<p>Then, you can update your BUILD files to access the variable:</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">load(<span class="string">&quot;//path/to:variables.bzl&quot;</span>, <span class="string">&quot;COPTS&quot;</span>)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;foo.cc&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;bar&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;bar.cc&quot;</span>],</span><br><span class="line">  deps = [<span class="string">&quot;:foo&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-]]></content>
   </entry>
   <entry>
     <title>freeRTOS-调度器切换线程过程分析</title>
@@ -163,7 +208,7 @@
 <p>除了systick定时器会切换线程外，其他操作比如任务阻塞、延时等也会造成任务切换。</p>
 <p><em>未完待续……</em></p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#101;&#97;&#116;&#x69;&#118;&#x65;&#46;&#119;&#111;&#114;&#107;&#x2e;&#x67;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#99;&#x72;&#101;&#97;&#116;&#x69;&#118;&#x65;&#46;&#119;&#111;&#114;&#107;&#x2e;&#x67;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#114;&#x65;&#x61;&#116;&#x69;&#x76;&#x65;&#x2e;&#119;&#111;&#x72;&#107;&#46;&#103;&#x40;&#103;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;">&#99;&#114;&#x65;&#x61;&#116;&#x69;&#x76;&#x65;&#x2e;&#119;&#111;&#x72;&#107;&#46;&#103;&#x40;&#103;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -173,6 +218,16 @@
       <tags>
         <tag>rtos</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>linux proxy</title>
+    <url>/2022/10/31/linux-proxy/</url>
+    <content><![CDATA[<p>使用git等下载资源的时候，需要设置代理提高网速……</p>
+<span id="more"></span>
+
+<h1 id="Linux-让终端走代理的几种方法"><a href="#Linux-让终端走代理的几种方法" class="headerlink" title="Linux 让终端走代理的几种方法"></a>Linux 让终端走代理的几种方法</h1><p><a href="https://zhuanlan.zhihu.com/p/46973701">https://zhuanlan.zhihu.com/p/46973701</a></p>
+<h1 id="Apt安装软件不更换源的方法"><a href="#Apt安装软件不更换源的方法" class="headerlink" title="Apt安装软件不更换源的方法"></a>Apt安装软件不更换源的方法</h1><p><a href="https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/">https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/</a></p>
+]]></content>
   </entry>
   <entry>
     <title>WISDOM</title>
@@ -234,7 +289,7 @@
 <p>最后引用乔布斯的一句话：</p>
 <p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#101;&#x61;&#116;&#105;&#118;&#101;&#46;&#x77;&#x6f;&#114;&#x6b;&#46;&#x67;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#99;&#x72;&#101;&#x61;&#116;&#105;&#118;&#101;&#46;&#x77;&#x6f;&#114;&#x6b;&#46;&#x67;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#x65;&#97;&#x74;&#105;&#x76;&#x65;&#x2e;&#x77;&#111;&#114;&#x6b;&#46;&#103;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#x63;&#114;&#x65;&#97;&#x74;&#105;&#x76;&#x65;&#x2e;&#x77;&#111;&#114;&#x6b;&#46;&#103;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -484,60 +539,5 @@
 <h1 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h1><p>最终，我们看到，计算出一个数的相反数，使用的是：<br>$$(2^n - 1)  - x +1$$<br>所以便有了人们常说的：一个数的相反数（负数&#x2F;负数的负数……）是这个数<strong>取反加一</strong></p>
 <h1 id="为什么要用所谓的补码计算？"><a href="#为什么要用所谓的补码计算？" class="headerlink" title="为什么要用所谓的补码计算？"></a>为什么要用所谓的补码计算？</h1><p>方便，可以用加法做减法运算，省去了再做减法电路的麻烦</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>bazel入门-External Dependencies</title>
-    <url>/2022/10/31/bazel%E5%85%A5%E9%97%A8-External-Dependencies/</url>
-    <content><![CDATA[<p>介绍bazel中共享变量的使用方法，参见bazel官方文档：<br><a href="https://bazel.build/build/external">https://bazel.build/build/external</a></p>
-<span id="more"></span>
-<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1>]]></content>
-  </entry>
-  <entry>
-    <title>linux proxy</title>
-    <url>/2022/10/31/linux-proxy/</url>
-    <content><![CDATA[<p>使用git等下载资源的时候，需要设置代理提高网速……</p>
-<span id="more"></span>
-
-<h1 id="Linux-让终端走代理的几种方法"><a href="#Linux-让终端走代理的几种方法" class="headerlink" title="Linux 让终端走代理的几种方法"></a>Linux 让终端走代理的几种方法</h1><p><a href="https://zhuanlan.zhihu.com/p/46973701">https://zhuanlan.zhihu.com/p/46973701</a></p>
-<h1 id="Apt安装软件不更换源的方法"><a href="#Apt安装软件不更换源的方法" class="headerlink" title="Apt安装软件不更换源的方法"></a>Apt安装软件不更换源的方法</h1><p><a href="https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/">https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>a++和++a的区别</title>
-    <url>/2023/02/19/a++%E5%92%8C++a%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p>对以下代码进行汇编，然后查看汇编：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    a++;</span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">    ++a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h1 id="x86-64汇编"><a href="#x86-64汇编" class="headerlink" title="x86-64汇编"></a>x86-64汇编</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main:</span><br><span class="line">        push    rbp</span><br><span class="line">        mov     rbp, rsp</span><br><span class="line">        mov     DWORD PTR [rbp-4], 1</span><br><span class="line">        add     DWORD PTR [rbp-4], 1</span><br><span class="line">        mov     DWORD PTR [rbp-4], 2</span><br><span class="line">        add     DWORD PTR [rbp-4], 1</span><br><span class="line">        mov     eax, 0</span><br><span class="line">        pop     rbp</span><br><span class="line">        ret</span><br></pre></td></tr></table></figure>
-<h1 id="arm汇编"><a href="#arm汇编" class="headerlink" title="arm汇编"></a>arm汇编</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main:</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        movs    r3, #1</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        adds    r3, r3, #1</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        movs    r3, #2</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        adds    r3, r3, #1</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        movs    r3, #0</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br></pre></td></tr></table></figure>
-<h1 id="用来赋值"><a href="#用来赋值" class="headerlink" title="用来赋值"></a>用来赋值</h1><p>发现并没有区别，用它来赋值：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line">    b = a++;</span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">    b = ++a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main:</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        movs    r3, #1</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        movs    r3, #3</span><br><span class="line">        str     r3, [r7]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        adds    r2, r3, #1</span><br><span class="line">        str     r2, [r7, #4]</span><br><span class="line">        str     r3, [r7]</span><br><span class="line">        movs    r3, #2</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        adds    r3, r3, #1</span><br><span class="line">        str     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        str     r3, [r7]</span><br><span class="line">        movs    r3, #0</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br></pre></td></tr></table></figure>
-<p>会发现其实在arm cpu中，++a反而要多操作一次内存。而在x86-64的机器上++a会少一条指令。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">main:</span><br><span class="line">        push    rbp</span><br><span class="line">        mov     rbp, rsp</span><br><span class="line">        mov     DWORD PTR [rbp-4], 1</span><br><span class="line">        mov     DWORD PTR [rbp-8], 3</span><br><span class="line">        mov     eax, DWORD PTR [rbp-4]</span><br><span class="line">        lea     edx, [rax+1]</span><br><span class="line">        mov     DWORD PTR [rbp-4], edx</span><br><span class="line">        mov     DWORD PTR [rbp-8], eax</span><br><span class="line">        mov     DWORD PTR [rbp-4], 2</span><br><span class="line">        add     DWORD PTR [rbp-4], 1</span><br><span class="line">        mov     eax, DWORD PTR [rbp-4]</span><br><span class="line">        mov     DWORD PTR [rbp-8], eax</span><br><span class="line">        mov     eax, 0</span><br><span class="line">        pop     rbp</span><br><span class="line">        ret</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>c</category>
-      </categories>
-      <tags>
-        <tag>c</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Singleton</title>
-    <url>/2023/02/19/Singleton/</url>
-    <content><![CDATA[<p>单例模式在生产中的使用频率非常的高，也很简单，要满足两个要点：</p>
-<ol>
-<li>必须自己创建自己</li>
-<li>必须向整个系统提供自己</li>
-</ol>
-<p>实现单例模式的方法有很多，本文实现一个最简洁的版本。</p>
-<span id="more"></span>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>();</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~<span class="built_in">Singleton</span>();</span><br><span class="line">    <span class="function"><span class="type">static</span> shared_ptr&lt;Singleton&gt;&amp; <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> <span class="type">static</span> instance = <span class="built_in">shared_ptr</span>&lt;Singleton&gt;(<span class="keyword">new</span> <span class="built_in">Singleton</span>());</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton::<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton::~<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton destructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> singlton = Singleton::<span class="built_in">getInstance</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>design pattern</category>
-        <category>Singleton</category>
-      </categories>
   </entry>
 </search>
