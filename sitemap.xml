@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://creworkg.github.io/2023/02/19/reference-vs-pointer-in-cpp/</loc>
+    
+    <lastmod>2023-02-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://creworkg.github.io/2023/02/19/a++%E5%92%8C++a%E7%9A%84%E5%8C%BA%E5%88%AB/</loc>
+    
+    <lastmod>2023-02-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://creworkg.github.io/about/index.html</loc>
     
     <lastmod>2023-02-19</lastmod>
@@ -12,15 +30,6 @@
   
   <url>
     <loc>https://creworkg.github.io/2023/02/19/Singleton/</loc>
-    
-    <lastmod>2023-02-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://creworkg.github.io/2023/02/19/a++%E5%92%8C++a%E7%9A%84%E5%8C%BA%E5%88%AB/</loc>
     
     <lastmod>2023-02-19</lastmod>
     
@@ -167,7 +176,7 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/tags/c/</loc>
+    <loc>https://creworkg.github.io/tags/c-cpp/</loc>
     <lastmod>2023-02-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -197,13 +206,6 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/c/</loc>
-    <lastmod>2023-02-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://creworkg.github.io/categories/design-pattern/</loc>
     <lastmod>2023-02-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -211,7 +213,7 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/rtos/task-create/</loc>
+    <loc>https://creworkg.github.io/categories/c-cpp/</loc>
     <lastmod>2023-02-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -219,6 +221,13 @@
   
   <url>
     <loc>https://creworkg.github.io/categories/design-pattern/Singleton/</loc>
+    <lastmod>2023-02-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://creworkg.github.io/categories/rtos/task-create/</loc>
     <lastmod>2023-02-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
