@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://creworkg.github.io/2023/02/20/bubble-sort/</loc>
+    
+    <lastmod>2023-02-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://creworkg.github.io/2023/02/19/Singleton/</loc>
     
     <lastmod>2023-02-20</lastmod>
@@ -182,6 +191,13 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://creworkg.github.io/tags/algorithm/</loc>
+    <lastmod>2023-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -199,14 +215,14 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/design-pattern/</loc>
+    <loc>https://creworkg.github.io/categories/zen/thoughts/</loc>
     <lastmod>2023-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/zen/thoughts/</loc>
+    <loc>https://creworkg.github.io/categories/design-pattern/</loc>
     <lastmod>2023-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -227,7 +243,7 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/rtos/sheduler-context-switch/</loc>
+    <loc>https://creworkg.github.io/categories/algorithm/</loc>
     <lastmod>2023-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -235,6 +251,20 @@
   
   <url>
     <loc>https://creworkg.github.io/categories/rtos/task-create/</loc>
+    <lastmod>2023-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://creworkg.github.io/categories/rtos/sheduler-context-switch/</loc>
+    <lastmod>2023-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://creworkg.github.io/categories/algorithm/bubble-sort/</loc>
     <lastmod>2023-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
