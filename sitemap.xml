@@ -240,13 +240,6 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/c-cpp/</loc>
-    <lastmod>2023-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://creworkg.github.io/categories/design-pattern/</loc>
     <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -254,7 +247,7 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/design-pattern/Singleton/</loc>
+    <loc>https://creworkg.github.io/categories/c-cpp/</loc>
     <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -268,7 +261,7 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/rtos/task-create/</loc>
+    <loc>https://creworkg.github.io/categories/design-pattern/Singleton/</loc>
     <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -282,6 +275,13 @@
   </url>
   
   <url>
+    <loc>https://creworkg.github.io/categories/rtos/task-create/</loc>
+    <lastmod>2023-02-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://creworkg.github.io/categories/algorithm/bubble-sort/</loc>
     <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -289,14 +289,14 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/algorithm/insertion-sort/</loc>
+    <loc>https://creworkg.github.io/categories/algorithm/selection-sort/</loc>
     <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/algorithm/selection-sort/</loc>
+    <loc>https://creworkg.github.io/categories/algorithm/insertion-sort/</loc>
     <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
