@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HEXO Usage</title>
+    <url>/2022/09/13/HEXO-Usage/</url>
+    <content><![CDATA[<p><a href="https://hexo.io/zh-cn/docs/writing">Hexo Usage</a></p>
+<p><a href="https://github.com/cofess/hexo-theme-pure/blob/master/README.cn.md">Hexo-theme-pure config</a></p>
+<p><a href="https://theme-next.js.org/docs/">Theme Next Doc</a></p>
+]]></content>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ROS-Robotic Operating System</title>
+    <url>/2023/03/01/ROS-Robotic-Operating-System/</url>
+    <content><![CDATA[<p>ROS是一个专门针对机器人开发而开发的操作系统，表面上看，是一个系统，实际上是一个工具集合，依托于Linux等主流操作，它提供了可视化功能(如rviz)，使得开发和调试变得容易。</p>
+<span id="more"></span>
+<p>ROS最主要的是解决了进程间通信问题，你可能会问，进程间通信不是操作系统标配吗？为什么还要有ROS，实际上可以认为ROS是对系统调用的进一步封装，简化了应用创建。</p>
+<p>ROS底层采用DDS(data destribution service)作为通信中间件，而DDS采用TCP&#x2F;IP和共享内存等方法，不光使得同一个主机上的不通节点可以相互通信，而且可以使得不通主机的节点也能相互通信。ROS提供了做种通信方式：publisher&#x2F;subscriber, c&#x2F;s等等。</p>
+<p>在构建应用的时候，可以尝试用ROS，官方网站有详细的教程：<br><a href="https://docs.ros.org/en/foxy/index.html">https://docs.ros.org/en/foxy/index.html</a></p>
+<p>我在上学的时候，使用的是ROS1，那时候ROS2还不成熟，现在已经很成熟了，直接上手ROS2吧。</p>
+]]></content>
+      <categories>
+        <category>ros</category>
+        <category>introduction</category>
+      </categories>
+      <tags>
+        <tag>ros</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Singleton</title>
+    <url>/2023/02/19/Singleton/</url>
+    <content><![CDATA[<p>单例模式在生产中的使用频率非常的高，也很简单，要满足两个要点：</p>
+<ol>
+<li>必须自己创建自己</li>
+<li>必须向整个系统提供自己</li>
+</ol>
+<p>实现单例模式的方法有很多，本文实现一个最简洁的版本，Meyers’ Singleton。</p>
+<span id="more"></span>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>();</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    Singleton&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    ~<span class="built_in">Singleton</span>();</span><br><span class="line">    <span class="function"><span class="type">static</span> shared_ptr&lt;Singleton&gt;&amp; <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> <span class="type">static</span> instance = <span class="built_in">shared_ptr</span>&lt;Singleton&gt;(<span class="keyword">new</span> <span class="built_in">Singleton</span>());</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton::<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton::~<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton destructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> singlton = Singleton::<span class="built_in">getInstance</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>design pattern</category>
+        <category>Singleton</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>a++和++a的区别</title>
+    <url>/2023/02/19/a++%E5%92%8C++a%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>对以下代码进行汇编，然后查看汇编：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    a++;</span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">    ++a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h1 id="x86-64汇编"><a href="#x86-64汇编" class="headerlink" title="x86-64汇编"></a>x86-64汇编</h1><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">main:</span></span><br><span class="line">        <span class="keyword">push</span>    <span class="built_in">rbp</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">rbp</span>, <span class="built_in">rsp</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">2</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">pop</span>     <span class="built_in">rbp</span></span><br><span class="line">        <span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
+<h1 id="arm汇编"><a href="#arm汇编" class="headerlink" title="arm汇编"></a>arm汇编</h1><figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">main:</span></span><br><span class="line">        <span class="keyword">push</span>    &#123;<span class="built_in">r7</span>&#125;</span><br><span class="line">        <span class="keyword">sub</span>     <span class="built_in">sp</span>, <span class="built_in">sp</span>, <span class="number">#12</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">r7</span>, <span class="built_in">sp</span>, <span class="number">#0</span></span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#1</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r3</span>, <span class="built_in">r3</span>, <span class="number">#1</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#2</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r3</span>, <span class="built_in">r3</span>, <span class="number">#1</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#0</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">r0</span>, <span class="built_in">r3</span></span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r7</span>, <span class="built_in">r7</span>, <span class="number">#12</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">sp</span>, <span class="built_in">r7</span></span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r7</span>, [<span class="built_in">sp</span>], <span class="number">#4</span></span><br><span class="line">        <span class="keyword">bx</span>      <span class="built_in">lr</span></span><br></pre></td></tr></table></figure>
+<h1 id="用来赋值"><a href="#用来赋值" class="headerlink" title="用来赋值"></a>用来赋值</h1><p>发现并没有区别，用它来赋值：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line">    b = a++;</span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">    b = ++a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">main:</span></span><br><span class="line">        <span class="keyword">push</span>    &#123;<span class="built_in">r7</span>&#125;</span><br><span class="line">        <span class="keyword">sub</span>     <span class="built_in">sp</span>, <span class="built_in">sp</span>, <span class="number">#12</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">r7</span>, <span class="built_in">sp</span>, <span class="number">#0</span></span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#1</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// a = 1</span></span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#3</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>]      <span class="comment">// b = 2</span></span><br><span class="line">        <span class="comment">///////////////////////////////////////</span></span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// r3 = a</span></span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r2</span>, <span class="built_in">r3</span>, <span class="number">#1</span>    <span class="comment">// r2 = a + 1 = 2</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r2</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// store a</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>]      <span class="comment">// b = a = 2</span></span><br><span class="line">        <span class="comment">///////////////////////////////////////</span></span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#2</span>        <span class="comment">// </span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// a = 2</span></span><br><span class="line">        <span class="comment">///////////////////////////////////////</span></span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// r3 = 2</span></span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r3</span>, <span class="built_in">r3</span>, <span class="number">#1</span>    <span class="comment">// r3 = r3 + 1 = 3</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// a = 3</span></span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// r3 = a = 3</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>]      <span class="comment">// b = 3</span></span><br><span class="line">        <span class="comment">///////////////////////////////////////</span></span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#0</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">r0</span>, <span class="built_in">r3</span></span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r7</span>, <span class="built_in">r7</span>, <span class="number">#12</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">sp</span>, <span class="built_in">r7</span></span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r7</span>, [<span class="built_in">sp</span>], <span class="number">#4</span></span><br><span class="line">        <span class="keyword">bx</span>      <span class="built_in">lr</span></span><br></pre></td></tr></table></figure>
+<p>会发现其实在arm cpu中，++a反而要多操作一次内存。而在x86-64的机器上++a会少一条指令。</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">main:</span></span><br><span class="line">        <span class="keyword">push</span>    <span class="built_in">rbp</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">rbp</span>, <span class="built_in">rsp</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">8</span>], <span class="number">3</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>]</span><br><span class="line">        <span class="keyword">lea</span>     <span class="built_in">edx</span>, [<span class="built_in">rax</span>+<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="built_in">edx</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">8</span>], <span class="built_in">eax</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">2</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>]</span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">8</span>], <span class="built_in">eax</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">pop</span>     <span class="built_in">rbp</span></span><br><span class="line">        <span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>c/cpp</category>
+      </categories>
+      <tags>
+        <tag>c/cpp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ZEN</title>
     <url>/2022/09/10/ZEN/</url>
     <content><![CDATA[<p>当你做某件事的时候，一旦想要求快，就表示你在也不关心它，只想去做别的事。<br><em>《禅与摩托车维修艺术》</em></p>
@@ -34,60 +101,11 @@
       </tags>
   </entry>
   <entry>
-    <title>Singleton</title>
-    <url>/2023/02/19/Singleton/</url>
-    <content><![CDATA[<p>单例模式在生产中的使用频率非常的高，也很简单，要满足两个要点：</p>
-<ol>
-<li>必须自己创建自己</li>
-<li>必须向整个系统提供自己</li>
-</ol>
-<p>实现单例模式的方法有很多，本文实现一个最简洁的版本，Meyers’ Singleton。</p>
-<span id="more"></span>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>();</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    Singleton&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    ~<span class="built_in">Singleton</span>();</span><br><span class="line">    <span class="function"><span class="type">static</span> shared_ptr&lt;Singleton&gt;&amp; <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> <span class="type">static</span> instance = <span class="built_in">shared_ptr</span>&lt;Singleton&gt;(<span class="keyword">new</span> <span class="built_in">Singleton</span>());</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton::<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton::~<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton destructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> singlton = Singleton::<span class="built_in">getInstance</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>design pattern</category>
-        <category>Singleton</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>HEXO Usage</title>
-    <url>/2022/09/13/HEXO-Usage/</url>
-    <content><![CDATA[<p><a href="https://hexo.io/zh-cn/docs/writing">Hexo Usage</a></p>
-<p><a href="https://github.com/cofess/hexo-theme-pure/blob/master/README.cn.md">Hexo-theme-pure config</a></p>
-<p><a href="https://theme-next.js.org/docs/">Theme Next Doc</a></p>
-]]></content>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>bazel入门-External Dependencies</title>
     <url>/2022/10/31/bazel%E5%85%A5%E9%97%A8-External-Dependencies/</url>
     <content><![CDATA[<p>介绍bazel中共享变量的使用方法，参见bazel官方文档：<br><a href="https://bazel.build/build/external">https://bazel.build/build/external</a></p>
 <span id="more"></span>
 <h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1>]]></content>
-  </entry>
-  <entry>
-    <title>a++和++a的区别</title>
-    <url>/2023/02/19/a++%E5%92%8C++a%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p>对以下代码进行汇编，然后查看汇编：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    a++;</span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">    ++a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h1 id="x86-64汇编"><a href="#x86-64汇编" class="headerlink" title="x86-64汇编"></a>x86-64汇编</h1><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">main:</span></span><br><span class="line">        <span class="keyword">push</span>    <span class="built_in">rbp</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">rbp</span>, <span class="built_in">rsp</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">2</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">pop</span>     <span class="built_in">rbp</span></span><br><span class="line">        <span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
-<h1 id="arm汇编"><a href="#arm汇编" class="headerlink" title="arm汇编"></a>arm汇编</h1><figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">main:</span></span><br><span class="line">        <span class="keyword">push</span>    &#123;<span class="built_in">r7</span>&#125;</span><br><span class="line">        <span class="keyword">sub</span>     <span class="built_in">sp</span>, <span class="built_in">sp</span>, <span class="number">#12</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">r7</span>, <span class="built_in">sp</span>, <span class="number">#0</span></span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#1</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r3</span>, <span class="built_in">r3</span>, <span class="number">#1</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#2</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r3</span>, <span class="built_in">r3</span>, <span class="number">#1</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]</span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#0</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">r0</span>, <span class="built_in">r3</span></span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r7</span>, <span class="built_in">r7</span>, <span class="number">#12</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">sp</span>, <span class="built_in">r7</span></span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r7</span>, [<span class="built_in">sp</span>], <span class="number">#4</span></span><br><span class="line">        <span class="keyword">bx</span>      <span class="built_in">lr</span></span><br></pre></td></tr></table></figure>
-<h1 id="用来赋值"><a href="#用来赋值" class="headerlink" title="用来赋值"></a>用来赋值</h1><p>发现并没有区别，用它来赋值：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line">    b = a++;</span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">    b = ++a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">main:</span></span><br><span class="line">        <span class="keyword">push</span>    &#123;<span class="built_in">r7</span>&#125;</span><br><span class="line">        <span class="keyword">sub</span>     <span class="built_in">sp</span>, <span class="built_in">sp</span>, <span class="number">#12</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">r7</span>, <span class="built_in">sp</span>, <span class="number">#0</span></span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#1</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// a = 1</span></span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#3</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>]      <span class="comment">// b = 2</span></span><br><span class="line">        <span class="comment">///////////////////////////////////////</span></span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// r3 = a</span></span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r2</span>, <span class="built_in">r3</span>, <span class="number">#1</span>    <span class="comment">// r2 = a + 1 = 2</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r2</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// store a</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>]      <span class="comment">// b = a = 2</span></span><br><span class="line">        <span class="comment">///////////////////////////////////////</span></span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#2</span>        <span class="comment">// </span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// a = 2</span></span><br><span class="line">        <span class="comment">///////////////////////////////////////</span></span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// r3 = 2</span></span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r3</span>, <span class="built_in">r3</span>, <span class="number">#1</span>    <span class="comment">// r3 = r3 + 1 = 3</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// a = 3</span></span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>, <span class="number">#4</span>]  <span class="comment">// r3 = a = 3</span></span><br><span class="line">        <span class="keyword">str</span>     <span class="built_in">r3</span>, [<span class="built_in">r7</span>]      <span class="comment">// b = 3</span></span><br><span class="line">        <span class="comment">///////////////////////////////////////</span></span><br><span class="line">        <span class="keyword">movs</span>    <span class="built_in">r3</span>, <span class="number">#0</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">r0</span>, <span class="built_in">r3</span></span><br><span class="line">        <span class="keyword">adds</span>    <span class="built_in">r7</span>, <span class="built_in">r7</span>, <span class="number">#12</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">sp</span>, <span class="built_in">r7</span></span><br><span class="line">        <span class="keyword">ldr</span>     <span class="built_in">r7</span>, [<span class="built_in">sp</span>], <span class="number">#4</span></span><br><span class="line">        <span class="keyword">bx</span>      <span class="built_in">lr</span></span><br></pre></td></tr></table></figure>
-<p>会发现其实在arm cpu中，++a反而要多操作一次内存。而在x86-64的机器上++a会少一条指令。</p>
-<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">main:</span></span><br><span class="line">        <span class="keyword">push</span>    <span class="built_in">rbp</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">rbp</span>, <span class="built_in">rsp</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">8</span>], <span class="number">3</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>]</span><br><span class="line">        <span class="keyword">lea</span>     <span class="built_in">edx</span>, [<span class="built_in">rax</span>+<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="built_in">edx</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">8</span>], <span class="built_in">eax</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">2</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">4</span>]</span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">8</span>], <span class="built_in">eax</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">pop</span>     <span class="built_in">rbp</span></span><br><span class="line">        <span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>c/cpp</category>
-      </categories>
-      <tags>
-        <tag>c/cpp</tag>
-      </tags>
   </entry>
   <entry>
     <title>bazel入门-Sharing Variables</title>
@@ -107,6 +125,20 @@
 <p>Then, you can update your BUILD files to access the variable:</p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line">load(<span class="string">&quot;//path/to:variables.bzl&quot;</span>, <span class="string">&quot;COPTS&quot;</span>)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;foo.cc&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = <span class="string">&quot;bar&quot;</span>,</span><br><span class="line">  copts = COPTS,</span><br><span class="line">  srcs = [<span class="string">&quot;bar.cc&quot;</span>],</span><br><span class="line">  deps = [<span class="string">&quot;:foo&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 ]]></content>
+  </entry>
+  <entry>
+    <title>insertion sort</title>
+    <url>/2023/02/20/insertion-sort/</url>
+    <content><![CDATA[<p>插入排序的时间复杂度也是O(n^2^), 空间复杂度O(1), 和冒泡排序的特性几乎一样，但是比冒泡排序要快一些。</p>
+<span id="more"></span>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">insert_sort</span><span class="params">(<span class="type">int8_t</span>* <span class="built_in">array</span>, <span class="type">size_t</span> size)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">1</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="type">int8_t</span> val = <span class="built_in">array</span>[i];</span><br><span class="line">        <span class="type">int8_t</span> j = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[j] &gt; val) &#123;</span><br><span class="line">                <span class="built_in">array</span>[j + <span class="number">1</span>] = <span class="built_in">array</span>[j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">array</span>[j + <span class="number">1</span>] = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">print_array</span><span class="params">(<span class="type">const</span> <span class="type">int8_t</span> *<span class="built_in">array</span>, <span class="type">uint32_t</span> len)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, <span class="built_in">array</span>[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int8_t</span> <span class="built_in">array</span>[] = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">9</span> , <span class="number">-2</span>, <span class="number">83</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">20</span>, <span class="number">57</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    insert_sort(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    print_array(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>algorithm</category>
+        <category>insertion sort</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
   </entry>
   <entry>
     <title>bubble sort</title>
@@ -132,30 +164,6 @@
       <tags>
         <tag>algorithm</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>insertion sort</title>
-    <url>/2023/02/20/insertion-sort/</url>
-    <content><![CDATA[<p>插入排序的时间复杂度也是O(n^2^), 空间复杂度O(1), 和冒泡排序的特性几乎一样，但是比冒泡排序要快一些。</p>
-<span id="more"></span>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">insert_sort</span><span class="params">(<span class="type">int8_t</span>* <span class="built_in">array</span>, <span class="type">size_t</span> size)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">1</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="type">int8_t</span> val = <span class="built_in">array</span>[i];</span><br><span class="line">        <span class="type">int8_t</span> j = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[j] &gt; val) &#123;</span><br><span class="line">                <span class="built_in">array</span>[j + <span class="number">1</span>] = <span class="built_in">array</span>[j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">array</span>[j + <span class="number">1</span>] = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">print_array</span><span class="params">(<span class="type">const</span> <span class="type">int8_t</span> *<span class="built_in">array</span>, <span class="type">uint32_t</span> len)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, <span class="built_in">array</span>[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int8_t</span> <span class="built_in">array</span>[] = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">9</span> , <span class="number">-2</span>, <span class="number">83</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">20</span>, <span class="number">57</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    insert_sort(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    print_array(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>algorithm</category>
-        <category>insertion sort</category>
-      </categories>
-      <tags>
-        <tag>algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux proxy</title>
-    <url>/2022/10/31/linux-proxy/</url>
-    <content><![CDATA[<p>使用git等下载资源的时候，需要设置代理提高网速……</p>
-<span id="more"></span>
-
-<h1 id="Linux-让终端走代理的几种方法"><a href="#Linux-让终端走代理的几种方法" class="headerlink" title="Linux 让终端走代理的几种方法"></a>Linux 让终端走代理的几种方法</h1><p><a href="https://zhuanlan.zhihu.com/p/46973701">https://zhuanlan.zhihu.com/p/46973701</a></p>
-<h1 id="Apt安装软件不更换源的方法"><a href="#Apt安装软件不更换源的方法" class="headerlink" title="Apt安装软件不更换源的方法"></a>Apt安装软件不更换源的方法</h1><p><a href="https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/">https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/</a></p>
-]]></content>
   </entry>
   <entry>
     <title>freeRTOS-调度器切换线程过程分析</title>
@@ -191,7 +199,7 @@
 <p>除了systick定时器会切换线程外，其他操作比如任务阻塞、延时等也会造成任务切换。</p>
 <p><em>未完待续……</em></p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#101;&#97;&#116;&#x69;&#x76;&#101;&#46;&#x77;&#x6f;&#114;&#x6b;&#x2e;&#x67;&#x40;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x63;&#x72;&#101;&#97;&#116;&#x69;&#x76;&#101;&#46;&#x77;&#x6f;&#114;&#x6b;&#x2e;&#x67;&#x40;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#x65;&#97;&#x74;&#x69;&#x76;&#x65;&#46;&#119;&#x6f;&#x72;&#107;&#x2e;&#x67;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#99;&#x72;&#x65;&#97;&#x74;&#x69;&#x76;&#x65;&#46;&#119;&#x6f;&#x72;&#107;&#x2e;&#x67;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -257,7 +265,7 @@
 
 <p>请求 <code>PendSV</code>中断，线程就是在这个中断中切换的。</p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#x65;&#x61;&#116;&#105;&#x76;&#101;&#x2e;&#119;&#111;&#114;&#x6b;&#x2e;&#x67;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x63;&#x72;&#x65;&#x61;&#116;&#105;&#x76;&#101;&#x2e;&#119;&#111;&#114;&#x6b;&#x2e;&#x67;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#x65;&#97;&#116;&#x69;&#118;&#101;&#x2e;&#119;&#111;&#114;&#107;&#x2e;&#x67;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x63;&#x72;&#x65;&#97;&#116;&#x69;&#118;&#101;&#x2e;&#119;&#111;&#114;&#107;&#x2e;&#x67;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -267,6 +275,16 @@
       <tags>
         <tag>rtos</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>linux proxy</title>
+    <url>/2022/10/31/linux-proxy/</url>
+    <content><![CDATA[<p>使用git等下载资源的时候，需要设置代理提高网速……</p>
+<span id="more"></span>
+
+<h1 id="Linux-让终端走代理的几种方法"><a href="#Linux-让终端走代理的几种方法" class="headerlink" title="Linux 让终端走代理的几种方法"></a>Linux 让终端走代理的几种方法</h1><p><a href="https://zhuanlan.zhihu.com/p/46973701">https://zhuanlan.zhihu.com/p/46973701</a></p>
+<h1 id="Apt安装软件不更换源的方法"><a href="#Apt安装软件不更换源的方法" class="headerlink" title="Apt安装软件不更换源的方法"></a>Apt安装软件不更换源的方法</h1><p><a href="https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/">https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/</a></p>
+]]></content>
   </entry>
   <entry>
     <title>reference vs pointer in cpp</title>
@@ -344,60 +362,6 @@
       </tags>
   </entry>
   <entry>
-    <title>什么是企业的核心竞争力</title>
-    <url>/2022/09/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%81%E4%B8%9A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%AB%9E%E4%BA%89%E5%8A%9B/</url>
-    <content><![CDATA[<blockquote>
-<p>你有一只鹅，它每天下一只蛋。你把鹅蛋卖了，每天能赚不少钱。那么，你的鹅每天下的那只蛋，是你的核心竞争力吗？</p>
-<p>当然不是。鹅蛋从来不是核心竞争力，那只鹅才是。</p>
-<p>你的一个个产品，就是一只只鹅蛋。他们只是结果。它们不是核心竞争力，你为什么能做出这些产品，才是你的核心竞争力。</p>
-<p>比如，你有一个打磨了无数次的做产品的独特流程？你创造了一种员工极度负责、眼睛里容不下一个bug的文化？你有一支投入了5年，一直研究底层技术的团队？你的设计师团队，每年去20个国家采风？</p>
-<p>这些才是你的核心竞争力，是这些东西，让你源源不断下蛋，产生新产品。</p>
-<p>找到这些东西，然后把它们提炼出来，当做珍宝一样保护起来，不断的训练它们，直到别人无法超越，然后复制到每件产品上去。</p>
-<p><em>刘润</em></p>
-</blockquote>
-<p>很多科技型公司并不重视技术，他们只重视技术带来的产品，产品带来的利润。</p>
-<p>企业作终是要盈利的，不盈利就存不下去，这个逻辑看似没错，但是存在严重的问题。</p>
-<p>假如你去购买一个彩电，你大概不希望彩电里的电路板上全是灰尘，导线全部搅在一起，乱七八糟，有时候电视剧播放得好好的，屏幕突然不亮了，你不得不用大力金刚掌拍一下电视机，把画面拍出来……</p>
-<p>公司研发一款产品，不能只看产品的样貌，更重要的是产品背后的技术。如果研发产品时走的是“野路子”，后期维护起来可能相当麻烦。产品最多也只能算是”金玉其外，败絮其中“。</p>
-<p>看得见的是产品的外观、触感、重量，看不见的是其背后的电路、代码的设计与实现，而这些消费者看不见的东西，才真正地反映了公司的核心竞争力。</p>
-<p>最后引用乔布斯的一句话：</p>
-<p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
-<blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#101;&#97;&#x74;&#105;&#x76;&#x65;&#x2e;&#x77;&#x6f;&#114;&#107;&#46;&#x67;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#x63;&#114;&#101;&#97;&#x74;&#105;&#x76;&#x65;&#x2e;&#x77;&#x6f;&#114;&#107;&#46;&#x67;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a><br>欢迎交流学习！</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>zen</category>
-        <category>thoughts</category>
-      </categories>
-      <tags>
-        <tag>zen</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>排查Bugs的一般方法总结</title>
-    <url>/2023/02/27/%E6%8E%92%E6%9F%A5Bugs%E7%9A%84%E4%B8%80%E8%88%AC%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="变量未初始化"><a href="#变量未初始化" class="headerlink" title="变量未初始化"></a>变量未初始化</h1><p>局部变量，包括类内变量，需要初始化，不然程序的表现可能很“玄学”， 就是程序的行为不确定。</p>
-<span id="more"></span>
-<h1 id="段错误"><a href="#段错误" class="headerlink" title="段错误"></a>段错误</h1><p>导致这种情况的出现原因，一般有以下几种：</p>
-<ol>
-<li>空指针</li>
-<li>野指针</li>
-<li>容器越界</li>
-</ol>
-<p>总得讲，就是访问了没有权限访问的地址。</p>
-<h1 id="数值溢出"><a href="#数值溢出" class="headerlink" title="数值溢出"></a>数值溢出</h1><p>比如<code>unsigned char</code>类型的变量最大只能存255，在往上加1，就会变成0.</p>
-<h1 id="逻辑错误"><a href="#逻辑错误" class="headerlink" title="逻辑错误"></a>逻辑错误</h1><p>逻辑分为业务逻辑和数据逻辑，如果表现不一致，就随着程序跟一编，具体问题，具体分析。</p>
-<p><font color=bule><em>to be continued…</em></font></p>
-]]></content>
-      <categories>
-        <category>debug</category>
-      </categories>
-      <tags>
-        <tag>debug</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>WISDOM</title>
     <url>/2022/09/10/wisdom/</url>
     <content><![CDATA[<ul>
@@ -435,6 +399,60 @@
       </categories>
       <tags>
         <tag>zen</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>什么是企业的核心竞争力</title>
+    <url>/2022/09/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%81%E4%B8%9A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%AB%9E%E4%BA%89%E5%8A%9B/</url>
+    <content><![CDATA[<blockquote>
+<p>你有一只鹅，它每天下一只蛋。你把鹅蛋卖了，每天能赚不少钱。那么，你的鹅每天下的那只蛋，是你的核心竞争力吗？</p>
+<p>当然不是。鹅蛋从来不是核心竞争力，那只鹅才是。</p>
+<p>你的一个个产品，就是一只只鹅蛋。他们只是结果。它们不是核心竞争力，你为什么能做出这些产品，才是你的核心竞争力。</p>
+<p>比如，你有一个打磨了无数次的做产品的独特流程？你创造了一种员工极度负责、眼睛里容不下一个bug的文化？你有一支投入了5年，一直研究底层技术的团队？你的设计师团队，每年去20个国家采风？</p>
+<p>这些才是你的核心竞争力，是这些东西，让你源源不断下蛋，产生新产品。</p>
+<p>找到这些东西，然后把它们提炼出来，当做珍宝一样保护起来，不断的训练它们，直到别人无法超越，然后复制到每件产品上去。</p>
+<p><em>刘润</em></p>
+</blockquote>
+<p>很多科技型公司并不重视技术，他们只重视技术带来的产品，产品带来的利润。</p>
+<p>企业作终是要盈利的，不盈利就存不下去，这个逻辑看似没错，但是存在严重的问题。</p>
+<p>假如你去购买一个彩电，你大概不希望彩电里的电路板上全是灰尘，导线全部搅在一起，乱七八糟，有时候电视剧播放得好好的，屏幕突然不亮了，你不得不用大力金刚掌拍一下电视机，把画面拍出来……</p>
+<p>公司研发一款产品，不能只看产品的样貌，更重要的是产品背后的技术。如果研发产品时走的是“野路子”，后期维护起来可能相当麻烦。产品最多也只能算是”金玉其外，败絮其中“。</p>
+<p>看得见的是产品的外观、触感、重量，看不见的是其背后的电路、代码的设计与实现，而这些消费者看不见的东西，才真正地反映了公司的核心竞争力。</p>
+<p>最后引用乔布斯的一句话：</p>
+<p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
+<blockquote>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#x65;&#97;&#116;&#x69;&#118;&#101;&#x2e;&#x77;&#x6f;&#114;&#107;&#46;&#103;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x63;&#114;&#x65;&#97;&#116;&#x69;&#118;&#101;&#x2e;&#x77;&#x6f;&#114;&#107;&#46;&#103;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a><br>欢迎交流学习！</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>zen</category>
+        <category>thoughts</category>
+      </categories>
+      <tags>
+        <tag>zen</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>排查Bugs的一般方法总结</title>
+    <url>/2023/02/27/%E6%8E%92%E6%9F%A5Bugs%E7%9A%84%E4%B8%80%E8%88%AC%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="变量未初始化"><a href="#变量未初始化" class="headerlink" title="变量未初始化"></a>变量未初始化</h1><p>局部变量，包括类内变量，需要初始化，不然程序的表现可能很“玄学”， 就是程序的行为不确定。</p>
+<span id="more"></span>
+<h1 id="段错误"><a href="#段错误" class="headerlink" title="段错误"></a>段错误</h1><p>导致这种情况的出现原因，一般有以下几种：</p>
+<ol>
+<li>空指针</li>
+<li>野指针</li>
+<li>容器越界</li>
+</ol>
+<p>总得讲，就是访问了没有权限访问的地址。</p>
+<h1 id="数值溢出"><a href="#数值溢出" class="headerlink" title="数值溢出"></a>数值溢出</h1><p>比如<code>unsigned char</code>类型的变量最大只能存255，在往上加1，就会变成0.</p>
+<h1 id="逻辑错误"><a href="#逻辑错误" class="headerlink" title="逻辑错误"></a>逻辑错误</h1><p>逻辑分为业务逻辑和数据逻辑，如果表现不一致，就随着程序跟一编，具体问题，具体分析。</p>
+<p><font color=bule><em>to be continued…</em></font></p>
+]]></content>
+      <categories>
+        <category>debug</category>
+      </categories>
+      <tags>
+        <tag>debug</tag>
       </tags>
   </entry>
   <entry>
