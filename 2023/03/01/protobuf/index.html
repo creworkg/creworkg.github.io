@@ -30,7 +30,7 @@
 <meta property="og:description" content="protobuf 是一种IDL语言，用户定义好proto文件，然后交给编译器去编译，就能得到一个类，这个类实际上就是proto文件中的message，有多少个message，就会产生多少个对应的同名类，并且这些类会包含一系列操作成员变量的方法，这些方法是protobuf预先定义好的。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-01T12:56:22.000Z">
-<meta property="article:modified_time" content="2023-03-01T13:17:26.002Z">
+<meta property="article:modified_time" content="2023-03-01T13:20:22.332Z">
 <meta property="article:author" content="Seeker">
 <meta property="article:tag" content="idl">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2023-03-01 20:56:22 / Modified: 21:17:26" itemprop="dateCreated datePublished" datetime="2023-03-01T20:56:22+08:00">2023-03-01</time>
+              <time title="Created: 2023-03-01 20:56:22 / Modified: 21:20:22" itemprop="dateCreated datePublished" datetime="2023-03-01T20:56:22+08:00">2023-03-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,7 +248,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>205</span>
+              <span>321</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -274,6 +274,7 @@
 <h1 id="main-cpp"><a href="#main-cpp" class="headerlink" title="main.cpp"></a>main.cpp</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;test.pb.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> test;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line">    Man John;</span><br><span class="line">    John.<span class="built_in">set_name</span>(<span class="string">&quot;John&quot;</span>);</span><br><span class="line">    John.<span class="built_in">set_age</span>(<span class="number">30</span>);</span><br><span class="line">    <span class="keyword">auto</span> boy = John.<span class="built_in">add_boy</span>();</span><br><span class="line">    boy-&gt;<span class="built_in">set_name</span>(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">    boy-&gt;<span class="built_in">set_age</span>(<span class="number">12</span>);</span><br><span class="line">    boy-&gt;<span class="built_in">set_score</span>(<span class="number">100</span>);</span><br><span class="line">    cout &lt;&lt; John.<span class="built_in">DebugString</span>().<span class="built_in">c_str</span>() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ ./test-protobuf </span><br><span class="line">hello world</span><br><span class="line">name: <span class="string">&quot;John&quot;</span></span><br><span class="line">age: 30</span><br><span class="line">boy &#123;</span><br><span class="line">  name: <span class="string">&quot;Jack&quot;</span></span><br><span class="line">  age: 12</span><br><span class="line">  score: 100</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>protobuf具备序列化和反序列化的功能，常被用在通信等领域。</p>
+<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><p><a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/module/FindProtobuf.html">https://cmake.org/cmake/help/latest/module/FindProtobuf.html</a><br><a target="_blank" rel="noopener" href="https://protobuf.dev/programming-guides/proto3/">https://protobuf.dev/programming-guides/proto3/</a></p>
 
     </div>
 
@@ -354,7 +355,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#test-proto"><span class="nav-number">1.</span> <span class="nav-text">test.proto</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CMakeLists"><span class="nav-number">2.</span> <span class="nav-text">CMakeLists</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#main-cpp"><span class="nav-number">3.</span> <span class="nav-text">main.cpp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BA"><span class="nav-number">4.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">应用</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#test-proto"><span class="nav-number">1.</span> <span class="nav-text">test.proto</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CMakeLists"><span class="nav-number">2.</span> <span class="nav-text">CMakeLists</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#main-cpp"><span class="nav-number">3.</span> <span class="nav-text">main.cpp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BA"><span class="nav-number">4.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reference"><span class="nav-number">6.</span> <span class="nav-text">reference</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

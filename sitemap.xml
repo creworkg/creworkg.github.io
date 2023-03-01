@@ -209,13 +209,6 @@
 
   
   <url>
-    <loc>https://creworkg.github.io/tags/rtos/</loc>
-    <lastmod>2023-03-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://creworkg.github.io/tags/zen/</loc>
     <lastmod>2023-03-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -244,6 +237,13 @@
   </url>
   
   <url>
+    <loc>https://creworkg.github.io/tags/rtos/</loc>
+    <lastmod>2023-03-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://creworkg.github.io/tags/idl/</loc>
     <lastmod>2023-03-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -260,28 +260,7 @@
 
   
   <url>
-    <loc>https://creworkg.github.io/categories/rtos/</loc>
-    <lastmod>2023-03-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://creworkg.github.io/categories/zen/</loc>
-    <lastmod>2023-03-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://creworkg.github.io/categories/zen/thoughts/</loc>
-    <lastmod>2023-03-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://creworkg.github.io/categories/c-cpp/</loc>
     <lastmod>2023-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -295,14 +274,7 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/algorithm/</loc>
-    <lastmod>2023-03-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://creworkg.github.io/categories/rtos/task-create/</loc>
+    <loc>https://creworkg.github.io/categories/c-cpp/</loc>
     <lastmod>2023-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -316,14 +288,14 @@
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/rtos/sheduler-context-switch/</loc>
+    <loc>https://creworkg.github.io/categories/algorithm/</loc>
     <lastmod>2023-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://creworkg.github.io/categories/algorithm/bubble-sort/</loc>
+    <loc>https://creworkg.github.io/categories/rtos/</loc>
     <lastmod>2023-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -331,6 +303,13 @@
   
   <url>
     <loc>https://creworkg.github.io/categories/third-party/</loc>
+    <lastmod>2023-03-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://creworkg.github.io/categories/algorithm/bubble-sort/</loc>
     <lastmod>2023-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -351,7 +330,28 @@
   </url>
   
   <url>
+    <loc>https://creworkg.github.io/categories/zen/thoughts/</loc>
+    <lastmod>2023-03-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://creworkg.github.io/categories/debug/</loc>
+    <lastmod>2023-03-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://creworkg.github.io/categories/rtos/sheduler-context-switch/</loc>
+    <lastmod>2023-03-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://creworkg.github.io/categories/rtos/task-create/</loc>
     <lastmod>2023-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
