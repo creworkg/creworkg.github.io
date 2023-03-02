@@ -101,13 +101,6 @@
       </tags>
   </entry>
   <entry>
-    <title>bazel入门-External Dependencies</title>
-    <url>/2022/10/31/bazel%E5%85%A5%E9%97%A8-External-Dependencies/</url>
-    <content><![CDATA[<p>介绍bazel中共享变量的使用方法，参见bazel官方文档：<br><a href="https://bazel.build/build/external">https://bazel.build/build/external</a></p>
-<span id="more"></span>
-<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1>]]></content>
-  </entry>
-  <entry>
     <title>bazel入门-Sharing Variables</title>
     <url>/2022/10/31/bazel%E5%85%A5%E9%97%A8-Sharing%20Variables/</url>
     <content><![CDATA[<p>介绍bazel中共享变量的使用方法，参见bazel官方文档：<br><a href="https://bazel.build/build/share-variables">https://bazel.build/build/share-variables</a></p>
@@ -150,6 +143,13 @@
       <tags>
         <tag>algorithm</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>bazel入门-External Dependencies</title>
+    <url>/2022/10/31/bazel%E5%85%A5%E9%97%A8-External-Dependencies/</url>
+    <content><![CDATA[<p>介绍bazel中共享变量的使用方法，参见bazel官方文档：<br><a href="https://bazel.build/build/external">https://bazel.build/build/external</a></p>
+<span id="more"></span>
+<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1>]]></content>
   </entry>
   <entry>
     <title>freeRTOS-任务创建过程分析</title>
@@ -206,7 +206,7 @@
 
 <p>请求 <code>PendSV</code>中断，线程就是在这个中断中切换的。</p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#101;&#x61;&#x74;&#105;&#118;&#x65;&#x2e;&#119;&#x6f;&#x72;&#x6b;&#x2e;&#x67;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x63;&#114;&#101;&#x61;&#x74;&#105;&#118;&#x65;&#x2e;&#119;&#x6f;&#x72;&#x6b;&#x2e;&#x67;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#x65;&#97;&#116;&#x69;&#118;&#x65;&#46;&#119;&#111;&#x72;&#107;&#46;&#103;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#99;&#x72;&#x65;&#97;&#116;&#x69;&#118;&#x65;&#46;&#119;&#111;&#x72;&#107;&#46;&#103;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -265,7 +265,7 @@
 <p>除了systick定时器会切换线程外，其他操作比如任务阻塞、延时等也会造成任务切换。</p>
 <p><em>未完待续……</em></p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#101;&#x61;&#116;&#x69;&#118;&#101;&#x2e;&#x77;&#x6f;&#x72;&#107;&#46;&#x67;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#99;&#x72;&#101;&#x61;&#116;&#x69;&#118;&#101;&#x2e;&#x77;&#x6f;&#x72;&#107;&#46;&#x67;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#101;&#x61;&#116;&#x69;&#118;&#x65;&#x2e;&#119;&#111;&#114;&#107;&#46;&#x67;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#x63;&#x72;&#101;&#x61;&#116;&#x69;&#118;&#x65;&#x2e;&#119;&#111;&#114;&#107;&#46;&#x67;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -274,23 +274,6 @@
       </categories>
       <tags>
         <tag>rtos</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>reference vs pointer in cpp</title>
-    <url>/2023/02/19/reference-vs-pointer-in-cpp/</url>
-    <content><![CDATA[<p>compile code below:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>&amp; num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>* num)</span> </span>&#123; <span class="keyword">return</span> (*num) * (*num); &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>and then you will get the following asm:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">square(int&amp;):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int*):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        mul     r3, r3, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br></pre></td></tr></table></figure>
-<p>as you can see, nothing different between reference and pointer, also, note that passing a pointer or a reference is not always a good choice.</p>
-]]></content>
-      <categories>
-        <category>c/cpp</category>
-      </categories>
-      <tags>
-        <tag>c/cpp</tag>
       </tags>
   </entry>
   <entry>
@@ -324,9 +307,27 @@
       </tags>
   </entry>
   <entry>
+    <title>reference vs pointer in cpp</title>
+    <url>/2023/02/19/reference-vs-pointer-in-cpp/</url>
+    <content><![CDATA[<p>compile code below:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>&amp; num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>* num)</span> </span>&#123; <span class="keyword">return</span> (*num) * (*num); &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>and then you will get the following asm:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">square(int&amp;):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int*):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        mul     r3, r3, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br></pre></td></tr></table></figure>
+<p>as you can see, nothing different between reference and pointer, also, note that passing a pointer or a reference is not always a good choice.</p>
+]]></content>
+      <categories>
+        <category>c/cpp</category>
+      </categories>
+      <tags>
+        <tag>c/cpp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>segmentation fault</title>
     <url>/2023/03/02/segmentation-fault/</url>
     <content><![CDATA[<p>段错误一般是由于MMU的异常引起的，比如解引用一个未初始化的或非法的值的指针。</p>
+<span id="more"></span>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> * p = <span class="number">2</span>;</span><br><span class="line">    *p = <span class="number">17l</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ gcc sigment-fault.c </span><br><span class="line">sigment-fault.c: In <span class="keyword">function</span> ‘main’:</span><br><span class="line">sigment-fault.c:5:15: warning: initialization of ‘int *’ from ‘int’ makes pointer from <span class="built_in">integer</span> without a cast [-Wint-conversion]</span><br><span class="line">    5 |     int * p = 2;</span><br><span class="line">      |               ^</span><br><span class="line">$ ./a.out </span><br><span class="line">Segmentation fault</span><br></pre></td></tr></table></figure>]]></content>
@@ -343,6 +344,61 @@
       </categories>
       <tags>
         <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>typedef</title>
+    <url>/2023/03/01/typedef/</url>
+    <content><![CDATA[<h1 id="typedef-的惯常用法"><a href="#typedef-的惯常用法" class="headerlink" title="typedef 的惯常用法"></a>typedef 的惯常用法</h1><p>给一个声明取一个别名：</p>
+<span id="more"></span>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br></pre></td></tr></table></figure>
+<p>定义一个函数指针：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(* func)</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="和-define的区别"><a href="#和-define的区别" class="headerlink" title="和#define的区别"></a>和#define的区别</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> peach int</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> apple;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int_ptr int *</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> * char_ptr;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> peach i = <span class="number">3</span>; <span class="comment">//right</span></span><br><span class="line">    <span class="type">unsigned</span> apple ii = <span class="number">9</span>; <span class="comment">// error</span></span><br><span class="line">    </span><br><span class="line">    int_ptr a, b; <span class="comment">// a: int *; b: int</span></span><br><span class="line">    char_ptr c, d; <span class="comment">// c: char *; d: char *</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="使用typedef简化定义"><a href="#使用typedef简化定义" class="headerlink" title="使用typedef简化定义"></a>使用typedef简化定义</h1><p>比如一个函数指针，可以通过<code>typedef</code>简化其表示</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> (*signal (<span class="type">int</span> sig, <span class="type">void</span> (*func)(<span class="type">int</span>)))(<span class="type">int</span>);</span><br></pre></td></tr></table></figure>
+<p>这个函数乍一看，很复杂，我们通过<code>typedef</code>简化之后，就一目了然了：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*func)</span> <span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">func <span class="title function_">singal</span> <span class="params">(<span class="type">int</span> sig, func)</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>使用<code>typedef</code>对结构体取别名，那么在声明的时候，就省了一个<code>struct</code>,但是损失了一部分信息，就是说，你看其声明，并不能知道这个声明是一个结构体。实际上，在Linux内核代码中，很少使用<code>typedef</code>。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Apple</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无法直观看出Apple_t到底是什么</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(Apple_t apple)</span>;</span><br><span class="line"><span class="comment">// 显然带struct的声明更加清晰</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(<span class="keyword">struct</span> Apple apple)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>c/cpp</category>
+      </categories>
+      <tags>
+        <tag>c/cpp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>什么是企业的核心竞争力</title>
+    <url>/2022/09/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%81%E4%B8%9A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%AB%9E%E4%BA%89%E5%8A%9B/</url>
+    <content><![CDATA[<blockquote>
+<p>你有一只鹅，它每天下一只蛋。你把鹅蛋卖了，每天能赚不少钱。那么，你的鹅每天下的那只蛋，是你的核心竞争力吗？</p>
+<p>当然不是。鹅蛋从来不是核心竞争力，那只鹅才是。</p>
+<p>你的一个个产品，就是一只只鹅蛋。他们只是结果。它们不是核心竞争力，你为什么能做出这些产品，才是你的核心竞争力。</p>
+<p>比如，你有一个打磨了无数次的做产品的独特流程？你创造了一种员工极度负责、眼睛里容不下一个bug的文化？你有一支投入了5年，一直研究底层技术的团队？你的设计师团队，每年去20个国家采风？</p>
+<p>这些才是你的核心竞争力，是这些东西，让你源源不断下蛋，产生新产品。</p>
+<p>找到这些东西，然后把它们提炼出来，当做珍宝一样保护起来，不断的训练它们，直到别人无法超越，然后复制到每件产品上去。</p>
+<p><em>刘润</em></p>
+</blockquote>
+<p>很多科技型公司并不重视技术，他们只重视技术带来的产品，产品带来的利润。</p>
+<p>企业作终是要盈利的，不盈利就存不下去，这个逻辑看似没错，但是存在严重的问题。</p>
+<p>假如你去购买一个彩电，你大概不希望彩电里的电路板上全是灰尘，导线全部搅在一起，乱七八糟，有时候电视剧播放得好好的，屏幕突然不亮了，你不得不用大力金刚掌拍一下电视机，把画面拍出来……</p>
+<p>公司研发一款产品，不能只看产品的样貌，更重要的是产品背后的技术。如果研发产品时走的是“野路子”，后期维护起来可能相当麻烦。产品最多也只能算是”金玉其外，败絮其中“。</p>
+<p>看得见的是产品的外观、触感、重量，看不见的是其背后的电路、代码的设计与实现，而这些消费者看不见的东西，才真正地反映了公司的核心竞争力。</p>
+<p>最后引用乔布斯的一句话：</p>
+<p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
+<blockquote>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#x65;&#97;&#x74;&#x69;&#118;&#101;&#46;&#119;&#x6f;&#x72;&#107;&#x2e;&#103;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#x63;&#114;&#x65;&#97;&#x74;&#x69;&#118;&#101;&#46;&#119;&#x6f;&#x72;&#107;&#x2e;&#103;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a><br>欢迎交流学习！</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>zen</category>
+        <category>thoughts</category>
+      </categories>
+      <tags>
+        <tag>zen</tag>
       </tags>
   </entry>
   <entry>
@@ -383,61 +439,6 @@
       </categories>
       <tags>
         <tag>zen</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>什么是企业的核心竞争力</title>
-    <url>/2022/09/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%81%E4%B8%9A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%AB%9E%E4%BA%89%E5%8A%9B/</url>
-    <content><![CDATA[<blockquote>
-<p>你有一只鹅，它每天下一只蛋。你把鹅蛋卖了，每天能赚不少钱。那么，你的鹅每天下的那只蛋，是你的核心竞争力吗？</p>
-<p>当然不是。鹅蛋从来不是核心竞争力，那只鹅才是。</p>
-<p>你的一个个产品，就是一只只鹅蛋。他们只是结果。它们不是核心竞争力，你为什么能做出这些产品，才是你的核心竞争力。</p>
-<p>比如，你有一个打磨了无数次的做产品的独特流程？你创造了一种员工极度负责、眼睛里容不下一个bug的文化？你有一支投入了5年，一直研究底层技术的团队？你的设计师团队，每年去20个国家采风？</p>
-<p>这些才是你的核心竞争力，是这些东西，让你源源不断下蛋，产生新产品。</p>
-<p>找到这些东西，然后把它们提炼出来，当做珍宝一样保护起来，不断的训练它们，直到别人无法超越，然后复制到每件产品上去。</p>
-<p><em>刘润</em></p>
-</blockquote>
-<p>很多科技型公司并不重视技术，他们只重视技术带来的产品，产品带来的利润。</p>
-<p>企业作终是要盈利的，不盈利就存不下去，这个逻辑看似没错，但是存在严重的问题。</p>
-<p>假如你去购买一个彩电，你大概不希望彩电里的电路板上全是灰尘，导线全部搅在一起，乱七八糟，有时候电视剧播放得好好的，屏幕突然不亮了，你不得不用大力金刚掌拍一下电视机，把画面拍出来……</p>
-<p>公司研发一款产品，不能只看产品的样貌，更重要的是产品背后的技术。如果研发产品时走的是“野路子”，后期维护起来可能相当麻烦。产品最多也只能算是”金玉其外，败絮其中“。</p>
-<p>看得见的是产品的外观、触感、重量，看不见的是其背后的电路、代码的设计与实现，而这些消费者看不见的东西，才真正地反映了公司的核心竞争力。</p>
-<p>最后引用乔布斯的一句话：</p>
-<p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
-<blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#101;&#x61;&#116;&#105;&#x76;&#x65;&#46;&#119;&#x6f;&#114;&#107;&#46;&#x67;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#x63;&#x72;&#101;&#x61;&#116;&#105;&#x76;&#x65;&#46;&#119;&#x6f;&#114;&#107;&#46;&#x67;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a><br>欢迎交流学习！</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>zen</category>
-        <category>thoughts</category>
-      </categories>
-      <tags>
-        <tag>zen</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>typedef</title>
-    <url>/2023/03/01/typedef/</url>
-    <content><![CDATA[<h1 id="typedef-的惯常用法"><a href="#typedef-的惯常用法" class="headerlink" title="typedef 的惯常用法"></a>typedef 的惯常用法</h1><p>给一个声明取一个别名：</p>
-<span id="more"></span>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br></pre></td></tr></table></figure>
-<p>定义一个函数指针：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(* func)</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="和-define的区别"><a href="#和-define的区别" class="headerlink" title="和#define的区别"></a>和#define的区别</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> peach int</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> apple;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int_ptr int *</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> * char_ptr;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> peach i = <span class="number">3</span>; <span class="comment">//right</span></span><br><span class="line">    <span class="type">unsigned</span> apple ii = <span class="number">9</span>; <span class="comment">// error</span></span><br><span class="line">    </span><br><span class="line">    int_ptr a, b; <span class="comment">// a: int *; b: int</span></span><br><span class="line">    char_ptr c, d; <span class="comment">// c: char *; d: char *</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="使用typedef简化定义"><a href="#使用typedef简化定义" class="headerlink" title="使用typedef简化定义"></a>使用typedef简化定义</h1><p>比如一个函数指针，可以通过<code>typedef</code>简化其表示</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> (*signal (<span class="type">int</span> sig, <span class="type">void</span> (*func)(<span class="type">int</span>)))(<span class="type">int</span>);</span><br></pre></td></tr></table></figure>
-<p>这个函数乍一看，很复杂，我们通过<code>typedef</code>简化之后，就一目了然了：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*func)</span> <span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">func <span class="title function_">singal</span> <span class="params">(<span class="type">int</span> sig, func)</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>使用<code>typedef</code>对结构体取别名，那么在声明的时候，就省了一个<code>struct</code>,但是损失了一部分信息，就是说，你看其声明，并不能知道这个声明是一个结构体。实际上，在Linux内核代码中，很少使用<code>typedef</code>。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Apple</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无法直观看出Apple_t到底是什么</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(Apple_t apple)</span>;</span><br><span class="line"><span class="comment">// 显然带struct的声明更加清晰</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(<span class="keyword">struct</span> Apple apple)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>c/cpp</category>
-      </categories>
-      <tags>
-        <tag>c/cpp</tag>
       </tags>
   </entry>
   <entry>
