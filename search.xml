@@ -30,39 +30,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ZEN</title>
-    <url>/2022/09/10/ZEN/</url>
-    <content><![CDATA[<p>当你做某件事的时候，一旦想要求快，就表示你在也不关心它，只想去做别的事。<br><em>《禅与摩托车维修艺术》</em></p>
-<hr>
-<span id="more"></span>
-
-<p>禅，<br>是踏实的态度，<br>一步一个脚印，<br>确定方向和方法，<br>坚持原则和目标，<br>时时努力，<br>事事检讨，<br>确实把握时间、空间的因缘聚会。</p>
-<p>学习禅法的人，<br>一定是非常踏实、<br>认真的生活，<br>生活中有方法，<br>有方向，有原则，有目标，<br>而且是不断地努力。</p>
-<p>以过程为目标，<br>以失败为经验，<br>已成功为起点，<br>以现在为全部。</p>
-<p>不眷恋过去，<br>不夢想未來，<br>是將全部的生命，<br>活活潑潑投注於現在。</p>
-<p>不眷戀過去，<br>不夢想未來，<br>隨時隨地努力於現在。</p>
-<p>超越的態度是，<br>超越個人的得失，<br>超越暫時的成敗，<br>超越有形的強弱，<br>超越有無的價值，<br>超越自我的執著。</p>
-<p>逐步的成功，<br>一步有一步的成功，<br>一時有一時的成功。</p>
-<p>「無所住」就是不執著任何事，<br>但也不是住在定中不動，<br>而是以智慧心和慈悲心，<br>在平常生活中，<br>照樣的生活、待人接物。</p>
-<p>小成功是個人的，<br>一時的、局部的，<br>大成功是團體的，<br>社會的、全民全世界的，<br>能歷久彌新、普遍廣大，<br>具有正面影響力。</p>
-<p>但求奉獻自己，<br>普度眾生，<br>離苦得樂，<br>才能做到究竟圓滿的大成功。</p>
-<p>佛法中悲智雙運、福慧滿足，<br>就是人格的大完成，<br>做人完全成功就能成佛，<br>人成即佛成。</p>
-<p>方法是，<br>用自己的才能，<br>配合擁有的資源，<br>並要運用先天的福報和智慧。</p>
-<p>方法要不斷學習、練習，<br>不斷試驗、體會，<br>再修正偏差，<br>再選擇。</p>
-<p>要多學習、多練習，<br>多吸取前人的經驗，<br>多聽專家的忠告，<br>多了解自己，<br>多觀察環境。</p>
-<p>時時學習著，<br>提得起·放得下，<br>收放自如，<br>進退自由，<br>當進則進，<br>當退则退。</p>
-<p>以人格的成長，道德的成熟，<br>求得身心的平安，<br>無愧於天、無愧於地，<br>無愧於自己的心，<br>就算是成功。</p>
-<p><em>—圣严法师</em></p>
-<hr>
-]]></content>
-      <categories>
-        <category>zen</category>
-      </categories>
-      <tags>
-        <tag>zen</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Singleton</title>
     <url>/2023/02/19/Singleton/</url>
     <content><![CDATA[<p>单例模式在生产中的使用频率非常的高，也很简单，要满足两个要点：</p>
@@ -98,6 +65,39 @@
       </categories>
       <tags>
         <tag>c/cpp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ZEN</title>
+    <url>/2022/09/10/ZEN/</url>
+    <content><![CDATA[<p>当你做某件事的时候，一旦想要求快，就表示你在也不关心它，只想去做别的事。<br><em>《禅与摩托车维修艺术》</em></p>
+<hr>
+<span id="more"></span>
+
+<p>禅，<br>是踏实的态度，<br>一步一个脚印，<br>确定方向和方法，<br>坚持原则和目标，<br>时时努力，<br>事事检讨，<br>确实把握时间、空间的因缘聚会。</p>
+<p>学习禅法的人，<br>一定是非常踏实、<br>认真的生活，<br>生活中有方法，<br>有方向，有原则，有目标，<br>而且是不断地努力。</p>
+<p>以过程为目标，<br>以失败为经验，<br>已成功为起点，<br>以现在为全部。</p>
+<p>不眷恋过去，<br>不夢想未來，<br>是將全部的生命，<br>活活潑潑投注於現在。</p>
+<p>不眷戀過去，<br>不夢想未來，<br>隨時隨地努力於現在。</p>
+<p>超越的態度是，<br>超越個人的得失，<br>超越暫時的成敗，<br>超越有形的強弱，<br>超越有無的價值，<br>超越自我的執著。</p>
+<p>逐步的成功，<br>一步有一步的成功，<br>一時有一時的成功。</p>
+<p>「無所住」就是不執著任何事，<br>但也不是住在定中不動，<br>而是以智慧心和慈悲心，<br>在平常生活中，<br>照樣的生活、待人接物。</p>
+<p>小成功是個人的，<br>一時的、局部的，<br>大成功是團體的，<br>社會的、全民全世界的，<br>能歷久彌新、普遍廣大，<br>具有正面影響力。</p>
+<p>但求奉獻自己，<br>普度眾生，<br>離苦得樂，<br>才能做到究竟圓滿的大成功。</p>
+<p>佛法中悲智雙運、福慧滿足，<br>就是人格的大完成，<br>做人完全成功就能成佛，<br>人成即佛成。</p>
+<p>方法是，<br>用自己的才能，<br>配合擁有的資源，<br>並要運用先天的福報和智慧。</p>
+<p>方法要不斷學習、練習，<br>不斷試驗、體會，<br>再修正偏差，<br>再選擇。</p>
+<p>要多學習、多練習，<br>多吸取前人的經驗，<br>多聽專家的忠告，<br>多了解自己，<br>多觀察環境。</p>
+<p>時時學習著，<br>提得起·放得下，<br>收放自如，<br>進退自由，<br>當進則進，<br>當退则退。</p>
+<p>以人格的成長，道德的成熟，<br>求得身心的平安，<br>無愧於天、無愧於地，<br>無愧於自己的心，<br>就算是成功。</p>
+<p><em>—圣严法师</em></p>
+<hr>
+]]></content>
+      <categories>
+        <category>zen</category>
+      </categories>
+      <tags>
+        <tag>zen</tag>
       </tags>
   </entry>
   <entry>
@@ -206,7 +206,7 @@
 
 <p>请求 <code>PendSV</code>中断，线程就是在这个中断中切换的。</p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#114;&#101;&#97;&#116;&#105;&#118;&#x65;&#x2e;&#119;&#x6f;&#114;&#x6b;&#x2e;&#103;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#99;&#114;&#101;&#97;&#116;&#105;&#118;&#x65;&#x2e;&#119;&#x6f;&#114;&#x6b;&#x2e;&#103;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#101;&#x61;&#x74;&#105;&#118;&#x65;&#x2e;&#119;&#x6f;&#x72;&#x6b;&#x2e;&#x67;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x63;&#114;&#101;&#x61;&#x74;&#105;&#118;&#x65;&#x2e;&#119;&#x6f;&#x72;&#x6b;&#x2e;&#x67;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -215,6 +215,20 @@
       </categories>
       <tags>
         <tag>rtos</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>insertion sort</title>
+    <url>/2023/02/20/insertion-sort/</url>
+    <content><![CDATA[<p>插入排序的时间复杂度也是O(n^2^), 空间复杂度O(1), 和冒泡排序的特性几乎一样，但是比冒泡排序要快一些。</p>
+<span id="more"></span>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">insert_sort</span><span class="params">(<span class="type">int8_t</span>* <span class="built_in">array</span>, <span class="type">size_t</span> size)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">1</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="type">int8_t</span> val = <span class="built_in">array</span>[i];</span><br><span class="line">        <span class="type">int8_t</span> j = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[j] &gt; val) &#123;</span><br><span class="line">                <span class="built_in">array</span>[j + <span class="number">1</span>] = <span class="built_in">array</span>[j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">array</span>[j + <span class="number">1</span>] = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">print_array</span><span class="params">(<span class="type">const</span> <span class="type">int8_t</span> *<span class="built_in">array</span>, <span class="type">uint32_t</span> len)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, <span class="built_in">array</span>[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int8_t</span> <span class="built_in">array</span>[] = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">9</span> , <span class="number">-2</span>, <span class="number">83</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">20</span>, <span class="number">57</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    insert_sort(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    print_array(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>algorithm</category>
+        <category>insertion sort</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
       </tags>
   </entry>
   <entry>
@@ -251,7 +265,7 @@
 <p>除了systick定时器会切换线程外，其他操作比如任务阻塞、延时等也会造成任务切换。</p>
 <p><em>未完待续……</em></p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#x65;&#x61;&#x74;&#105;&#118;&#101;&#46;&#119;&#111;&#x72;&#x6b;&#46;&#103;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#x63;&#114;&#x65;&#x61;&#x74;&#105;&#118;&#101;&#46;&#119;&#111;&#x72;&#x6b;&#46;&#103;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#101;&#x61;&#116;&#x69;&#118;&#101;&#x2e;&#x77;&#x6f;&#x72;&#107;&#46;&#x67;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#99;&#x72;&#101;&#x61;&#116;&#x69;&#118;&#101;&#x2e;&#x77;&#x6f;&#x72;&#107;&#46;&#x67;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -263,17 +277,20 @@
       </tags>
   </entry>
   <entry>
-    <title>insertion sort</title>
-    <url>/2023/02/20/insertion-sort/</url>
-    <content><![CDATA[<p>插入排序的时间复杂度也是O(n^2^), 空间复杂度O(1), 和冒泡排序的特性几乎一样，但是比冒泡排序要快一些。</p>
+    <title>reference vs pointer in cpp</title>
+    <url>/2023/02/19/reference-vs-pointer-in-cpp/</url>
+    <content><![CDATA[<p>compile code below:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>&amp; num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>* num)</span> </span>&#123; <span class="keyword">return</span> (*num) * (*num); &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125;</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">insert_sort</span><span class="params">(<span class="type">int8_t</span>* <span class="built_in">array</span>, <span class="type">size_t</span> size)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">1</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="type">int8_t</span> val = <span class="built_in">array</span>[i];</span><br><span class="line">        <span class="type">int8_t</span> j = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[j] &gt; val) &#123;</span><br><span class="line">                <span class="built_in">array</span>[j + <span class="number">1</span>] = <span class="built_in">array</span>[j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">array</span>[j + <span class="number">1</span>] = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">print_array</span><span class="params">(<span class="type">const</span> <span class="type">int8_t</span> *<span class="built_in">array</span>, <span class="type">uint32_t</span> len)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, <span class="built_in">array</span>[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int8_t</span> <span class="built_in">array</span>[] = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">9</span> , <span class="number">-2</span>, <span class="number">83</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">20</span>, <span class="number">57</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    insert_sort(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    print_array(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<p>and then you will get the following asm:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">square(int&amp;):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int*):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        mul     r3, r3, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br></pre></td></tr></table></figure>
+<p>as you can see, nothing different between reference and pointer, also, note that passing a pointer or a reference is not always a good choice.</p>
+]]></content>
       <categories>
-        <category>algorithm</category>
-        <category>insertion sort</category>
+        <category>c/cpp</category>
       </categories>
       <tags>
-        <tag>algorithm</tag>
+        <tag>c/cpp</tag>
       </tags>
   </entry>
   <entry>
@@ -307,23 +324,6 @@
       </tags>
   </entry>
   <entry>
-    <title>reference vs pointer in cpp</title>
-    <url>/2023/02/19/reference-vs-pointer-in-cpp/</url>
-    <content><![CDATA[<p>compile code below:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>&amp; num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>* num)</span> </span>&#123; <span class="keyword">return</span> (*num) * (*num); &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>and then you will get the following asm:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">square(int&amp;):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int*):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        mul     r3, r3, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br></pre></td></tr></table></figure>
-<p>as you can see, nothing different between reference and pointer, also, note that passing a pointer or a reference is not always a good choice.</p>
-]]></content>
-      <categories>
-        <category>c/cpp</category>
-      </categories>
-      <tags>
-        <tag>c/cpp</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>segmentation fault</title>
     <url>/2023/03/02/segmentation-fault/</url>
     <content><![CDATA[<p>段错误一般是由于MMU的异常引起的，比如解引用一个未初始化的或非法的值的指针。</p>
@@ -343,30 +343,6 @@
       </categories>
       <tags>
         <tag>algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>typedef</title>
-    <url>/2023/03/01/typedef/</url>
-    <content><![CDATA[<h1 id="typedef-的惯常用法"><a href="#typedef-的惯常用法" class="headerlink" title="typedef 的惯常用法"></a>typedef 的惯常用法</h1><p>给一个声明取一个别名：</p>
-<span id="more"></span>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br></pre></td></tr></table></figure>
-<p>定义一个函数指针：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(* func)</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="和-define的区别"><a href="#和-define的区别" class="headerlink" title="和#define的区别"></a>和#define的区别</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> peach int</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> apple;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int_ptr int *</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> * char_ptr;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> peach i = <span class="number">3</span>; <span class="comment">//right</span></span><br><span class="line">    <span class="type">unsigned</span> apple ii = <span class="number">9</span>; <span class="comment">// error</span></span><br><span class="line">    </span><br><span class="line">    int_ptr a, b; <span class="comment">// a: int *; b: int</span></span><br><span class="line">    char_ptr c, d; <span class="comment">// c: char *; d: char *</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="使用typedef简化定义"><a href="#使用typedef简化定义" class="headerlink" title="使用typedef简化定义"></a>使用typedef简化定义</h1><p>比如一个函数指针，可以通过<code>typedef</code>简化其表示</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> (*signal (<span class="type">int</span> sig, <span class="type">void</span> (*func)(<span class="type">int</span>)))(<span class="type">int</span>);</span><br></pre></td></tr></table></figure>
-<p>这个函数乍一看，很复杂，我们通过<code>typedef</code>简化之后，就一目了然了：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*func)</span> <span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">func <span class="title function_">singal</span> <span class="params">(<span class="type">int</span> sig, func)</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>使用<code>typedef</code>对结构体取别名，那么在声明的时候，就省了一个<code>struct</code>,但是损失了一部分信息，就是说，你看其声明，并不能知道这个声明是一个结构体。实际上，在Linux内核代码中，很少使用<code>typedef</code>。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Apple</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无法直观看出Apple_t到底是什么</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(Apple_t apple)</span>;</span><br><span class="line"><span class="comment">// 显然带struct的声明更加清晰</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(<span class="keyword">struct</span> Apple apple)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>c/cpp</category>
-      </categories>
-      <tags>
-        <tag>c/cpp</tag>
       </tags>
   </entry>
   <entry>
@@ -410,18 +386,6 @@
       </tags>
   </entry>
   <entry>
-    <title>免密登陆远程主机的另一种方法-expect</title>
-    <url>/2023/03/02/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95-expect/</url>
-    <content><![CDATA[<p>假设你要传输一些文件到远程主机并且登陆到远程主机，你需要怎么做呢？</p>
-<ol>
-<li>老老实实输密码然后回车</li>
-<li>将本机的非对称密钥设置到远程主机</li>
-<li>使用<code>expect</code>解释器<span id="more"></span>
-本文就使用<code>expect</code>实现一个免密码传输文件并登陆到远程主机的脚本, 快试试吧：<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#! /usr/bin/expect</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> remote_ip [lindex <span class="variable">$argv</span> 0]</span><br><span class="line"><span class="built_in">set</span> file_to_send [lindex <span class="variable">$argv</span> 1]</span><br><span class="line"><span class="built_in">set</span> remote_dir /home/my_ws</span><br><span class="line"><span class="built_in">set</span> user yx</span><br><span class="line"><span class="built_in">set</span> password <span class="string">&quot;123456\r&quot;</span></span><br><span class="line"><span class="built_in">set</span> update_xpuapp update_xpuapp.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># send_user &quot;$remote_ip $user\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> <span class="built_in">timeout</span> 120</span><br><span class="line">spawn scp <span class="variable">$file_to_send</span> <span class="variable">$user</span>@<span class="variable">$remote_ip</span>:remote_dir</span><br><span class="line">expect &#123;</span><br><span class="line">    <span class="string">&quot;yes/no&quot;</span> &#123; send <span class="string">&quot;yes\r&quot;</span>;exp_continue &#125;</span><br><span class="line">    <span class="string">&quot;password&quot;</span> &#123;send <span class="variable">$password</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">expect eof</span><br><span class="line"></span><br><span class="line">spawn ssh <span class="variable">$user</span>@<span class="variable">$remote_ip</span></span><br><span class="line"></span><br><span class="line">expect &#123;</span><br><span class="line">    <span class="string">&quot;yes/no&quot;</span> &#123; send <span class="string">&quot;yes\r&quot;</span>;exp_continue &#125;</span><br><span class="line">    <span class="string">&quot;password&quot;</span> &#123;send <span class="variable">$password</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interact</span><br></pre></td></tr></table></figure></li>
-</ol>
-]]></content>
-  </entry>
-  <entry>
     <title>什么是企业的核心竞争力</title>
     <url>/2022/09/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%81%E4%B8%9A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%AB%9E%E4%BA%89%E5%8A%9B/</url>
     <content><![CDATA[<blockquote>
@@ -441,7 +405,7 @@
 <p>最后引用乔布斯的一句话：</p>
 <p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#x65;&#97;&#116;&#x69;&#x76;&#101;&#46;&#119;&#111;&#114;&#107;&#x2e;&#103;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x63;&#x72;&#x65;&#97;&#116;&#x69;&#x76;&#101;&#46;&#119;&#111;&#114;&#107;&#x2e;&#103;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#101;&#x61;&#116;&#105;&#x76;&#x65;&#46;&#119;&#x6f;&#114;&#107;&#46;&#x67;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#x63;&#x72;&#101;&#x61;&#116;&#105;&#x76;&#x65;&#46;&#119;&#x6f;&#114;&#107;&#46;&#x67;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -451,6 +415,42 @@
       <tags>
         <tag>zen</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>typedef</title>
+    <url>/2023/03/01/typedef/</url>
+    <content><![CDATA[<h1 id="typedef-的惯常用法"><a href="#typedef-的惯常用法" class="headerlink" title="typedef 的惯常用法"></a>typedef 的惯常用法</h1><p>给一个声明取一个别名：</p>
+<span id="more"></span>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br></pre></td></tr></table></figure>
+<p>定义一个函数指针：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(* func)</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="和-define的区别"><a href="#和-define的区别" class="headerlink" title="和#define的区别"></a>和#define的区别</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> peach int</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> apple;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int_ptr int *</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> * char_ptr;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> peach i = <span class="number">3</span>; <span class="comment">//right</span></span><br><span class="line">    <span class="type">unsigned</span> apple ii = <span class="number">9</span>; <span class="comment">// error</span></span><br><span class="line">    </span><br><span class="line">    int_ptr a, b; <span class="comment">// a: int *; b: int</span></span><br><span class="line">    char_ptr c, d; <span class="comment">// c: char *; d: char *</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="使用typedef简化定义"><a href="#使用typedef简化定义" class="headerlink" title="使用typedef简化定义"></a>使用typedef简化定义</h1><p>比如一个函数指针，可以通过<code>typedef</code>简化其表示</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> (*signal (<span class="type">int</span> sig, <span class="type">void</span> (*func)(<span class="type">int</span>)))(<span class="type">int</span>);</span><br></pre></td></tr></table></figure>
+<p>这个函数乍一看，很复杂，我们通过<code>typedef</code>简化之后，就一目了然了：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*func)</span> <span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">func <span class="title function_">singal</span> <span class="params">(<span class="type">int</span> sig, func)</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>使用<code>typedef</code>对结构体取别名，那么在声明的时候，就省了一个<code>struct</code>,但是损失了一部分信息，就是说，你看其声明，并不能知道这个声明是一个结构体。实际上，在Linux内核代码中，很少使用<code>typedef</code>。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Apple</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无法直观看出Apple_t到底是什么</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(Apple_t apple)</span>;</span><br><span class="line"><span class="comment">// 显然带struct的声明更加清晰</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(<span class="keyword">struct</span> Apple apple)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>c/cpp</category>
+      </categories>
+      <tags>
+        <tag>c/cpp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>免密登陆远程主机的另一种方法-expect</title>
+    <url>/2023/03/02/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95-expect/</url>
+    <content><![CDATA[<p>假设你要传输一些文件到远程主机并且登陆到远程主机，你需要怎么做呢？</p>
+<ol>
+<li>老老实实输密码然后回车</li>
+<li>将本机的非对称密钥设置到远程主机</li>
+<li>使用<code>expect</code>解释器<span id="more"></span>
+本文就使用<code>expect</code>实现一个免密码传输文件并登陆到远程主机的脚本, 快试试吧：<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#! /usr/bin/expect</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> remote_ip [lindex <span class="variable">$argv</span> 0]</span><br><span class="line"><span class="built_in">set</span> file_to_send [lindex <span class="variable">$argv</span> 1]</span><br><span class="line"><span class="built_in">set</span> remote_dir /home/my_ws</span><br><span class="line"><span class="built_in">set</span> user yx</span><br><span class="line"><span class="built_in">set</span> password <span class="string">&quot;123456\r&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># send_user &quot;$remote_ip $user\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> <span class="built_in">timeout</span> 120</span><br><span class="line">spawn scp <span class="variable">$file_to_send</span> <span class="variable">$user</span>@<span class="variable">$remote_ip</span>:<span class="variable">$remote_dir</span></span><br><span class="line">expect &#123;</span><br><span class="line">    <span class="string">&quot;yes/no&quot;</span> &#123; send <span class="string">&quot;yes\r&quot;</span>;exp_continue &#125;</span><br><span class="line">    <span class="string">&quot;password&quot;</span> &#123;send <span class="variable">$password</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">expect eof</span><br><span class="line"></span><br><span class="line">spawn ssh <span class="variable">$user</span>@<span class="variable">$remote_ip</span></span><br><span class="line"></span><br><span class="line">expect &#123;</span><br><span class="line">    <span class="string">&quot;yes/no&quot;</span> &#123; send <span class="string">&quot;yes\r&quot;</span>;exp_continue &#125;</span><br><span class="line">    <span class="string">&quot;password&quot;</span> &#123;send <span class="variable">$password</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interact</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
   </entry>
   <entry>
     <title>排查Bugs的一般方法总结</title>
