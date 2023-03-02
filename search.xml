@@ -12,6 +12,23 @@
       </tags>
   </entry>
   <entry>
+    <title>Singleton</title>
+    <url>/2023/02/19/Singleton/</url>
+    <content><![CDATA[<p>单例模式在生产中的使用频率非常的高，也很简单，要满足两个要点：</p>
+<ol>
+<li>必须自己创建自己</li>
+<li>必须向整个系统提供自己</li>
+</ol>
+<p>实现单例模式的方法有很多，本文实现一个最简洁的版本，Meyers’ Singleton。</p>
+<span id="more"></span>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>();</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    Singleton&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    ~<span class="built_in">Singleton</span>();</span><br><span class="line">    <span class="function"><span class="type">static</span> shared_ptr&lt;Singleton&gt;&amp; <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> <span class="type">static</span> instance = <span class="built_in">shared_ptr</span>&lt;Singleton&gt;(<span class="keyword">new</span> <span class="built_in">Singleton</span>());</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton::<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton::~<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton destructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> singlton = Singleton::<span class="built_in">getInstance</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>design pattern</category>
+        <category>Singleton</category>
+      </categories>
+  </entry>
+  <entry>
     <title>ROS-Robotic Operating System</title>
     <url>/2023/03/01/ROS-Robotic-Operating-System/</url>
     <content><![CDATA[<p>ROS是一个专门针对机器人开发而开发的操作系统，表面上看，是一个系统，实际上是一个工具集合，依托于Linux等主流操作，它提供了可视化功能(如rviz)，使得开发和调试变得容易。</p>
@@ -28,23 +45,6 @@
       <tags>
         <tag>ros</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Singleton</title>
-    <url>/2023/02/19/Singleton/</url>
-    <content><![CDATA[<p>单例模式在生产中的使用频率非常的高，也很简单，要满足两个要点：</p>
-<ol>
-<li>必须自己创建自己</li>
-<li>必须向整个系统提供自己</li>
-</ol>
-<p>实现单例模式的方法有很多，本文实现一个最简洁的版本，Meyers’ Singleton。</p>
-<span id="more"></span>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>();</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    Singleton&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    ~<span class="built_in">Singleton</span>();</span><br><span class="line">    <span class="function"><span class="type">static</span> shared_ptr&lt;Singleton&gt;&amp; <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> <span class="type">static</span> instance = <span class="built_in">shared_ptr</span>&lt;Singleton&gt;(<span class="keyword">new</span> <span class="built_in">Singleton</span>());</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton::<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton::~<span class="built_in">Singleton</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Singleton destructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> singlton = Singleton::<span class="built_in">getInstance</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>design pattern</category>
-        <category>Singleton</category>
-      </categories>
   </entry>
   <entry>
     <title>a++和++a的区别</title>
@@ -127,20 +127,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>insertion sort</title>
-    <url>/2023/02/20/insertion-sort/</url>
-    <content><![CDATA[<p>插入排序的时间复杂度也是O(n^2^), 空间复杂度O(1), 和冒泡排序的特性几乎一样，但是比冒泡排序要快一些。</p>
-<span id="more"></span>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">insert_sort</span><span class="params">(<span class="type">int8_t</span>* <span class="built_in">array</span>, <span class="type">size_t</span> size)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">1</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="type">int8_t</span> val = <span class="built_in">array</span>[i];</span><br><span class="line">        <span class="type">int8_t</span> j = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[j] &gt; val) &#123;</span><br><span class="line">                <span class="built_in">array</span>[j + <span class="number">1</span>] = <span class="built_in">array</span>[j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">array</span>[j + <span class="number">1</span>] = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">print_array</span><span class="params">(<span class="type">const</span> <span class="type">int8_t</span> *<span class="built_in">array</span>, <span class="type">uint32_t</span> len)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, <span class="built_in">array</span>[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int8_t</span> <span class="built_in">array</span>[] = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">9</span> , <span class="number">-2</span>, <span class="number">83</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">20</span>, <span class="number">57</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    insert_sort(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    print_array(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>algorithm</category>
-        <category>insertion sort</category>
-      </categories>
-      <tags>
-        <tag>algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>bubble sort</title>
     <url>/2023/02/20/bubble-sort/</url>
     <content><![CDATA[<p>冒泡排序是一种常见的排序算法, 主要用在小数据量的排序上。</p>
@@ -164,6 +150,30 @@
       <tags>
         <tag>algorithm</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>insertion sort</title>
+    <url>/2023/02/20/insertion-sort/</url>
+    <content><![CDATA[<p>插入排序的时间复杂度也是O(n^2^), 空间复杂度O(1), 和冒泡排序的特性几乎一样，但是比冒泡排序要快一些。</p>
+<span id="more"></span>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">insert_sort</span><span class="params">(<span class="type">int8_t</span>* <span class="built_in">array</span>, <span class="type">size_t</span> size)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">1</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="type">int8_t</span> val = <span class="built_in">array</span>[i];</span><br><span class="line">        <span class="type">int8_t</span> j = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[j] &gt; val) &#123;</span><br><span class="line">                <span class="built_in">array</span>[j + <span class="number">1</span>] = <span class="built_in">array</span>[j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">array</span>[j + <span class="number">1</span>] = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">print_array</span><span class="params">(<span class="type">const</span> <span class="type">int8_t</span> *<span class="built_in">array</span>, <span class="type">uint32_t</span> len)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, <span class="built_in">array</span>[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int8_t</span> <span class="built_in">array</span>[] = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">9</span> , <span class="number">-2</span>, <span class="number">83</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">20</span>, <span class="number">57</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    insert_sort(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    print_array(<span class="built_in">array</span>, <span class="keyword">sizeof</span>(<span class="built_in">array</span>) / <span class="keyword">sizeof</span>(<span class="built_in">array</span>[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>algorithm</category>
+        <category>insertion sort</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux proxy</title>
+    <url>/2022/10/31/linux-proxy/</url>
+    <content><![CDATA[<p>使用git等下载资源的时候，需要设置代理提高网速……</p>
+<span id="more"></span>
+
+<h1 id="Linux-让终端走代理的几种方法"><a href="#Linux-让终端走代理的几种方法" class="headerlink" title="Linux 让终端走代理的几种方法"></a>Linux 让终端走代理的几种方法</h1><p><a href="https://zhuanlan.zhihu.com/p/46973701">https://zhuanlan.zhihu.com/p/46973701</a></p>
+<h1 id="Apt安装软件不更换源的方法"><a href="#Apt安装软件不更换源的方法" class="headerlink" title="Apt安装软件不更换源的方法"></a>Apt安装软件不更换源的方法</h1><p><a href="https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/">https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/</a></p>
+]]></content>
   </entry>
   <entry>
     <title>freeRTOS-调度器切换线程过程分析</title>
@@ -199,7 +209,7 @@
 <p>除了systick定时器会切换线程外，其他操作比如任务阻塞、延时等也会造成任务切换。</p>
 <p><em>未完待续……</em></p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#x65;&#97;&#x74;&#x69;&#x76;&#x65;&#46;&#119;&#x6f;&#x72;&#107;&#x2e;&#x67;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#99;&#x72;&#x65;&#97;&#x74;&#x69;&#x76;&#x65;&#46;&#119;&#x6f;&#x72;&#107;&#x2e;&#x67;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#114;&#101;&#x61;&#x74;&#105;&#118;&#101;&#x2e;&#119;&#111;&#x72;&#107;&#x2e;&#103;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#99;&#114;&#101;&#x61;&#x74;&#105;&#118;&#101;&#x2e;&#119;&#111;&#x72;&#107;&#x2e;&#103;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -265,7 +275,7 @@
 
 <p>请求 <code>PendSV</code>中断，线程就是在这个中断中切换的。</p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#x65;&#97;&#116;&#x69;&#118;&#101;&#x2e;&#119;&#111;&#114;&#107;&#x2e;&#x67;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x63;&#x72;&#x65;&#97;&#116;&#x69;&#118;&#101;&#x2e;&#119;&#111;&#114;&#107;&#x2e;&#x67;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#101;&#97;&#x74;&#x69;&#x76;&#101;&#x2e;&#x77;&#111;&#x72;&#107;&#x2e;&#103;&#64;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x63;&#x72;&#101;&#97;&#x74;&#x69;&#x76;&#101;&#x2e;&#x77;&#111;&#x72;&#107;&#x2e;&#103;&#64;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -274,33 +284,6 @@
       </categories>
       <tags>
         <tag>rtos</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux proxy</title>
-    <url>/2022/10/31/linux-proxy/</url>
-    <content><![CDATA[<p>使用git等下载资源的时候，需要设置代理提高网速……</p>
-<span id="more"></span>
-
-<h1 id="Linux-让终端走代理的几种方法"><a href="#Linux-让终端走代理的几种方法" class="headerlink" title="Linux 让终端走代理的几种方法"></a>Linux 让终端走代理的几种方法</h1><p><a href="https://zhuanlan.zhihu.com/p/46973701">https://zhuanlan.zhihu.com/p/46973701</a></p>
-<h1 id="Apt安装软件不更换源的方法"><a href="#Apt安装软件不更换源的方法" class="headerlink" title="Apt安装软件不更换源的方法"></a>Apt安装软件不更换源的方法</h1><p><a href="https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/">https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-the-proxy-for-apt-for-ubuntu-18-04/</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>reference vs pointer in cpp</title>
-    <url>/2023/02/19/reference-vs-pointer-in-cpp/</url>
-    <content><![CDATA[<p>compile code below:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>&amp; num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>* num)</span> </span>&#123; <span class="keyword">return</span> (*num) * (*num); &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>and then you will get the following asm:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">square(int&amp;):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int*):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        mul     r3, r3, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br></pre></td></tr></table></figure>
-<p>as you can see, nothing different between reference and pointer, also, note that passing a pointer or a reference is not always a good choice.</p>
-]]></content>
-      <categories>
-        <category>c/cpp</category>
-      </categories>
-      <tags>
-        <tag>c/cpp</tag>
       </tags>
   </entry>
   <entry>
@@ -324,6 +307,31 @@
       </tags>
   </entry>
   <entry>
+    <title>segmentation fault</title>
+    <url>/2023/03/02/segmentation-fault/</url>
+    <content><![CDATA[<p>段错误一般是由于MMU的异常引起的，比如解引用一个未初始化的或非法的值的指针。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> * p = <span class="number">2</span>;</span><br><span class="line">    *p = <span class="number">17l</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ gcc sigment-fault.c </span><br><span class="line">sigment-fault.c: In <span class="keyword">function</span> ‘main’:</span><br><span class="line">sigment-fault.c:5:15: warning: initialization of ‘int *’ from ‘int’ makes pointer from <span class="built_in">integer</span> without a cast [-Wint-conversion]</span><br><span class="line">    5 |     int * p = 2;</span><br><span class="line">      |               ^</span><br><span class="line">$ ./a.out </span><br><span class="line">Segmentation fault</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>reference vs pointer in cpp</title>
+    <url>/2023/02/19/reference-vs-pointer-in-cpp/</url>
+    <content><![CDATA[<p>compile code below:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>&amp; num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span>* num)</span> </span>&#123; <span class="keyword">return</span> (*num) * (*num); &#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> num)</span> </span>&#123; <span class="keyword">return</span> num * num; &#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>and then you will get the following asm:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">square(int&amp;):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int*):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        ldr     r3, [r3]</span><br><span class="line">        ldr     r2, [r7, #4]</span><br><span class="line">        ldr     r2, [r2]</span><br><span class="line">        mul     r3, r2, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br><span class="line">square(int):</span><br><span class="line">        push    &#123;r7&#125;</span><br><span class="line">        sub     sp, sp, #12</span><br><span class="line">        add     r7, sp, #0</span><br><span class="line">        str     r0, [r7, #4]</span><br><span class="line">        ldr     r3, [r7, #4]</span><br><span class="line">        mul     r3, r3, r3</span><br><span class="line">        mov     r0, r3</span><br><span class="line">        adds    r7, r7, #12</span><br><span class="line">        mov     sp, r7</span><br><span class="line">        ldr     r7, [sp], #4</span><br><span class="line">        bx      lr</span><br></pre></td></tr></table></figure>
+<p>as you can see, nothing different between reference and pointer, also, note that passing a pointer or a reference is not always a good choice.</p>
+]]></content>
+      <categories>
+        <category>c/cpp</category>
+      </categories>
+      <tags>
+        <tag>c/cpp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>selection sort</title>
     <url>/2023/02/21/selection-sort/</url>
     <content><![CDATA[<p>选择排序</p>
@@ -335,30 +343,6 @@
       </categories>
       <tags>
         <tag>algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>typedef</title>
-    <url>/2023/03/01/typedef/</url>
-    <content><![CDATA[<h1 id="typedef-的惯常用法"><a href="#typedef-的惯常用法" class="headerlink" title="typedef 的惯常用法"></a>typedef 的惯常用法</h1><p>给一个声明取一个别名：</p>
-<span id="more"></span>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br></pre></td></tr></table></figure>
-<p>定义一个函数指针：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(* func)</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="和-define的区别"><a href="#和-define的区别" class="headerlink" title="和#define的区别"></a>和#define的区别</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> peach int</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> apple;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int_ptr int *</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> * char_ptr;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> peach i = <span class="number">3</span>; <span class="comment">//right</span></span><br><span class="line">    <span class="type">unsigned</span> apple ii = <span class="number">9</span>; <span class="comment">// error</span></span><br><span class="line">    </span><br><span class="line">    int_ptr a, b; <span class="comment">// a: int *; b: int</span></span><br><span class="line">    char_ptr c, d; <span class="comment">// c: char *; d: char *</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="使用typedef简化定义"><a href="#使用typedef简化定义" class="headerlink" title="使用typedef简化定义"></a>使用typedef简化定义</h1><p>比如一个函数指针，可以通过<code>typedef</code>简化其表示</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> (*signal (<span class="type">int</span> sig, <span class="type">void</span> (*func)(<span class="type">int</span>)))(<span class="type">int</span>);</span><br></pre></td></tr></table></figure>
-<p>这个函数乍一看，很复杂，我们通过<code>typedef</code>简化之后，就一目了然了：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*func)</span> <span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">func <span class="title function_">singal</span> <span class="params">(<span class="type">int</span> sig, func)</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>使用<code>typedef</code>对结构体取别名，那么在声明的时候，就省了一个<code>struct</code>,但是损失了一部分信息，就是说，你看其声明，并不能知道这个声明是一个结构体。实际上，在Linux内核代码中，很少使用<code>typedef</code>。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Apple</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无法直观看出Apple_t到底是什么</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(Apple_t apple)</span>;</span><br><span class="line"><span class="comment">// 显然带struct的声明更加清晰</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(<span class="keyword">struct</span> Apple apple)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>c/cpp</category>
-      </categories>
-      <tags>
-        <tag>c/cpp</tag>
       </tags>
   </entry>
   <entry>
@@ -421,7 +405,7 @@
 <p>最后引用乔布斯的一句话：</p>
 <p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#x65;&#97;&#116;&#x69;&#118;&#101;&#x2e;&#x77;&#x6f;&#114;&#107;&#46;&#103;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x63;&#114;&#x65;&#97;&#116;&#x69;&#118;&#101;&#x2e;&#x77;&#x6f;&#114;&#107;&#46;&#103;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#114;&#101;&#97;&#116;&#105;&#118;&#101;&#46;&#x77;&#111;&#x72;&#x6b;&#x2e;&#x67;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x63;&#114;&#101;&#97;&#116;&#105;&#118;&#101;&#46;&#x77;&#111;&#x72;&#x6b;&#x2e;&#x67;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -430,6 +414,30 @@
       </categories>
       <tags>
         <tag>zen</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>typedef</title>
+    <url>/2023/03/01/typedef/</url>
+    <content><![CDATA[<h1 id="typedef-的惯常用法"><a href="#typedef-的惯常用法" class="headerlink" title="typedef 的惯常用法"></a>typedef 的惯常用法</h1><p>给一个声明取一个别名：</p>
+<span id="more"></span>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br></pre></td></tr></table></figure>
+<p>定义一个函数指针：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(* func)</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="和-define的区别"><a href="#和-define的区别" class="headerlink" title="和#define的区别"></a>和#define的区别</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> peach int</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> apple;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int_ptr int *</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> * char_ptr;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> peach i = <span class="number">3</span>; <span class="comment">//right</span></span><br><span class="line">    <span class="type">unsigned</span> apple ii = <span class="number">9</span>; <span class="comment">// error</span></span><br><span class="line">    </span><br><span class="line">    int_ptr a, b; <span class="comment">// a: int *; b: int</span></span><br><span class="line">    char_ptr c, d; <span class="comment">// c: char *; d: char *</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="使用typedef简化定义"><a href="#使用typedef简化定义" class="headerlink" title="使用typedef简化定义"></a>使用typedef简化定义</h1><p>比如一个函数指针，可以通过<code>typedef</code>简化其表示</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> (*signal (<span class="type">int</span> sig, <span class="type">void</span> (*func)(<span class="type">int</span>)))(<span class="type">int</span>);</span><br></pre></td></tr></table></figure>
+<p>这个函数乍一看，很复杂，我们通过<code>typedef</code>简化之后，就一目了然了：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*func)</span> <span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">func <span class="title function_">singal</span> <span class="params">(<span class="type">int</span> sig, func)</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>使用<code>typedef</code>对结构体取别名，那么在声明的时候，就省了一个<code>struct</code>,但是损失了一部分信息，就是说，你看其声明，并不能知道这个声明是一个结构体。实际上，在Linux内核代码中，很少使用<code>typedef</code>。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Apple</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">&#125; Apple_t;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无法直观看出Apple_t到底是什么</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(Apple_t apple)</span>;</span><br><span class="line"><span class="comment">// 显然带struct的声明更加清晰</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span> <span class="params">(<span class="keyword">struct</span> Apple apple)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>c/cpp</category>
+      </categories>
+      <tags>
+        <tag>c/cpp</tag>
       </tags>
   </entry>
   <entry>
