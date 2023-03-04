@@ -22,19 +22,19 @@
     var CONFIG = {"hostname":"creworkg.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="介绍bazel中共享变量的使用方法，参见bazel官方文档：https:&#x2F;&#x2F;bazel.build&#x2F;build&#x2F;external">
+  <meta name="description" content="在开发、调试以及维护过程中，log往往必不可少，列举几个常用的开源logger。使用方法在官网上描述地很详细。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bazel入门-External Dependencies">
-<meta property="og:url" content="https://creworkg.github.io/2022/10/31/bazel%E5%85%A5%E9%97%A8-External-Dependencies/index.html">
+<meta property="og:title" content="常用的logger">
+<meta property="og:url" content="https://creworkg.github.io/2023/03/02/%E5%B8%B8%E7%94%A8%E7%9A%84logger/index.html">
 <meta property="og:site_name" content="ZEN">
-<meta property="og:description" content="介绍bazel中共享变量的使用方法，参见bazel官方文档：https:&#x2F;&#x2F;bazel.build&#x2F;build&#x2F;external">
+<meta property="og:description" content="在开发、调试以及维护过程中，log往往必不可少，列举几个常用的开源logger。使用方法在官网上描述地很详细。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-10-31T03:37:17.000Z">
-<meta property="article:modified_time" content="2022-10-31T03:47:19.167Z">
+<meta property="article:published_time" content="2023-03-02T14:16:14.000Z">
+<meta property="article:modified_time" content="2023-03-04T03:21:41.868Z">
 <meta property="article:author" content="Seeker">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://creworkg.github.io/2022/10/31/bazel%E5%85%A5%E9%97%A8-External-Dependencies/">
+<link rel="canonical" href="https://creworkg.github.io/2023/03/02/%E5%B8%B8%E7%94%A8%E7%9A%84logger/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>bazel入门-External Dependencies | ZEN</title>
+  <title>常用的logger | ZEN</title>
   
 
 
@@ -195,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://creworkg.github.io/2022/10/31/bazel%E5%85%A5%E9%97%A8-External-Dependencies/">
+    <link itemprop="mainEntityOfPage" href="https://creworkg.github.io/2023/03/02/%E5%B8%B8%E7%94%A8%E7%9A%84logger/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -208,7 +208,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          bazel入门-External Dependencies
+          常用的logger
         </h1>
 
         <div class="post-meta">
@@ -217,10 +217,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-10-31 11:37:17 / Modified: 11:47:19" itemprop="dateCreated datePublished" datetime="2022-10-31T11:37:17+08:00">2022-10-31</time>
+              <time title="Created: 2023-03-02 22:16:14" itemprop="dateCreated datePublished" datetime="2023-03-02T22:16:14+08:00">2023-03-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-03-04 11:21:41" itemprop="dateModified" datetime="2023-03-04T11:21:41+08:00">2023-03-04</time>
+              </span>
 
           
             <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
@@ -235,7 +241,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>73</span>
+              <span>127</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -254,9 +260,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>介绍bazel中共享变量的使用方法，参见bazel官方文档：<br><a target="_blank" rel="noopener" href="https://bazel.build/build/external">https://bazel.build/build/external</a></p>
+        <p>在开发、调试以及维护过程中，log往往必不可少，列举几个常用的开源logger。使用方法在官网上描述地很详细。</p>
 <span id="more"></span>
-<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1>
+<h1 id="glog"><a href="#glog" class="headerlink" title="glog"></a>glog</h1><p><a target="_blank" rel="noopener" href="https://github.com/google/glog">https://github.com/google/glog</a></p>
+<h1 id="spdlog"><a href="#spdlog" class="headerlink" title="spdlog"></a>spdlog</h1><p><a target="_blank" rel="noopener" href="https://github.com/gabime/spdlog">https://github.com/gabime/spdlog</a></p>
+
     </div>
 
     
@@ -271,13 +279,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/10/31/bazel%E5%85%A5%E9%97%A8-Sharing%20Variables/" rel="prev" title="bazel入门-Sharing Variables">
-      <i class="fa fa-chevron-left"></i> bazel入门-Sharing Variables
+    <a href="/2023/03/02/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95-expect/" rel="prev" title="免密登陆远程主机的另一种方法-expect">
+      <i class="fa fa-chevron-left"></i> 免密登陆远程主机的另一种方法-expect
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/10/31/linux-proxy/" rel="next" title="linux proxy">
-      linux proxy <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -336,7 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#reference"><span class="nav-number">1.</span> <span class="nav-text">reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#glog"><span class="nav-number">1.</span> <span class="nav-text">glog</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spdlog"><span class="nav-number">2.</span> <span class="nav-text">spdlog</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -562,7 +567,7 @@ window.addEventListener('pjax:success', () => {
       quicklink({
         timeout : 3000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://creworkg.github.io/2022/10/31/bazel%E5%85%A5%E9%97%A8-External-Dependencies/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://creworkg.github.io/2023/03/02/%E5%B8%B8%E7%94%A8%E7%9A%84logger/',]
       });
       });
   </script>
