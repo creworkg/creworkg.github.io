@@ -127,6 +127,25 @@
 ]]></content>
   </entry>
   <entry>
+    <title>freeRTOS-memory management-heap1</title>
+    <url>/2023/03/04/freeRTOS-memory-anagement-heap1/</url>
+    <content><![CDATA[<p>freeRTOS 提供5种内存管理方案，heap1只能申请，不能释放。</p>
+<span id="more"></span>
+<p>重点分析, 先贴出代码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> *<span class="title function_">pvPortMalloc</span><span class="params">( <span class="type">size_t</span> xWantedSize )</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">void</span> *pvReturn = <span class="literal">NULL</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">uint8_t</span> *pucAlignedHeap = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Ensure that blocks are always aligned to the required number of bytes. */</span></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span>( portBYTE_ALIGNMENT != 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>( xWantedSize &amp; portBYTE_ALIGNMENT_MASK )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* Byte alignment required. */</span></span><br><span class="line">			xWantedSize += ( portBYTE_ALIGNMENT - ( xWantedSize &amp; portBYTE_ALIGNMENT_MASK ) );</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	vTaskSuspendAll();</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>( pucAlignedHeap == <span class="literal">NULL</span> )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* Ensure the heap starts on a correctly aligned boundary. */</span></span><br><span class="line">			pucAlignedHeap = ( <span class="type">uint8_t</span> * ) ( ( ( portPOINTER_SIZE_TYPE ) &amp;ucHeap[ portBYTE_ALIGNMENT ] ) &amp; ( ~( ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) ) );</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Check there is enough room left for the allocation. */</span></span><br><span class="line">		<span class="keyword">if</span>( ( ( xNextFreeByte + xWantedSize ) &lt; configADJUSTED_HEAP_SIZE ) &amp;&amp;</span><br><span class="line">			( ( xNextFreeByte + xWantedSize ) &gt; xNextFreeByte )	)<span class="comment">/* Check for overflow. */</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* Return the next free byte then increment the index past this</span></span><br><span class="line"><span class="comment">			block. */</span></span><br><span class="line">			pvReturn = pucAlignedHeap + xNextFreeByte;</span><br><span class="line">			xNextFreeByte += xWantedSize;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		traceMALLOC( pvReturn, xWantedSize );</span><br><span class="line">	&#125;</span><br><span class="line">	( <span class="type">void</span> ) xTaskResumeAll();</span><br><span class="line"></span><br><span class="line">	<span class="meta">#<span class="keyword">if</span>( configUSE_MALLOC_FAILED_HOOK == 1 )</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>( pvReturn == <span class="literal">NULL</span> )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">vApplicationMallocFailedHook</span><span class="params">( <span class="type">void</span> )</span>;</span><br><span class="line">			vApplicationMallocFailedHook();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pvReturn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这一段代码的作用是，对用户想要申请的内存块大小做内存对齐处理，比如内存是按照8字节对齐的，那么就要内存块就要满足8的倍数。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Ensure that blocks are always aligned to the required number of bytes. */</span></span><br><span class="line"><span class="meta">#<span class="keyword">if</span>( portBYTE_ALIGNMENT != 1 )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>( xWantedSize &amp; portBYTE_ALIGNMENT_MASK )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Byte alignment required. */</span></span><br><span class="line">        xWantedSize += ( portBYTE_ALIGNMENT - ( xWantedSize &amp; portBYTE_ALIGNMENT_MASK ) );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>这段代码的作用是让动态内存的初始地址满足内存对其的要求。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>( pucAlignedHeap == <span class="literal">NULL</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Ensure the heap starts on a correctly aligned boundary. */</span></span><br><span class="line">        pucAlignedHeap = ( <span class="type">uint8_t</span> * ) ( ( ( portPOINTER_SIZE_TYPE ) &amp;ucHeap[ portBYTE_ALIGNMENT ] ) &amp; ( ~( ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) ) );</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>rtos</category>
+        <category>memory management</category>
+      </categories>
+      <tags>
+        <tag>rtos</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>bubble sort</title>
     <url>/2023/02/20/bubble-sort/</url>
     <content><![CDATA[<p>冒泡排序是一种常见的排序算法, 主要用在小数据量的排序上。</p>
@@ -206,7 +225,7 @@
 
 <p>请求 <code>PendSV</code>中断，线程就是在这个中断中切换的。</p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#114;&#101;&#x61;&#x74;&#105;&#118;&#101;&#x2e;&#x77;&#x6f;&#x72;&#x6b;&#x2e;&#103;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#99;&#114;&#101;&#x61;&#x74;&#105;&#118;&#101;&#x2e;&#x77;&#x6f;&#x72;&#x6b;&#x2e;&#103;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#x72;&#x65;&#x61;&#x74;&#105;&#118;&#x65;&#46;&#119;&#111;&#x72;&#107;&#46;&#x67;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;">&#99;&#x72;&#x65;&#x61;&#x74;&#105;&#118;&#x65;&#46;&#119;&#111;&#x72;&#107;&#46;&#x67;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -251,7 +270,7 @@
 <p>除了systick定时器会切换线程外，其他操作比如任务阻塞、延时等也会造成任务切换。</p>
 <p><em>未完待续……</em></p>
 <blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#114;&#x65;&#x61;&#116;&#105;&#118;&#x65;&#x2e;&#x77;&#111;&#114;&#x6b;&#x2e;&#x67;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;">&#99;&#114;&#x65;&#x61;&#116;&#105;&#118;&#x65;&#x2e;&#x77;&#111;&#114;&#x6b;&#x2e;&#x67;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a><br>欢迎交流学习！</p>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#x65;&#x61;&#116;&#x69;&#x76;&#101;&#46;&#119;&#x6f;&#x72;&#107;&#46;&#103;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x63;&#x72;&#x65;&#x61;&#116;&#x69;&#x76;&#101;&#46;&#119;&#x6f;&#x72;&#107;&#46;&#103;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a><br>欢迎交流学习！</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -371,6 +390,37 @@
       </tags>
   </entry>
   <entry>
+    <title>什么是企业的核心竞争力</title>
+    <url>/2022/09/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%81%E4%B8%9A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%AB%9E%E4%BA%89%E5%8A%9B/</url>
+    <content><![CDATA[<blockquote>
+<p>你有一只鹅，它每天下一只蛋。你把鹅蛋卖了，每天能赚不少钱。那么，你的鹅每天下的那只蛋，是你的核心竞争力吗？</p>
+<p>当然不是。鹅蛋从来不是核心竞争力，那只鹅才是。</p>
+<p>你的一个个产品，就是一只只鹅蛋。他们只是结果。它们不是核心竞争力，你为什么能做出这些产品，才是你的核心竞争力。</p>
+<p>比如，你有一个打磨了无数次的做产品的独特流程？你创造了一种员工极度负责、眼睛里容不下一个bug的文化？你有一支投入了5年，一直研究底层技术的团队？你的设计师团队，每年去20个国家采风？</p>
+<p>这些才是你的核心竞争力，是这些东西，让你源源不断下蛋，产生新产品。</p>
+<p>找到这些东西，然后把它们提炼出来，当做珍宝一样保护起来，不断的训练它们，直到别人无法超越，然后复制到每件产品上去。</p>
+<p><em>刘润</em></p>
+</blockquote>
+<p>很多科技型公司并不重视技术，他们只重视技术带来的产品，产品带来的利润。</p>
+<p>企业作终是要盈利的，不盈利就存不下去，这个逻辑看似没错，但是存在严重的问题。</p>
+<p>假如你去购买一个彩电，你大概不希望彩电里的电路板上全是灰尘，导线全部搅在一起，乱七八糟，有时候电视剧播放得好好的，屏幕突然不亮了，你不得不用大力金刚掌拍一下电视机，把画面拍出来……</p>
+<p>公司研发一款产品，不能只看产品的样貌，更重要的是产品背后的技术。如果研发产品时走的是“野路子”，后期维护起来可能相当麻烦。产品最多也只能算是”金玉其外，败絮其中“。</p>
+<p>看得见的是产品的外观、触感、重量，看不见的是其背后的电路、代码的设计与实现，而这些消费者看不见的东西，才真正地反映了公司的核心竞争力。</p>
+<p>最后引用乔布斯的一句话：</p>
+<p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
+<blockquote>
+<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#x63;&#x72;&#101;&#97;&#116;&#105;&#118;&#x65;&#46;&#119;&#111;&#114;&#x6b;&#46;&#103;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x63;&#x72;&#101;&#97;&#116;&#105;&#118;&#x65;&#46;&#119;&#111;&#114;&#x6b;&#46;&#103;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a><br>欢迎交流学习！</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>zen</category>
+        <category>thoughts</category>
+      </categories>
+      <tags>
+        <tag>zen</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>WISDOM</title>
     <url>/2022/09/10/wisdom/</url>
     <content><![CDATA[<ul>
@@ -411,37 +461,6 @@
       </tags>
   </entry>
   <entry>
-    <title>什么是企业的核心竞争力</title>
-    <url>/2022/09/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%81%E4%B8%9A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%AB%9E%E4%BA%89%E5%8A%9B/</url>
-    <content><![CDATA[<blockquote>
-<p>你有一只鹅，它每天下一只蛋。你把鹅蛋卖了，每天能赚不少钱。那么，你的鹅每天下的那只蛋，是你的核心竞争力吗？</p>
-<p>当然不是。鹅蛋从来不是核心竞争力，那只鹅才是。</p>
-<p>你的一个个产品，就是一只只鹅蛋。他们只是结果。它们不是核心竞争力，你为什么能做出这些产品，才是你的核心竞争力。</p>
-<p>比如，你有一个打磨了无数次的做产品的独特流程？你创造了一种员工极度负责、眼睛里容不下一个bug的文化？你有一支投入了5年，一直研究底层技术的团队？你的设计师团队，每年去20个国家采风？</p>
-<p>这些才是你的核心竞争力，是这些东西，让你源源不断下蛋，产生新产品。</p>
-<p>找到这些东西，然后把它们提炼出来，当做珍宝一样保护起来，不断的训练它们，直到别人无法超越，然后复制到每件产品上去。</p>
-<p><em>刘润</em></p>
-</blockquote>
-<p>很多科技型公司并不重视技术，他们只重视技术带来的产品，产品带来的利润。</p>
-<p>企业作终是要盈利的，不盈利就存不下去，这个逻辑看似没错，但是存在严重的问题。</p>
-<p>假如你去购买一个彩电，你大概不希望彩电里的电路板上全是灰尘，导线全部搅在一起，乱七八糟，有时候电视剧播放得好好的，屏幕突然不亮了，你不得不用大力金刚掌拍一下电视机，把画面拍出来……</p>
-<p>公司研发一款产品，不能只看产品的样貌，更重要的是产品背后的技术。如果研发产品时走的是“野路子”，后期维护起来可能相当麻烦。产品最多也只能算是”金玉其外，败絮其中“。</p>
-<p>看得见的是产品的外观、触感、重量，看不见的是其背后的电路、代码的设计与实现，而这些消费者看不见的东西，才真正地反映了公司的核心竞争力。</p>
-<p>最后引用乔布斯的一句话：</p>
-<p>“如果你是个木匠，正在打造一个漂亮的五斗柜，你是不会在柜子后面用三合板的，哪怕那一面对着墙，永远没人看到它；你知道它在那里，所以即使是柜子后面，你也会用上好的木材；为了能在晚上睡个好觉，你会在审美和质量上自始至终争取做到最好。”</p>
-<blockquote>
-<p>如有错误，欢迎指出！<br>如需转载，请注明出处~<br>email:<a href="mailto:&#99;&#114;&#101;&#97;&#116;&#105;&#118;&#101;&#x2e;&#x77;&#x6f;&#114;&#x6b;&#x2e;&#103;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#99;&#114;&#101;&#97;&#116;&#105;&#118;&#101;&#x2e;&#x77;&#x6f;&#114;&#x6b;&#x2e;&#103;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a><br>欢迎交流学习！</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>zen</category>
-        <category>thoughts</category>
-      </categories>
-      <tags>
-        <tag>zen</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>免密登陆远程主机的另一种方法-expect</title>
     <url>/2023/03/02/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95-expect/</url>
     <content><![CDATA[<p>假设你要传输一些文件到远程主机并且登陆到远程主机，你需要怎么做呢？</p>
@@ -461,29 +480,6 @@
 <h1 id="glog"><a href="#glog" class="headerlink" title="glog"></a>glog</h1><p><a href="https://github.com/google/glog">https://github.com/google/glog</a></p>
 <h1 id="spdlog"><a href="#spdlog" class="headerlink" title="spdlog"></a>spdlog</h1><p><a href="https://github.com/gabime/spdlog">https://github.com/gabime/spdlog</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>排查Bugs的一般方法总结</title>
-    <url>/2023/02/27/%E6%8E%92%E6%9F%A5Bugs%E7%9A%84%E4%B8%80%E8%88%AC%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="变量未初始化"><a href="#变量未初始化" class="headerlink" title="变量未初始化"></a>变量未初始化</h1><p>局部变量，包括类内变量，需要初始化，不然程序的表现可能很“玄学”， 就是程序的行为不确定。</p>
-<span id="more"></span>
-<h1 id="段错误"><a href="#段错误" class="headerlink" title="段错误"></a>段错误</h1><p>导致这种情况的出现原因，一般有以下几种：</p>
-<ol>
-<li>空指针</li>
-<li>野指针</li>
-<li>容器越界</li>
-</ol>
-<p>总得讲，就是访问了没有权限访问的地址。</p>
-<h1 id="数值溢出"><a href="#数值溢出" class="headerlink" title="数值溢出"></a>数值溢出</h1><p>比如<code>unsigned char</code>类型的变量最大只能存255，在往上加1，就会变成0.</p>
-<h1 id="逻辑错误"><a href="#逻辑错误" class="headerlink" title="逻辑错误"></a>逻辑错误</h1><p>逻辑分为业务逻辑和数据逻辑，如果表现不一致，就随着程序跟一编，具体问题，具体分析。</p>
-<p><font color=bule><em>to be continued…</em></font></p>
-]]></content>
-      <categories>
-        <category>debug</category>
-      </categories>
-      <tags>
-        <tag>debug</tag>
-      </tags>
   </entry>
   <entry>
     <title>计算机中数的表示</title>
@@ -724,5 +720,28 @@
 <h1 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h1><p>最终，我们看到，计算出一个数的相反数，使用的是：<br>$$(2^n - 1)  - x +1$$<br>所以便有了人们常说的：一个数的相反数（负数&#x2F;负数的负数……）是这个数<strong>取反加一</strong></p>
 <h1 id="为什么要用所谓的补码计算？"><a href="#为什么要用所谓的补码计算？" class="headerlink" title="为什么要用所谓的补码计算？"></a>为什么要用所谓的补码计算？</h1><p>方便，可以用加法做减法运算，省去了再做减法电路的麻烦</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>排查Bugs的一般方法总结</title>
+    <url>/2023/02/27/%E6%8E%92%E6%9F%A5Bugs%E7%9A%84%E4%B8%80%E8%88%AC%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="变量未初始化"><a href="#变量未初始化" class="headerlink" title="变量未初始化"></a>变量未初始化</h1><p>局部变量，包括类内变量，需要初始化，不然程序的表现可能很“玄学”， 就是程序的行为不确定。</p>
+<span id="more"></span>
+<h1 id="段错误"><a href="#段错误" class="headerlink" title="段错误"></a>段错误</h1><p>导致这种情况的出现原因，一般有以下几种：</p>
+<ol>
+<li>空指针</li>
+<li>野指针</li>
+<li>容器越界</li>
+</ol>
+<p>总得讲，就是访问了没有权限访问的地址。</p>
+<h1 id="数值溢出"><a href="#数值溢出" class="headerlink" title="数值溢出"></a>数值溢出</h1><p>比如<code>unsigned char</code>类型的变量最大只能存255，在往上加1，就会变成0.</p>
+<h1 id="逻辑错误"><a href="#逻辑错误" class="headerlink" title="逻辑错误"></a>逻辑错误</h1><p>逻辑分为业务逻辑和数据逻辑，如果表现不一致，就随着程序跟一编，具体问题，具体分析。</p>
+<p><font color=bule><em>to be continued…</em></font></p>
+]]></content>
+      <categories>
+        <category>debug</category>
+      </categories>
+      <tags>
+        <tag>debug</tag>
+      </tags>
   </entry>
 </search>
